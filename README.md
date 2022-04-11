@@ -6,6 +6,10 @@ I aim to offer an idea of how much 3D Audio could help achieve deep immersion in
 
 (Soon) You can explore the research paper associated with this project (French).
 
+## Demo
+
+<a href="https://polar0.github.io/metaverse/">Click here for the live demo.</a>
+
 ## Roadmap
 
 <a href="https://polarzero.notion.site/Roadmap-bccd54bf20b44be9aca686c6c6e71bda">Click here to see the Roadmap.</a>
