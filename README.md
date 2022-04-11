@@ -1,1 +1,11 @@
-# metaverse
+# Metaverse
+
+This experiment is an example of 3D Audio integration in a virtual space with Blockchain integration, that could be described as a "Metaverse", should we concede the recent misnomer and misconception around that term.
+
+I aim to offer an idea of how much 3D Audio could help achieve deep immersion into the virtual space, therefore illustrating the prospective value of this concept in metaverses as such.
+
+(Soon) You can explore the research paper associated with this project (French).
+
+## Roadmap
+
+<a href="https://polarzero.notion.site/Roadmap-bccd54bf20b44be9aca686c6c6e71bda">Click here to see the Roadmap.</a>
