@@ -1,42 +1,11 @@
-import {
-  MathUtils,
-  Mesh,
-  SphereGeometry,
-  MeshBasicMaterial,
-  Box3,
-  BoxHelper,
-  Object3D,
-  Vector3,
-} from 'three';
+import { MathUtils, Mesh, SphereGeometry, MeshBasicMaterial } from 'three';
 
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-
-import { setupModelAnimated } from './setupModel';
-import { setupModelStatic } from './setupModel';
-
-async function loadBlendsAnimated() {
-  const loaderAnimated = new GLTFLoader();
-
-  const [flamingoData] = await Promise.all([
-    // loaderAnimated.loadAsync('/assets/models/Flamingo.glb'),
-  ]);
-
-  // console.log('Datas!! ANIMATED', flamingoData);
-
-  // const flamingo = setupModelAnimated(flamingoData);
-  // flamingo.position.set(0, 0, 0);
-
-  return {
-    // flamingo,
-  };
-}
-
-export { loadBlendsAnimated };
+import { setupModel } from './setupModel';
 
 async function loadBlendsStatic() {
   const loaderStatic = new GLTFLoader().setPath('./assets/models/');
 
-  // Importation des modèles
   const [boule1Data, boule2Data, boule3Data, bouleTransData] =
     await Promise.all([
       loaderStatic.loadAsync('boule1.glb'),
@@ -45,32 +14,25 @@ async function loadBlendsStatic() {
       loaderStatic.loadAsync('bouleTrans.glb'),
     ]);
 
-  // Définition des positions
-
-  const boule1 = setupModelStatic(boule1Data);
+  const boule1 = setupModel(boule1Data);
   boule1.position.set(10, -3.5, 0);
-  //boule1.cursor = 'pointer';
   boule1.castShadow = true;
 
-  const boule2 = setupModelStatic(boule2Data);
+  const boule2 = setupModel(boule2Data);
   boule2.position.set(0, -3.5, -3);
-  //boule2.cursor = 'pointer';
   boule2.castShadow = true;
 
-  const boule3 = setupModelStatic(boule3Data);
+  const boule3 = setupModel(boule3Data);
   boule3.position.set(-3, -3.5, 0);
-  //boule3.cursor = 'pointer';
   boule3.castShadow = true;
 
-  const bouleTrans = setupModelStatic(bouleTransData);
+  const bouleTrans = setupModel(bouleTransData);
   bouleTrans.position.set(-5, -3.5, -5);
-  //boule3.cursor = 'pointer';
   bouleTrans.castShadow = true;
 
-  // Définition des animations
   boule1.tick = (delta) => {
     const radiansPerSecond = MathUtils.degToRad(35);
-    boule1.rotation.y += 0.1 * delta;
+    boule1.rotation.y += radiansPerSecond * delta;
   };
 
   boule2.tick = (delta) => {
@@ -103,18 +65,17 @@ function loadBlendsObj() {
 
   const boule1Obj = new Mesh(objGeometry, objMaterial);
   boule1Obj.position.set(10, -3.5, 0);
-  boule1Obj.userData = { desc: 'boule 1 ici' };
-  // TESTER AUSSI userData.desc = blabla
+  boule1Obj.userData = { desc: 'boule 1' };
   boule1Obj.name = `premier objet`;
 
   const boule2Obj = new Mesh(objGeometry, objMaterial);
   boule2Obj.position.set(0, -3.5, -3);
-  boule2Obj.userData = { desc: 'boule 2 là' };
+  boule2Obj.userData = { desc: 'boule 2' };
   boule2Obj.name = `deuxieme objet`;
 
   const boule3Obj = new Mesh(objGeometry, objMaterial);
   boule3Obj.position.set(-3, -3.5, 0);
-  boule3Obj.userData = { desc: 'boule 3 voilà' };
+  boule3Obj.userData = { desc: 'boule 3' };
   boule3Obj.name = `troisieme objet`;
 
   return {

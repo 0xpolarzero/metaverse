@@ -1,38 +1,17 @@
-/* eslint-disable import/extensions */
-// Ajouter un curseur au milieu de l'écran pour pouvoir pointer les objets et avoir les infos
-// Avec échap pouvoir récupérer le curseur
-// https://threejs.org/examples/?q=fp#games_fps
-// Three.js r 136
-
 import {
   Vector3,
-  LOD,
-  IcosahedronGeometry,
-  MeshLambertMaterial,
-  Mesh,
   Clock,
-  Box3,
-  BoxHelper,
-  DodecahedronGeometry,
-  MeshStandardMaterial,
   GridHelper,
   AxesHelper,
-  TextureLoader,
-  MeshBasicMaterial,
   Box3Helper,
-  LoadingManager,
   Points,
   ShaderMaterial,
   AdditiveBlending,
-  //} from '../../vendor/three136custom/build/three.module.js';
 } from 'three';
 
-// Import jsm modules
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+// Import JSM modules
 import { Octree } from 'three/examples/jsm/math/Octree';
 import { Capsule } from 'three/examples/jsm/math/Capsule';
-// import { PointerLockControls } from '/../../vendor/three136custom/examples/jsm/controls/PointerLockControls.js';
-// import { Interaction } from '../../vendor/three136custom/examples/interaction/interactionIndex.js';
 
 // Import components
 import { createScene } from './components/scene';
@@ -44,11 +23,8 @@ import {
   createParticlesGeometry,
   createParticlesMaterial,
 } from './components/particles';
-import {
-  loadBlendsStatic,
-  loadBlendsObj,
-  loadBlendsAnimated,
-} from './components/objects/blends';
+import { loadBlendsStatic, loadBlendsObj } from './components/objects/blends';
+import { createStructure } from './components/objects/structure';
 
 // Import systems
 import { createRenderer } from './systems/renderer';
@@ -60,18 +36,14 @@ import { lockControls } from './systems/lockControls';
 import vShader from './shaders/particles/vertex.glsl.js';
 import fShader from './shaders/particles/fragment.glsl.js';
 
-// Import audio
-//import * as ResonanceAudio from '../../vendor/resonance-audio/build/resonance-audio.js';
-/* import { createRequire } from '../../../../node_modules/module';
-const require = createRequire(import.meta.url);
-const ResonanceAudio = require('resonance-audio'); */
-
 // BASIC SCENE INPUTS
 let scene;
 let camera;
 let renderer;
 let resizer;
 let loop;
+
+const worldOctree = new Octree();
 
 class World {
   constructor(container) {
@@ -90,11 +62,6 @@ class World {
     axesHelper.setColors('blue', 'red', 'green');
     scene.add(axesHelper);
     axesHelper.position.set(0, -4, 0);
-    /* 
-    // Transparent objects to provide targets for the lights
-    const { boule1Obj, boule2Obj, boule3Obj } = loadBlendsObj();
-    scene.add(boule1Obj, boule2Obj, boule3Obj);
-     */
 
     const {
       ambientLight,
@@ -120,94 +87,18 @@ class World {
       helper4,
     );
 
-    //fillLight1.target = boule1Obj;
-
     const sprite = createCrosshair();
     camera.add(sprite);
   }
 
-  async asyncInit() {
+  async initObjects() {
     const { boule1, boule2, boule3, bouleTrans } = await loadBlendsStatic();
-
-    const modelsStatic = {
-      boule1,
-      boule2,
-      boule3,
-    };
     scene.add(boule1, boule2, boule3, bouleTrans);
-
-    // INTERACTION
-    // const interaction = new Interaction(renderer, scene, camera);
-    // const box = document.querySelector('#event-box');
-
-    /*
-    function blink( dom ) {
-
-      clearTimeout( dom.timer );
-      dom.className = 'marker active';
-      dom.timer = setTimeout( function() {
-
-        dom.className = 'marker';
-
-      }, 300 );
-
-    }
-    */
-
-    //////////////////////////////////////////////////////////////////////////////////////////
-    // TEST INTERACTION
-
-    /* 
-    //function camRaycast() {
-
-      const firstObject = new THREE.Mesh( new THREE.SphereGeometry( 5, 5, 5 ), new THREE.MeshBasicMaterial( { color: 0xffff00 } ));
-      firstObject.position.set( 0, -3, 20 );
-      scene.add( firstObject );
-  
-      const secondObject = new THREE.Mesh( new THREE.SphereGeometry( 5, 5, 5 ), new THREE.MeshBasicMaterial( { color: 'red' } ) );
-      secondObject.position.set( 0, -3, -5 );
-      camera.add( secondObject );
-
-      const firstBB = new THREE.Box3().setFromObject( firstObject );
-  
-      const secondBB = new THREE.Box3().setFromObject( secondObject );
-  
-      //const collision = firstBB.intersectsBox( secondBB );
-      if ( firstBB.intersectsBox( secondBB ) ) {
-
-        console.log( 'yes bv' );
-
-      };
-
-    //} 
-
-      //camRaycast();
-
- */
-
-    /* function camGetObject() {
-
-      let camera_world_pos = new THREE.Vector3();
-      let camera_world_dir = new THREE.Vector3();
-      let camRaycaster = new THREE.Raycaster();
-      
-      camera.getWorldPosition( camera_world_pos );
-      camera.getWorldDirection( camera_world_dir );
-      camRaycaster.set( camera_world_pos, camera_world_dir );
-      let camIntersects = camRaycaster.intersectObjects( modelsStatic );
-      if ( camIntersects.length > 0 ) {
-
-          console.log( 'okfrero' );
-      
-      }
-
-    } */
-
     loop.updatables.push(boule1, boule2, boule3);
+  }
 
-    //////////////////////////////////////////////////////////////////////////////////////////
-
-    //interaction.update();
+  async initStructure() {
+    await createStructure(worldOctree, scene);
   }
 
   initialInit() {
@@ -215,46 +106,36 @@ class World {
     const GRAVITY = 30;
     const STEPS_PER_FRAME = 5;
 
-    const worldOctree = new Octree();
-
     const playerCollider = new Capsule(
       new Vector3(10, 0.35, 0), // Lower part of capsule
       new Vector3(10, 1, 0), // Higher part of capsule + camera
       0.35,
     );
+
     const playerVelocity = new Vector3();
     const playerDirection = new Vector3();
 
     let playerOnFloor = false;
-    let mouseTime = 0;
 
     const keyStates = {};
-    // const objects = [];
 
     // DETECTING INPUT FROM THE PLAYER
     // Key movements
-    document.addEventListener('keydown', (event) => {
-      keyStates[event.code] = true;
+    document.addEventListener('keydown', (e) => {
+      keyStates[e.code] = true;
     });
 
-    document.addEventListener('keyup', (event) => {
-      keyStates[event.code] = false;
+    document.addEventListener('keyup', (e) => {
+      keyStates[e.code] = false;
     });
-
-    /* 
-    document.addEventListener( 'mousedown', () => {
-      document.body.requestPointerLock();
-      mouseTime = performance.now();
-    } );
- */
 
     // Mouse
     lockControls();
 
-    document.body.addEventListener('mousemove', (event) => {
+    document.body.addEventListener('mousemove', (e) => {
       if (document.pointerLockElement === document.body) {
-        camera.rotation.y -= event.movementX / 500;
-        camera.rotation.x -= event.movementY / 500;
+        camera.rotation.y -= e.movementX / 500;
+        camera.rotation.x -= e.movementY / 500;
       }
     });
 
@@ -366,40 +247,11 @@ class World {
       camCollisionNew(camera, ...bouleObjs);
     });
 
-    const informations = document.getElementById('informations-container');
+    const informations = document.querySelector('#informations-container');
     document.addEventListener('keydown', () => {
       if (keyStates.KeyH || keyStates.keyR) {
         informations.style.display = 'none';
       }
-    });
-
-    // LOADING SCREEN / From Mugen87 on discourse.threejs.org
-    const loadingManager = new LoadingManager(() => {
-      const loadingScreen = document.getElementById('loading-screen');
-      loadingScreen.classList.add('fade-out');
-      loadingScreen.addEventListener('transitionend', onTransitionEnd);
-    });
-
-    // LOADING THE STRUCTURE
-    const loader = new GLTFLoader(loadingManager).setPath('./assets/models/');
-
-    // LOADING WITH THE APPLIED TEXTURE
-    loader.load('structureDivided.glb', (gltf) => {
-      scene.add(gltf.scene);
-      worldOctree.fromGraphNode(gltf.scene);
-
-      gltf.scene.traverse((child) => {
-        if (child.isMesh) {
-          child.castShadow = false;
-          child.receiveShadow = true;
-
-          if (child.material.map) {
-            child.material.map.anisotropy = 8;
-          }
-        }
-      });
-
-      animate();
     });
 
     // PREVENT THE PLAYER FROM GOING OUT OF THE BOX
@@ -451,11 +303,8 @@ class World {
       for (let i = 0; i < STEPS_PER_FRAME; i++) {
         controls(deltaTime);
         updatePlayer(deltaTime);
-        // updateSpheres( deltaTime );
         teleportPlayerIfOob();
 
-        //camCollisionNew(camera, ...bouleObjs);
-        //hideText();
         moveParticles(deltaFlies);
       }
 
@@ -464,10 +313,9 @@ class World {
       requestAnimationFrame(animate);
     }
 
-    function onTransitionEnd(event) {
-      event.target.remove();
-    }
-  } // fin init
+    // The structure is already loaded so the animation can start
+    animate();
+  }
 
   start() {
     loop.start();
@@ -476,6 +324,6 @@ class World {
   stop() {
     loop.stop();
   }
-} // fin World
+}
 
 export { World };
