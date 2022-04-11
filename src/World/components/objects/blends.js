@@ -45,8 +45,6 @@ async function loadBlendsStatic() {
       loaderStatic.loadAsync('bouleTrans.glb'),
     ]);
 
-  //console.log('Datas !! STATIC', boule1Data);
-
   // Définition des positions
 
   const boule1 = setupModelStatic(boule1Data);
