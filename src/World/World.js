@@ -381,9 +381,7 @@ class World {
     });
 
     // LOADING THE STRUCTURE
-    const loader = new GLTFLoader(loadingManager).setPath(
-      '/public/assets/models/',
-    );
+    const loader = new GLTFLoader(loadingManager).setPath('./assets/models/');
 
     // LOADING WITH THE APPLIED TEXTURE
     loader.load('structureDivided.glb', (gltf) => {
