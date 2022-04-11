@@ -25,33 +25,40 @@ import {
   ShaderMaterial,
   AdditiveBlending,
   //} from '../../vendor/three136custom/build/three.module.js';
-} from 'three'
+} from 'three';
 
 // Import jsm modules
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { Octree } from 'three/examples/jsm/math/Octree'
-import { Capsule } from 'three/examples/jsm/math/Capsule'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { Octree } from 'three/examples/jsm/math/Octree';
+import { Capsule } from 'three/examples/jsm/math/Capsule';
 // import { PointerLockControls } from '/../../vendor/three136custom/examples/jsm/controls/PointerLockControls.js';
 // import { Interaction } from '../../vendor/three136custom/examples/interaction/interactionIndex.js';
 
 // Import components
-import { createScene } from './components/scene'
-import { createCamera } from './components/camera'
-import { createLights } from './components/lights'
-import { createCrosshair } from './components/crosshair'
-import { createCamColliders, camCollisionNew } from './components/camCollision'
-import { createParticlesGeometry, createParticlesMaterial } from './components/particles'
-import { loadBlendsStatic, loadBlendsObj, loadBlendsAnimated } from './components/objects/blends'
+import { createScene } from './components/scene';
+import { createCamera } from './components/camera';
+import { createLights } from './components/lights';
+import { createCrosshair } from './components/crosshair';
+import { createCamColliders, camCollisionNew } from './components/camCollision';
+import {
+  createParticlesGeometry,
+  createParticlesMaterial,
+} from './components/particles';
+import {
+  loadBlendsStatic,
+  loadBlendsObj,
+  loadBlendsAnimated,
+} from './components/objects/blends';
 
 // Import systems
-import { createRenderer } from './systems/renderer'
-import { Resizer } from './systems/Resizer'
-import { Loop } from './systems/Loop'
-import { lockControls } from './systems/lockControls'
+import { createRenderer } from './systems/renderer';
+import { Resizer } from './systems/Resizer';
+import { Loop } from './systems/Loop';
+import { lockControls } from './systems/lockControls';
 
 // Import shaders
-import vShader from './shaders/particles/vertex.glsl.js'
-import fShader from './shaders/particles/fragment.glsl.js'
+import vShader from './shaders/particles/vertex.glsl.js';
+import fShader from './shaders/particles/fragment.glsl.js';
 
 // Import audio
 //import * as ResonanceAudio from '../../vendor/resonance-audio/build/resonance-audio.js';
@@ -60,29 +67,29 @@ const require = createRequire(import.meta.url);
 const ResonanceAudio = require('resonance-audio'); */
 
 // BASIC SCENE INPUTS
-let scene
-let camera
-let renderer
-let resizer
-let loop
+let scene;
+let camera;
+let renderer;
+let resizer;
+let loop;
 
 class World {
   constructor(container) {
-    scene = createScene()
-    camera = createCamera()
-    scene.add(camera)
-    renderer = createRenderer()
-    loop = new Loop(camera, scene, renderer)
-    resizer = new Resizer(container, camera, renderer)
+    scene = createScene();
+    camera = createCamera();
+    scene.add(camera);
+    renderer = createRenderer();
+    loop = new Loop(camera, scene, renderer);
+    resizer = new Resizer(container, camera, renderer);
 
     // Grid to help localization
-    const gridHelper = new GridHelper(30, 30)
-    scene.add(gridHelper)
-    gridHelper.position.set(0, -4.5, 0)
-    const axesHelper = new AxesHelper(50)
-    axesHelper.setColors('blue', 'red', 'green')
-    scene.add(axesHelper)
-    axesHelper.position.set(0, -4, 0)
+    const gridHelper = new GridHelper(30, 30);
+    scene.add(gridHelper);
+    gridHelper.position.set(0, -4.5, 0);
+    const axesHelper = new AxesHelper(50);
+    axesHelper.setColors('blue', 'red', 'green');
+    scene.add(axesHelper);
+    axesHelper.position.set(0, -4, 0);
     /* 
     // Transparent objects to provide targets for the lights
     const { boule1Obj, boule2Obj, boule3Obj } = loadBlendsObj();
@@ -99,7 +106,7 @@ class World {
       helper2,
       helper3,
       helper4,
-    } = createLights()
+    } = createLights();
 
     scene.add(
       ambientLight,
@@ -110,24 +117,24 @@ class World {
       helper1,
       helper2,
       helper3,
-      helper4
-    )
+      helper4,
+    );
 
     //fillLight1.target = boule1Obj;
 
-    const sprite = createCrosshair()
-    camera.add(sprite)
+    const sprite = createCrosshair();
+    camera.add(sprite);
   }
 
   async asyncInit() {
-    const { boule1, boule2, boule3, bouleTrans } = await loadBlendsStatic()
+    const { boule1, boule2, boule3, bouleTrans } = await loadBlendsStatic();
 
     const modelsStatic = {
       boule1,
       boule2,
       boule3,
-    }
-    scene.add(boule1, boule2, boule3, bouleTrans)
+    };
+    scene.add(boule1, boule2, boule3, bouleTrans);
 
     // INTERACTION
     // const interaction = new Interaction(renderer, scene, camera);
@@ -196,7 +203,7 @@ class World {
 
     } */
 
-    loop.updatables.push(boule1, boule2, boule3)
+    loop.updatables.push(boule1, boule2, boule3);
 
     //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -205,34 +212,34 @@ class World {
 
   initialInit() {
     // CREATING THE GAME VARIABLES
-    const GRAVITY = 30
-    const STEPS_PER_FRAME = 5
+    const GRAVITY = 30;
+    const STEPS_PER_FRAME = 5;
 
-    const worldOctree = new Octree()
+    const worldOctree = new Octree();
 
     const playerCollider = new Capsule(
       new Vector3(10, 0.35, 0), // Lower part of capsule
       new Vector3(10, 1, 0), // Higher part of capsule + camera
-      0.35
-    )
-    const playerVelocity = new Vector3()
-    const playerDirection = new Vector3()
+      0.35,
+    );
+    const playerVelocity = new Vector3();
+    const playerDirection = new Vector3();
 
-    let playerOnFloor = false
-    let mouseTime = 0
+    let playerOnFloor = false;
+    let mouseTime = 0;
 
-    const keyStates = {}
+    const keyStates = {};
     // const objects = [];
 
     // DETECTING INPUT FROM THE PLAYER
     // Key movements
     document.addEventListener('keydown', (event) => {
-      keyStates[event.code] = true
-    })
+      keyStates[event.code] = true;
+    });
 
     document.addEventListener('keyup', (event) => {
-      keyStates[event.code] = false
-    })
+      keyStates[event.code] = false;
+    });
 
     /* 
     document.addEventListener( 'mousedown', () => {
@@ -242,170 +249,175 @@ class World {
  */
 
     // Mouse
-    lockControls()
+    lockControls();
 
     document.body.addEventListener('mousemove', (event) => {
       if (document.pointerLockElement === document.body) {
-        camera.rotation.y -= event.movementX / 500
-        camera.rotation.x -= event.movementY / 500
+        camera.rotation.y -= event.movementX / 500;
+        camera.rotation.x -= event.movementY / 500;
       }
-    })
+    });
 
     // INITIATING COLLISION
     function playerCollisions() {
-      const result = worldOctree.capsuleIntersect(playerCollider)
-      playerOnFloor = false
+      const result = worldOctree.capsuleIntersect(playerCollider);
+      playerOnFloor = false;
 
       if (result) {
-        playerOnFloor = result.normal.y > 0
+        playerOnFloor = result.normal.y > 0;
         if (!playerOnFloor) {
-          playerVelocity.addScaledVector(result.normal, -result.normal.dot(playerVelocity))
+          playerVelocity.addScaledVector(
+            result.normal,
+            -result.normal.dot(playerVelocity),
+          );
         }
-        playerCollider.translate(result.normal.multiplyScalar(result.depth))
+        playerCollider.translate(result.normal.multiplyScalar(result.depth));
       }
     }
 
     function updatePlayer(deltaTime) {
-      let damping = Math.exp(-4 * deltaTime) - 1
+      let damping = Math.exp(-4 * deltaTime) - 1;
 
       if (!playerOnFloor) {
-        playerVelocity.y -= GRAVITY * deltaTime
+        playerVelocity.y -= GRAVITY * deltaTime;
         // small air resistance
-        damping *= 0.1
+        damping *= 0.1;
       }
 
-      playerVelocity.addScaledVector(playerVelocity, damping)
-      const deltaPosition = playerVelocity.clone().multiplyScalar(deltaTime)
-      playerCollider.translate(deltaPosition)
+      playerVelocity.addScaledVector(playerVelocity, damping);
+      const deltaPosition = playerVelocity.clone().multiplyScalar(deltaTime);
+      playerCollider.translate(deltaPosition);
 
-      playerCollisions()
+      playerCollisions();
 
-      camera.position.copy(playerCollider.end)
+      camera.position.copy(playerCollider.end);
     }
 
     // INITIATING MOVEMENT
     function getForwardVector() {
-      camera.getWorldDirection(playerDirection)
-      playerDirection.y = 0
-      playerDirection.normalize()
+      camera.getWorldDirection(playerDirection);
+      playerDirection.y = 0;
+      playerDirection.normalize();
 
-      return playerDirection
+      return playerDirection;
     }
 
     function getSideVector() {
-      camera.getWorldDirection(playerDirection)
-      playerDirection.y = 0
-      playerDirection.normalize()
-      playerDirection.cross(camera.up)
+      camera.getWorldDirection(playerDirection);
+      playerDirection.y = 0;
+      playerDirection.normalize();
+      playerDirection.cross(camera.up);
 
-      return playerDirection
+      return playerDirection;
     }
 
     // INITIATING PLAYER CONTROLS
     function controls(deltaTime) {
       // gives a bit of air control
-      const speedDelta = deltaTime * (playerOnFloor ? 25 : 8)
+      const speedDelta = deltaTime * (playerOnFloor ? 25 : 8);
 
       if (keyStates.KeyW || keyStates.KeyZ || keyStates.ArrowUp) {
-        playerVelocity.add(getForwardVector().multiplyScalar(speedDelta))
+        playerVelocity.add(getForwardVector().multiplyScalar(speedDelta));
       }
 
       if (keyStates.KeyS || keyStates.ArrowDown) {
-        playerVelocity.add(getForwardVector().multiplyScalar(-speedDelta))
+        playerVelocity.add(getForwardVector().multiplyScalar(-speedDelta));
       }
 
       if (keyStates.KeyA || keyStates.KeyQ || keyStates.ArrowLeft) {
-        playerVelocity.add(getSideVector().multiplyScalar(-speedDelta))
+        playerVelocity.add(getSideVector().multiplyScalar(-speedDelta));
       }
 
       if (keyStates.KeyD || keyStates.ArrowRight) {
-        playerVelocity.add(getSideVector().multiplyScalar(speedDelta))
+        playerVelocity.add(getSideVector().multiplyScalar(speedDelta));
       }
 
       if (playerOnFloor) {
         if (keyStates.Space) {
-          playerVelocity.y = 10
+          playerVelocity.y = 10;
         }
       }
     }
 
     // INTERACTION WITH THE MODELS
-    const { camSphereDetector } = createCamColliders()
-    camera.add(camSphereDetector)
-    const { boule1Obj, boule2Obj, boule3Obj } = loadBlendsObj()
-    let bouleObjs = [boule1Obj, boule2Obj, boule3Obj]
-    scene.add(...bouleObjs)
+    const { camSphereDetector } = createCamColliders();
+    camera.add(camSphereDetector);
+    const { boule1Obj, boule2Obj, boule3Obj } = loadBlendsObj();
+    let bouleObjs = [boule1Obj, boule2Obj, boule3Obj];
+    scene.add(...bouleObjs);
 
     // HELPERS FOR VISUAL
-    const [camBB, boulesBB] = camCollisionNew(camera, ...bouleObjs)
-    const camHelper = new Box3Helper(camBB, 0xffff00)
+    const [camBB, boulesBB] = camCollisionNew(camera, ...bouleObjs);
+    const camHelper = new Box3Helper(camBB, 0xffff00);
     // For debugging
-    camHelper.name = 'camHelper'
-    camera.add(camHelper)
+    camHelper.name = 'camHelper';
+    camera.add(camHelper);
     // Adding the objects to the scene individually
-    const boulesHelpers = Array(boulesBB.length)
+    const boulesHelpers = Array(boulesBB.length);
     for (let i = 0; i < boulesBB.length; i++) {
-      const helper = new Box3Helper(boulesBB[i], 0xffff00)
-      helper.name = `Box3Helper for boule ${i}`
-      boulesHelpers[i] = helper
+      const helper = new Box3Helper(boulesBB[i], 0xffff00);
+      helper.name = `Box3Helper for boule ${i}`;
+      boulesHelpers[i] = helper;
     }
-    scene.add(...boulesHelpers)
+    scene.add(...boulesHelpers);
 
     // DETECTORS FOR INFORMATIONS DISPLAY
     document.addEventListener('mouseup', () => {
-      camCollisionNew(camera, ...bouleObjs)
-    })
+      camCollisionNew(camera, ...bouleObjs);
+    });
 
-    const informations = document.getElementById('informations-container')
+    const informations = document.getElementById('informations-container');
     document.addEventListener('keydown', () => {
       if (keyStates.KeyH || keyStates.keyR) {
-        informations.style.display = 'none'
+        informations.style.display = 'none';
       }
-    })
+    });
 
     // LOADING SCREEN / From Mugen87 on discourse.threejs.org
     const loadingManager = new LoadingManager(() => {
-      const loadingScreen = document.getElementById('loading-screen')
-      loadingScreen.classList.add('fade-out')
-      loadingScreen.addEventListener('transitionend', onTransitionEnd)
-    })
+      const loadingScreen = document.getElementById('loading-screen');
+      loadingScreen.classList.add('fade-out');
+      loadingScreen.addEventListener('transitionend', onTransitionEnd);
+    });
 
     // LOADING THE STRUCTURE
-    const loader = new GLTFLoader(loadingManager).setPath('./assets/models/')
+    const loader = new GLTFLoader(loadingManager).setPath(
+      '/public/assets/models/',
+    );
 
     // LOADING WITH THE APPLIED TEXTURE
     loader.load('structureDivided.glb', (gltf) => {
-      scene.add(gltf.scene)
-      worldOctree.fromGraphNode(gltf.scene)
+      scene.add(gltf.scene);
+      worldOctree.fromGraphNode(gltf.scene);
 
       gltf.scene.traverse((child) => {
         if (child.isMesh) {
-          child.castShadow = false
-          child.receiveShadow = true
+          child.castShadow = false;
+          child.receiveShadow = true;
 
           if (child.material.map) {
-            child.material.map.anisotropy = 8
+            child.material.map.anisotropy = 8;
           }
         }
-      })
+      });
 
-      animate()
-    })
+      animate();
+    });
 
     // PREVENT THE PLAYER FROM GOING OUT OF THE BOX
     function teleportPlayerIfOob() {
       if (camera.position.y <= -25) {
-        playerCollider.start.set(0, 0.35, 0)
-        playerCollider.end.set(0, 1, 0)
-        playerCollider.radius = 0.35
-        camera.position.copy(playerCollider.end)
-        camera.rotation.set(0, 0, 0)
+        playerCollider.start.set(0, 0.35, 0);
+        playerCollider.end.set(0, 1, 0);
+        playerCollider.radius = 0.35;
+        camera.position.copy(playerCollider.end);
+        camera.rotation.set(0, 0, 0);
       }
     }
 
     // PARTICLES
-    const particlesGeometry = createParticlesGeometry()
-    const particlesUniforms = createParticlesMaterial()
+    const particlesGeometry = createParticlesGeometry();
+    const particlesUniforms = createParticlesMaterial();
     const particlesMaterial = new ShaderMaterial({
       blending: AdditiveBlending, // more shining
       uniforms: particlesUniforms,
@@ -413,56 +425,59 @@ class World {
       fragmentShader: fShader,
       transparent: true,
       depthWrite: false, // prevent them from hiding each other
-    })
-    const particlesMesh = new Points(particlesGeometry, particlesMaterial)
-    scene.add(particlesMesh)
+    });
+    const particlesMesh = new Points(particlesGeometry, particlesMaterial);
+    scene.add(particlesMesh);
 
     function moveParticles(deltaFlies) {
-      particlesMaterial.uniforms.uTime.value = deltaFlies
+      particlesMaterial.uniforms.uTime.value = deltaFlies;
     }
 
     resizer.onResize = () => {
-      particlesMaterial.uniforms.uPixelRatio.value = Math.min(window.devicePixelRatio, 2)
-    }
+      particlesMaterial.uniforms.uPixelRatio.value = Math.min(
+        window.devicePixelRatio,
+        2,
+      );
+    };
 
-    const clock = new Clock()
+    const clock = new Clock();
 
     // ANIMATING THE WORLD
     function animate() {
-      const deltaTime = Math.min(0.05, clock.getDelta()) / STEPS_PER_FRAME
-      const deltaFlies = clock.getElapsedTime()
+      const deltaTime = Math.min(0.05, clock.getDelta()) / STEPS_PER_FRAME;
+      const deltaFlies = clock.getElapsedTime();
 
       // we look for collisions in substeps to mitigate the risk of
       // an object traversing another too quickly for detection.
 
       for (let i = 0; i < STEPS_PER_FRAME; i++) {
-        controls(deltaTime)
-        updatePlayer(deltaTime)
+        controls(deltaTime);
+        updatePlayer(deltaTime);
         // updateSpheres( deltaTime );
-        teleportPlayerIfOob()
+        teleportPlayerIfOob();
 
         //camCollisionNew(camera, ...bouleObjs);
         //hideText();
-        moveParticles(deltaFlies)
+        moveParticles(deltaFlies);
       }
 
-      renderer.render(scene, camera)
+      renderer.render(scene, camera);
 
-      requestAnimationFrame(animate)
+      requestAnimationFrame(animate);
     }
 
     function onTransitionEnd(event) {
-      event.target.remove()
+      event.target.remove();
     }
   } // fin init
 
   start() {
-    loop.start()
+    loop.start();
   }
 
   stop() {
-    loop.stop()
+    loop.stop();
   }
 } // fin World
 
-export { World }
+export { World };

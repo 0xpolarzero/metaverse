@@ -34,7 +34,7 @@ async function loadBlendsAnimated() {
 export { loadBlendsAnimated };
 
 async function loadBlendsStatic() {
-  const loaderStatic = new GLTFLoader().setPath('../../../assets/models');
+  const loaderStatic = new GLTFLoader().setPath('@/assets/models');
 
   // Importation des modèles
   const [boule1Data, boule2Data, boule3Data, bouleTransData] =
