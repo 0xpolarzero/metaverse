@@ -1,0 +1,279 @@
+body {
+  /* remove margins and scroll bars */
+  margin: 0;
+  overflow: hidden;
+
+  /* style text */
+  font-size: 12px;
+  font-family: sans-serif;
+
+  /* color text */
+  color: #FFFFFF;
+
+  user-select: none;
+}
+
+#container {
+  /* tell our scene container to take up the full page */
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  /*
+    Set the container's background color to the same as the scene's
+    background to prevent flashing on load
+  */
+  background-color: rgba(0,0,0,0.5);
+}
+
+/* LOADING SCREEN DURING THE SCENE INSTALLATION */
+
+#loading-screen {
+  position: absolute;
+	z-index: 2;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #000000;
+	opacity: 1;
+ 	transition: 1s opacity;
+}
+
+#loading-screen.fade-out {
+  opacity: 0;
+}
+
+/* 3 CIRCLES LOADER */
+
+#loader {
+  display: block;
+  position: relative;
+  left: 50%;
+  top: 15%;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: #f35959;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+#loader:before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: #f37777;
+  -webkit-animation: spin 3s linear infinite;
+  animation: spin 3s linear infinite;
+}
+#loader:after {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: #ff9797;
+  -webkit-animation: spin 1.5s linear infinite;
+  animation: spin 1.5s linear infinite;
+}
+@-webkit-keyframes spin {
+  0%   {
+      -webkit-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      transform: rotate(0deg);
+  }
+  100% {
+      -webkit-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  0%   {
+      -webkit-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      transform: rotate(0deg);
+  }
+  100% {
+      -webkit-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      transform: rotate(360deg);
+  }
+}
+
+/* Loading text */
+
+#loader-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  margin-top: 45%;
+
+  text-align: center;
+  font-size: 28px;
+  font-family: Copperplate, fantasy;
+
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* LOCK THE SCREEN WITH INSTRUCTIONS */
+
+#instructions {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+
+  text-align: center;
+  font-size: 18px;
+  font-family: Copperplate, fantasy;
+  cursor: pointer;
+}
+
+/* INTERACTIVITY AND DISPLAYING MODEL INFORMATIONS */
+
+#informations-container {
+  position: absolute;
+  max-width: 75%;
+  height: auto;
+
+  background-color: rgba(255, 255, 255, 0.49);
+  border-radius: 5px;
+  color: black;
+
+  display:none;
+  vertical-align: middle;
+  align-items: center;
+  
+  justify-content: end;
+  align-self: center;
+  text-align: left;
+  left: 10%;
+  bottom: 5%;
+  padding: 5px 20px 5px 20px;
+  box-shadow: 1px 3px 1px 1px rgba(0, 0, 0, 0.15);
+}
+
+#informations-box {
+  font-size: 17px;
+}
+
+#informations-hide {
+  font-size: 13px;
+}
+
+#event-box {
+  position: absolute;
+  width: 100%;
+  max-height: 45%;
+  padding: 20px 50px;
+  background: #35485d;
+  text-align: center;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+/* TEMP ------------------------------------- */
+.marker {
+  display: inline-block;
+  height: 30px;
+  margin: 5px 10px;
+  padding: 0 10px;
+  line-height: 28px;
+  color: #41b882;
+  font-weight: 400;
+  border: 1px solid #41b882;
+  border-radius: 15px;
+  transition: 0.1s all ease;
+}
+.marker.active {
+  background: #41b882;
+  color: #ffffff;
+}
+/* ------------------------------------------- */
+
+/* NAVIGATION BAR */
+
+#navbar {
+  position: absolute;
+  z-index: 3;
+  width: 100%;
+  justify-content: center;
+ }
+
+ 
+h1 {
+  text-align: center;
+
+  display: inline-block;
+  vertical-align: middle;
+
+  width: 49%;
+}
+
+.button1 {
+  text-align: center;
+
+  display: inline-block;
+  vertical-align: middle;
+
+  width: 25%;
+}
+
+.button2 {
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+
+  width: 25%;
+}
+
+/* BUTTON */
+
+.button {
+  background-color: transparent;
+  color: black;
+  font-size: 14px;
+  text-decoration: none;
+
+  padding: 15px 15px;
+  border: 1px solid white;
+
+  transition-duration: 0.4s;
+}
+
+.button:hover {
+  color: black;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.button a {
+  color: white;
+  text-decoration: none;
+}
+
+.button a:hover {
+
+}
