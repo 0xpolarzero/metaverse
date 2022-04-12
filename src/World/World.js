@@ -18,12 +18,18 @@ import { createScene } from './components/scene';
 import { createCamera } from './components/camera';
 import { createLights } from './components/lights';
 import { createCrosshair } from './components/crosshair';
-import { createCamColliders, camCollisionNew } from './components/camCollision';
+import {
+  createCamColliders,
+  getObjectProximity,
+  showUserSelection,
+  hideObjectInformations,
+  showUserHint,
+} from './components/camCollision';
 import {
   createParticlesGeometry,
   createParticlesMaterial,
 } from './components/particles';
-import { loadBlendsStatic, loadBlendsObj } from './components/objects/blends';
+import { loadBlends, createBlendsEnv } from './components/objects/blends';
 import { createStructure } from './components/objects/structure';
 
 // Import systems
@@ -92,7 +98,7 @@ class World {
   }
 
   async initObjects() {
-    const { boule1, boule2, boule3, bouleTrans } = await loadBlendsStatic();
+    const { boule1, boule2, boule3, bouleTrans } = await loadBlends();
     scene.add(boule1, boule2, boule3, bouleTrans);
     loop.updatables.push(boule1, boule2, boule3);
   }
@@ -105,10 +111,11 @@ class World {
     // CREATING THE GAME VARIABLES
     const GRAVITY = 30;
     const STEPS_PER_FRAME = 5;
+    const initialPosition = [10, 10];
 
     const playerCollider = new Capsule(
-      new Vector3(10, 0.35, 0), // Lower part of capsule
-      new Vector3(10, 1, 0), // Higher part of capsule + camera
+      new Vector3(initialPosition[0], 0.35, initialPosition[1]), // Lower part of capsule
+      new Vector3(initialPosition[0], 1, initialPosition[1]), // Higher part of capsule + camera
       0.35,
     );
 
@@ -220,40 +227,6 @@ class World {
       }
     }
 
-    // INTERACTION WITH THE MODELS
-    const { camSphereDetector } = createCamColliders();
-    camera.add(camSphereDetector);
-    const { boule1Obj, boule2Obj, boule3Obj } = loadBlendsObj();
-    let bouleObjs = [boule1Obj, boule2Obj, boule3Obj];
-    scene.add(...bouleObjs);
-
-    // HELPERS FOR VISUAL
-    const [camBB, boulesBB] = camCollisionNew(camera, ...bouleObjs);
-    const camHelper = new Box3Helper(camBB, 0xffff00);
-    // For debugging
-    camHelper.name = 'camHelper';
-    camera.add(camHelper);
-    // Adding the objects to the scene individually
-    const boulesHelpers = Array(boulesBB.length);
-    for (let i = 0; i < boulesBB.length; i++) {
-      const helper = new Box3Helper(boulesBB[i], 0xffff00);
-      helper.name = `Box3Helper for boule ${i}`;
-      boulesHelpers[i] = helper;
-    }
-    scene.add(...boulesHelpers);
-
-    // DETECTORS FOR INFORMATIONS DISPLAY
-    document.addEventListener('mouseup', () => {
-      camCollisionNew(camera, ...bouleObjs);
-    });
-
-    const informations = document.querySelector('#informations-container');
-    document.addEventListener('keydown', () => {
-      if (keyStates.KeyH || keyStates.keyR) {
-        informations.style.display = 'none';
-      }
-    });
-
     // PREVENT THE PLAYER FROM GOING OUT OF THE BOX
     function teleportPlayerIfOob() {
       if (camera.position.y <= -25) {
@@ -263,6 +236,46 @@ class World {
         camera.position.copy(playerCollider.end);
         camera.rotation.set(0, 0, 0);
       }
+    }
+
+    function getUserInteraction() {
+      // INTERACTION WITH THE MODELS
+      const camSphereDetector = createCamColliders();
+      camera.add(camSphereDetector);
+      const envArray = createBlendsEnv();
+      scene.add(...envArray);
+
+      // HELPERS FOR VISUAL
+      const [camBB, boulesBB] = getObjectProximity(camera, ...envArray);
+      const camHelper = new Box3Helper(camBB, 0xffff00);
+      // For debugging
+      camHelper.name = 'camHelper';
+      camera.add(camHelper);
+      // Adding the objects to the scene individually
+      const boulesHelpers = Array(boulesBB.length);
+      for (let i = 0; i < boulesBB.length; i++) {
+        const helper = new Box3Helper(boulesBB[i], 0xffff00);
+        helper.name = `Box3Helper for boule ${i}`;
+        boulesHelpers[i] = helper;
+      }
+      scene.add(...boulesHelpers);
+
+      // DETECTORS FOR INFORMATIONS DISPLAY
+      const informations = document.querySelector('#informations-container');
+
+      document.addEventListener('keydown', () => {
+        if (keyStates.KeyH || keyStates.keyR) {
+          hideObjectInformations();
+        }
+      });
+
+      document.addEventListener('mouseup', () => {
+        showUserSelection(camera, ...envArray);
+      });
+
+      let hintInterval = window.setInterval(() => {
+        showUserHint(camera, ...envArray);
+      }, 200);
     }
 
     // PARTICLES
@@ -313,6 +326,8 @@ class World {
       requestAnimationFrame(animate);
     }
 
+    // Get the user interaction (camera with models)
+    getUserInteraction();
     // The structure is already loaded so the animation can start
     animate();
   }

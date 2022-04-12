@@ -3,15 +3,17 @@ import { MathUtils, Mesh, SphereGeometry, MeshBasicMaterial } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { setupModel } from './setupModel';
 
-async function loadBlendsStatic() {
-  const loaderStatic = new GLTFLoader().setPath('./assets/models/');
+const modelsArray = [];
+
+async function loadBlends() {
+  const loader = new GLTFLoader().setPath('./assets/models/');
 
   const [boule1Data, boule2Data, boule3Data, bouleTransData] =
     await Promise.all([
-      loaderStatic.loadAsync('boule1.glb'),
-      loaderStatic.loadAsync('boule2.glb'),
-      loaderStatic.loadAsync('boule3.glb'),
-      loaderStatic.loadAsync('bouleTrans.glb'),
+      loader.loadAsync('boule1.glb'),
+      loader.loadAsync('boule2.glb'),
+      loader.loadAsync('boule3.glb'),
+      loader.loadAsync('bouleTrans.glb'),
     ]);
 
   const boule1 = setupModel(boule1Data);
@@ -45,6 +47,8 @@ async function loadBlendsStatic() {
     boule3.rotation.x += radiansPerSecond * delta;
   };
 
+  modelsArray.push(boule1, boule2, boule3);
+
   return {
     boule1,
     boule2,
@@ -53,9 +57,7 @@ async function loadBlendsStatic() {
   };
 }
 
-export { loadBlendsStatic };
-
-function loadBlendsObj() {
+function createBlendsEnv() {
   const objGeometry = new SphereGeometry(2, 32, 16);
   const objMaterial = new MeshBasicMaterial({
     color: 'red',
@@ -63,26 +65,21 @@ function loadBlendsObj() {
     opacity: 0,
   });
 
-  const boule1Obj = new Mesh(objGeometry, objMaterial);
-  boule1Obj.position.set(10, -3.5, 0);
-  boule1Obj.userData = { desc: 'boule 1' };
-  boule1Obj.name = `premier objet`;
+  const envArray = [];
 
-  const boule2Obj = new Mesh(objGeometry, objMaterial);
-  boule2Obj.position.set(0, -3.5, -3);
-  boule2Obj.userData = { desc: 'boule 2' };
-  boule2Obj.name = `deuxieme objet`;
+  // Create an enveloppe for each blend, for detection and interaction
+  for (let i = 0; i < modelsArray.length; i++) {
+    const object = new Mesh(objGeometry, objMaterial);
+    object.position.set(
+      modelsArray[i].position.x,
+      modelsArray[i].position.y,
+      modelsArray[i].position.z,
+    );
+    object.userData = { desc: `model ${i + 1}` };
+    envArray.push(object);
+  }
 
-  const boule3Obj = new Mesh(objGeometry, objMaterial);
-  boule3Obj.position.set(-3, -3.5, 0);
-  boule3Obj.userData = { desc: 'boule 3' };
-  boule3Obj.name = `troisieme objet`;
-
-  return {
-    boule1Obj,
-    boule2Obj,
-    boule3Obj,
-  };
+  return envArray;
 }
 
-export { loadBlendsObj };
+export { loadBlends, createBlendsEnv };

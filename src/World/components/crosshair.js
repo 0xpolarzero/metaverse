@@ -1,4 +1,4 @@
-import { ShaderMaterial, Sprite, Mesh, SphereGeometry, MeshStandardMaterial } from 'three'
+import { ShaderMaterial, Sprite } from 'three';
 
 function createCrosshair() {
   const pMat = new ShaderMaterial({
@@ -57,13 +57,13 @@ function createCrosshair() {
             }
         `,
     transparent: true,
-  })
+  });
 
-  const sprite = new Sprite(pMat)
-  sprite.position.set(0, 0, -0.1)
-  sprite.position
+  const sprite = new Sprite(pMat);
+  sprite.position.set(0, 0, -0.1);
+  sprite.position;
 
-  return sprite
+  return sprite;
 }
 
-export { createCrosshair }
+export { createCrosshair };
