@@ -13,3 +13,10 @@ I aim to offer an idea of how much 3D Audio could help achieve deep immersion in
 ## Roadmap
 
 <a href="https://polarzero.notion.site/Roadmap-bccd54bf20b44be9aca686c6c6e71bda">Click here to see the Roadmap.</a>
+
+## Dependencies
+
+<ul>
+<li><a href="https://github.com/mrdoob/three.js">Three.js</a></li>
+<li><a href="https://github.com/polarch/JSAmbisonics">JSAmbisonics</a></li>
+</ul>
