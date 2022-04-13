@@ -38,6 +38,9 @@ import { Resizer } from './systems/Resizer';
 import { Loop } from './systems/Loop';
 import { lockControls } from './systems/lockControls';
 
+// Import audio
+import { initAudio } from './audio/static';
+
 // Import shaders
 import vShader from './shaders/particles/vertex.glsl.js';
 import fShader from './shaders/particles/fragment.glsl.js';
@@ -302,6 +305,9 @@ class World {
         2,
       );
     };
+
+    // AUDIO
+    initAudio();
 
     const clock = new Clock();
 
