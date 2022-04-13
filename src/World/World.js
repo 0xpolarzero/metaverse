@@ -40,7 +40,8 @@ import { lockControls } from './systems/lockControls';
 import { detectTabSwitch } from './systems/tabs';
 
 // Import audio
-import { initAudio } from './audio/main';
+import { getAudioReady } from './audio/main';
+import { loadSFX, spatializeSound } from './audio/spatialized';
 
 // Import shaders
 import vShader from './shaders/particles/vertex.glsl.js';
@@ -52,6 +53,10 @@ let camera;
 let renderer;
 let resizer;
 let loop;
+
+// Audio
+let audioLoaded = false;
+let sfxBoule1;
 
 const worldOctree = new Octree();
 
@@ -111,7 +116,14 @@ class World {
     await createStructure(worldOctree, scene);
   }
 
-  initialInit() {
+  async initAudio() {
+    getAudioReady();
+
+    sfxBoule1 = await loadSFX();
+    audioLoaded = true;
+  }
+
+  initSystem() {
     // CREATING THE GAME VARIABLES
     const GRAVITY = 30;
     const STEPS_PER_FRAME = 5;
@@ -307,9 +319,6 @@ class World {
       );
     };
 
-    // AUDIO
-    initAudio();
-
     const clock = new Clock();
 
     // ANIMATING THE WORLD
@@ -321,17 +330,28 @@ class World {
       // an object traversing another too quickly for detection.
 
       for (let i = 0; i < STEPS_PER_FRAME; i++) {
+        // System
         controls(deltaTime);
         updatePlayer(deltaTime);
         teleportPlayerIfOob();
 
+        // Visual effects
         moveParticles(deltaFlies);
+
+        // Audio
+        if (audioLoaded) {
+          spatializeSound(sfxBoule1, camera);
+        }
       }
 
       renderer.render(scene, camera);
 
       requestAnimationFrame(animate);
     }
+
+    let interval = window.setInterval(() => {
+      console.log(camera.rotation.x, camera.rotation.y, camera.rotation.z);
+    }, 1000);
 
     // Get the user interaction (camera with models)
     getUserInteraction();

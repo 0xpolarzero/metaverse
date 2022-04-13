@@ -8,7 +8,8 @@ async function main() {
 
   await world.initStructure();
   await world.initObjects();
-  world.initialInit();
+  world.initSystem();
+  document.addEventListener('click', world.initAudio, { once: true });
 
   world.start();
 }

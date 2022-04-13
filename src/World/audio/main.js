@@ -2,38 +2,33 @@ import { loadAmbientMusic } from './static';
 import { loadSFX } from './spatialized';
 import * as ambisonics from 'ambisonics';
 
+// Initiate audio context
 const AudioContext = window.AudioContext || window.webkitAudioContext;
-let converter;
+let binDecoder;
 
+// Settings object for global audio
 const audioParams = {
   context: new AudioContext(),
   order: 1,
-  getConverter: function () {
-    return converter;
+  getBinDecoder: function () {
+    return binDecoder;
   },
 };
 
-function initAudio() {
+// Set up the initial audio config (after user interaction)
+function getAudioReady() {
   const context = audioParams.context;
   const order = audioParams.order;
-
-  converter = new ambisonics.converters.wxyz2acn(context);
-  //   const rotator = new ambisonics.sceneRotator(context, order);
-  const binDecoder = new ambisonics.binDecoder(context, order);
   const outGain = context.createGain();
 
-  converter.out.connect(binDecoder.in);
-  // rotator.out.connect(binDecoder.in);
+  binDecoder = new ambisonics.binDecoder(context, order);
   binDecoder.out.connect(outGain);
   outGain.connect(context.destination);
 
-  // Start the sound after user interaction (usually unlock the screen and start exploring)
-  document.addEventListener('click', loadAmbientMusic);
-  document.addEventListener('click', loadSFX);
-
-  console.log('pop');
+  loadAmbientMusic();
 }
 
+// Restart audio after tab in
 function resumeAudio() {
   if (audioParams.context.state === 'suspended')
     audioParams.context.resume().catch((err) => {
@@ -41,6 +36,7 @@ function resumeAudio() {
     });
 }
 
+// Suspend audio after tab out
 function stopAudio() {
   if (audioParams.context.state === 'running')
     audioParams.context.suspend().catch((err) => {
@@ -48,4 +44,4 @@ function stopAudio() {
     });
 }
 
-export { initAudio, audioParams, resumeAudio, stopAudio };
+export { getAudioReady, audioParams, resumeAudio, stopAudio };

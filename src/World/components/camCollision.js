@@ -2,7 +2,7 @@ import { displayNotif } from '../utils/notification';
 
 import { Mesh, DodecahedronGeometry, MeshBasicMaterial, Box3 } from 'three';
 
-function createCamColliders(objs) {
+function createCamColliders() {
   const camSphereDetector = new Mesh(
     new DodecahedronGeometry(),
     new MeshBasicMaterial({
