@@ -37,9 +37,10 @@ import { createRenderer } from './systems/renderer';
 import { Resizer } from './systems/Resizer';
 import { Loop } from './systems/Loop';
 import { lockControls } from './systems/lockControls';
+import { detectTabSwitch } from './systems/tabs';
 
 // Import audio
-import { initAudio } from './audio/static';
+import { initAudio } from './audio/main';
 
 // Import shaders
 import vShader from './shaders/particles/vertex.glsl.js';
@@ -334,6 +335,8 @@ class World {
 
     // Get the user interaction (camera with models)
     getUserInteraction();
+    // Detect tab switching (stops audio and animation)
+    detectTabSwitch();
     // The structure is already loaded so the animation can start
     animate();
   }

@@ -1,36 +1,56 @@
+import { loadSample } from '../utils/fetch-audio';
+import { audioParams } from './main';
+import { createBlendsEnv } from '../components/objects/blends';
 import * as ambisonics from 'ambisonics';
 
-const AudioContext = window.AudioContext || window.webkitAudioContext;
-const context = new AudioContext();
-const order = 3;
+const objArray = createBlendsEnv();
+let encoder;
 
-// Handle resume if suspension
-context.onstatechange = function () {
-  if (context.state === 'suspended') {
-    context.resume();
-  }
+async function loadSFX() {
+  const urlSFX = './assets/audio/SFXtest.wav';
+  // Mettre les 3, puis Promise.all
+  await loadSample(urlSFX, audioParams.context).then((sample) => {
+    const sfxBoule1 = MonoSource(sample);
+    console.log(sfxBoule1);
+    sfxBoule1.playSFX();
+  });
+
+  document.removeEventListener('click', loadSFX);
+}
+
+const MonoSource = (sample) => {
+  const encoder = new ambisonics.monoEncoder(
+    audioParams.context,
+    audioParams.order,
+  );
+
+  const playSFX = () => {
+    console.log(sample);
+    const converter = audioParams.getConverter();
+
+    const soundBuffer = sample;
+    const sound = audioParams.context.createBufferSource();
+    sound.buffer = soundBuffer;
+    sound.loop = true;
+    sound.connect(encoder.in);
+    encoder.out.connect(converter.in);
+    sound.start(0);
+    sound.isPlaying = true;
+  };
+
+  return { encoder, playSFX };
 };
 
-const urlAmbient = './assets/audio/ExtinctionAmb4ch.wav';
+function spatializeSound() {
+  encoder.azim = angleXY[0];
+  encoder.elev = angleXY[1];
+  encoder.updateGains();
+}
 
 // Encoder
-const encoder = new ambisonics.monoEncoder(context, order);
+
 // TODO encoder.azim = // Value in degrees
 // TODO encoder.elev = // Value in degrees
 // TODO encoder.updateGains();
 
-// Rotator
-const rotator = new ambisonics.sceneRotator(context, order);
-// TODO rotator.yaw = yaw_value_in_degrees;
-// TODO rotator.pitch = pitch_value_in_degrees;
-// TODO rotator.roll = roll_value_in_degrees;
-// TODO rotator.updateRotMtx();
-
-// Binaural decoder
-const binDecoder = new ambisonics.binDecoder(context, order);
-
-// Example
-// soundBufferPlayer.connect(encoder.in);
-// encoder.out.connect(rotator.in);
-// rotator.out.connect(binDecoder.in);
-// binDecoder.connect(context.destination);
+export { loadSFX };

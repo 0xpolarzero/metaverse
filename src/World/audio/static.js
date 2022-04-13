@@ -1,46 +1,24 @@
-import * as ambisonics from 'ambisonics';
-import { displayNotif } from '../utils/notification';
 import { loadSample } from '../utils/fetch-audio';
+import { displayNotif } from '../utils/notification';
+import { audioParams } from './main';
 
-const AudioContext = window.AudioContext || window.webkitAudioContext;
-const context = new AudioContext();
-const order = 1;
-let sound;
-
-const rotator = new ambisonics.sceneRotator(context, order);
-const binDecoder = new ambisonics.binDecoder(context, order);
-const converter = new ambisonics.converters.wxyz2acn(context);
-const outGain = context.createGain();
-
-function initAudio() {
-  // Handle resume if suspension
-  context.onstatechange = function () {
-    if (context.state === 'suspended') {
-      context.resume();
-    }
-  };
-
-  converter.out.connect(rotator.in);
-  rotator.out.connect(binDecoder.in);
-  binDecoder.out.connect(outGain);
-  outGain.connect(context.destination);
-
-  playAmbientMusic();
-
-  // Start the ambient sound after user interaction (usually unlock the screen and start exploring)
-  document.addEventListener('click', playAmbientMusic);
-}
-
-async function playAmbientMusic() {
+async function loadAmbientMusic() {
   const urlAmbient = './assets/audio/ExtinctionAmb4ch.wav';
-  await loadSample(urlAmbient, context).then((sample) => playSample(sample));
+  await loadSample(urlAmbient, audioParams.context)
+    .then((sample) => playAmbientMusic(sample))
+    .catch((err) => {
+      console.log(err);
+      displayNotif('error', err);
+    });
 
-  document.removeEventListener('click', playAmbientMusic);
+  document.removeEventListener('click', loadAmbientMusic);
 }
 
-const playSample = (decodedBuffer) => {
+const playAmbientMusic = (decodedBuffer) => {
+  const converter = audioParams.getConverter();
+
   const soundBuffer = decodedBuffer;
-  sound = context.createBufferSource();
+  const sound = audioParams.context.createBufferSource();
   sound.buffer = soundBuffer;
   sound.loop = true;
   sound.connect(converter.in);
@@ -48,4 +26,4 @@ const playSample = (decodedBuffer) => {
   sound.isPlaying = true;
 };
 
-export { initAudio };
+export { loadAmbientMusic };
