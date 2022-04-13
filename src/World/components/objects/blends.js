@@ -76,6 +76,7 @@ function createBlendsEnv() {
       modelsArray[i].position.z,
     );
     object.userData = { desc: `model ${i + 1}` };
+    object.userData.sound = `./assets/audio/models/boule${i + 1}.wav`;
     envArray.push(object);
   }
 
