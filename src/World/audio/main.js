@@ -1,6 +1,6 @@
 import { loadAmbientMusic } from './static';
 // import { ResonanceAudio } from 'resonance-audio';
-import { ResonanceAudio, FOARenderer } from './resonance-audio';
+import { ResonanceAudio } from './resonance-audio';
 // import { default as Omnitone } from 'omnitone/build/omnitone.esm';
 import { displayNotif } from '../utils/notification';
 
@@ -16,23 +16,20 @@ let audioParams = {
 
 // Set up the audio scene (after user interaction)
 async function createAudioScene() {
-  console.log(FOARenderer);
-  console.log(ResonanceAudio);
   // Set the audio scene
   const audioScene = new ResonanceAudio(audioParams.context, {
     ambisonicOrder: order,
   });
-
   audioScene.output.connect(audioParams.context.destination);
   audioParams.scene = audioScene;
 
-  // Setup the static ambisonic rendering
+  /*  // Setup the static ambisonic rendering
   audioParams.foaRenderer = Omnitone.createFOARenderer(audioParams.context);
   await audioParams.foaRenderer.initialize().catch((err) => {
     displayNotif('error', 'The renderer could not be initialized');
     console.log(err);
   });
-  audioParams.foaRenderer.output.connect(audioParams.context.destination);
+  audioParams.foaRenderer.output.connect(audioParams.context.destination); */
 
   // Set the audio context output mode
   audioParams.context.channelCount = setOutputMode(outputMode, order);
@@ -58,7 +55,7 @@ async function createAudioScene() {
   audioScene.setRoomProperties(room.dimensions, room.materials);
 
   // Launch the sounds
-  // loadAmbientMusic();
+  loadAmbientMusic();
 }
 
 function setOutputMode(mode, order) {

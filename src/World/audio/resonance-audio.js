@@ -895,9 +895,9 @@ https://developer.mozilla.org/en-US/docs/Web/API/AudioContext AudioContext}.
           // Create audio nodes.
           this._context = context;
           if (this._ambisonicOrder == 1) {
-            this._renderer = Omnitone.Omnitone.createFOARenderer(context, {});
+            this.renderer = Omnitone.Omnitone.createFOARenderer(context, {});
           } else if (this._ambisonicOrder > 1) {
-            this._renderer = Omnitone.Omnitone.createHOARenderer(context, {
+            this.renderer = Omnitone.Omnitone.createHOARenderer(context, {
               ambisonicOrder: this._ambisonicOrder,
             });
           }
@@ -910,19 +910,19 @@ https://developer.mozilla.org/en-US/docs/Web/API/AudioContext AudioContext}.
 
           // Initialize Omnitone (async) and connect to audio graph when complete.
           let that = this;
-          this._renderer.initialize().then(function () {
+          this.renderer.initialize().then(function () {
             // Connect pre-rotated soundfield to renderer.
-            that.input.connect(that._renderer.input);
+            that.input.connect(that.renderer.input);
 
             // Connect rotated soundfield to ambisonic output.
             if (that._ambisonicOrder > 1) {
-              that._renderer._hoaRotator.output.connect(that.ambisonicOutput);
+              that.renderer._hoaRotator.output.connect(that.ambisonicOutput);
             } else {
-              that._renderer._foaRotator.output.connect(that.ambisonicOutput);
+              that.renderer._foaRotator.output.connect(that.ambisonicOutput);
             }
 
             // Connect binaurally-rendered soundfield to binaural output.
-            that._renderer.output.connect(that.output);
+            that.renderer.output.connect(that.output);
           });
 
           // Set orientation and update rotation matrix accordingly.
@@ -966,7 +966,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/AudioContext AudioContext}.
           this._tempMatrix3[6] = forwardX;
           this._tempMatrix3[7] = forwardY;
           this._tempMatrix3[8] = forwardZ;
-          this._renderer.setRotationMatrix3(this._tempMatrix3);
+          this.renderer.setRotationMatrix3(this._tempMatrix3);
         };
 
         /**
@@ -976,7 +976,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/AudioContext AudioContext}.
          */
         Listener.prototype.setFromMatrix = function (matrix4) {
           // Update ambisonic rotation matrix internally.
-          this._renderer.setRotationMatrix4(matrix4.elements);
+          this.renderer.setRotationMatrix4(matrix4.elements);
 
           // Extract position from matrix.
           this.position[0] = matrix4.elements[12];
@@ -2645,7 +2645,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/AudioContext AudioContext}.
           this._attenuation.output.connect(this._directivity.input);
           this._directivity.output.connect(this._encoder.input);
 
-          this._encoder.output.connect(scene._listener.input);
+          this._encoder.output.connect(scene.listener.input);
 
           // Assign initial conditions.
           this.setPosition(
@@ -2686,7 +2686,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/AudioContext AudioContext}.
         Source.prototype._update = function () {
           // Compute distance to listener.
           for (let i = 0; i < 3; i++) {
-            this._dx[i] = this._position[i] - this._scene._listener.position[i];
+            this._dx[i] = this._position[i] - this._scene.listener.position[i];
           }
           let distance = Math.sqrt(
             this._dx[0] * this._dx[0] +
@@ -3953,7 +3953,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/AudioContext AudioContext}.
           this._merger.connect(this.output);
 
           // Initialize.
-          this._listenerPosition = options.listenerPosition;
+          this.listenerPosition = options.listenerPosition;
           this.setRoomProperties(options.dimensions, options.coefficients);
         }
 
@@ -3966,7 +3966,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/AudioContext AudioContext}.
          */
         EarlyReflections.prototype.setListenerPosition = function (x, y, z) {
           // Assign listener position.
-          this._listenerPosition = [x, y, z];
+          this.listenerPosition = [x, y, z];
 
           // Determine distances to each wall.
           let distances = {
@@ -4046,9 +4046,9 @@ https://developer.mozilla.org/en-US/docs/Web/API/AudioContext AudioContext}.
 
           // Update listener position with new room properties.
           this.setListenerPosition(
-            this._listenerPosition[0],
-            this._listenerPosition[1],
-            this._listenerPosition[2],
+            this.listenerPosition[0],
+            this.listenerPosition[1],
+            this.listenerPosition[2],
           );
         };
 
@@ -4221,7 +4221,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/AudioContext AudioContext}.
             materials: options.materials,
             speedOfSound: options.speedOfSound,
           });
-          this._listener = new Listener(context, {
+          this.listener = new Listener(context, {
             ambisonicOrder: options.ambisonicOrder,
             position: options.listenerPosition,
             forward: options.listenerForward,
@@ -4232,12 +4232,12 @@ https://developer.mozilla.org/en-US/docs/Web/API/AudioContext AudioContext}.
           this._context = context;
           this.output = context.createGain();
           this.ambisonicOutput = context.createGain();
-          this.ambisonicInput = this._listener.input;
+          this.ambisonicInput = this.listener.input;
 
           // Connect audio graph.
-          this._room.output.connect(this._listener.input);
-          this._listener.output.connect(this.output);
-          this._listener.ambisonicOutput.connect(this.ambisonicOutput);
+          this._room.output.connect(this.listener.input);
+          this.listener.output.connect(this.output);
+          this.listener.ambisonicOutput.connect(this.ambisonicOutput);
         }
 
         /**
@@ -4312,9 +4312,9 @@ https://developer.mozilla.org/en-US/docs/Web/API/AudioContext AudioContext}.
          */
         ResonanceAudio.prototype.setListenerPosition = function (x, y, z) {
           // Update listener position.
-          this._listener.position[0] = x;
-          this._listener.position[1] = y;
-          this._listener.position[2] = z;
+          this.listener.position[0] = x;
+          this.listener.position[1] = y;
+          this.listener.position[2] = z;
           this._room.setListenerPosition(x, y, z);
 
           // Update sources with new listener position.
@@ -4340,7 +4340,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/AudioContext AudioContext}.
           upY,
           upZ,
         ) {
-          this._listener.setOrientation(
+          this.listener.setOrientation(
             forwardX,
             forwardY,
             forwardZ,
@@ -4356,13 +4356,13 @@ https://developer.mozilla.org/en-US/docs/Web/API/AudioContext AudioContext}.
          * The Three.js Matrix4 object representing the listener's world transform.
          */
         ResonanceAudio.prototype.setListenerFromMatrix = function (matrix) {
-          this._listener.setFromMatrix(matrix);
+          this.listener.setFromMatrix(matrix);
 
           // Update the rest of the scene using new listener position.
           this.setListenerPosition(
-            this._listener.position[0],
-            this._listener.position[1],
-            this._listener.position[2],
+            this.listener.position[0],
+            this.listener.position[1],
+            this.listener.position[2],
           );
         };
 
