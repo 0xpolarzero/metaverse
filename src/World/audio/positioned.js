@@ -5,19 +5,16 @@ import * as ambisonics from 'ambisonics';
 
 // Get the objects sound path and position
 const objArray = createBlendsEnv();
-let encoderSFX;
+let encoder;
 let converterSFX;
 
 // Load the sounds
 async function loadSFX() {
-  encoderSFX = new ambisonics.monoEncoder(
-    audioParams.context,
-    audioParams.order,
-  );
-  converterSFX = new ambisonics.converters.wxyz2acn(audioParams.context);
-
   let sfxBoule1;
+  encoder = new ambisonics.monoEncoder(audioParams.context, audioParams.order);
+  converterSFX = new ambisonics.converters.wxyz2acn(audioParams.context);
   const urlSFX = './assets/audio/SFXtest.wav';
+
   // TODO Mettre les 3, puis Promise.all
   await loadSample(urlSFX, audioParams.context).then((sample) => {
     // Create an object for each sound with its own properties
@@ -38,7 +35,7 @@ const MonoSource = (sample) => {
   const playSFX = () => {
     const binDecoder = audioParams.getBinDecoder();
 
-    encoderSFX.out.connect(converterSFX.in);
+    encoder.out.connect(converterSFX.in);
     converterSFX.out.connect(rotator.in);
     rotator.out.connect(binDecoder.in);
 
@@ -46,7 +43,7 @@ const MonoSource = (sample) => {
     const sound = audioParams.context.createBufferSource();
     sound.buffer = soundBuffer;
     sound.loop = true;
-    sound.connect(encoderSFX.in);
+    sound.connect(encoder.in);
     sound.start(0);
     sound.isPlaying = true;
   };

@@ -209,6 +209,11 @@ class World {
 
         // Visual effects
         moveParticles(deltaFlies);
+
+        // Audio
+        if (audioLoaded) {
+          spatializeSound(sfxBoule1, camera);
+        }
       }
 
       renderer.render(scene, camera);
@@ -218,7 +223,7 @@ class World {
 
     // Temp
     let interval = window.setInterval(() => {
-      console.log(camera.rotation.x, camera.rotation.y, camera.rotation.z);
+      console.log(camera.rotation, camera.rotation.x);
     }, 1000);
 
     lockControls();
@@ -228,12 +233,6 @@ class World {
     detectTabSwitch();
     // The structure is already loaded so the animation can start
     animate();
-  }
-
-  // Audio
-  if(audioLoaded) {
-    spatializeSound(sfxBoule1, camera);
-    console.log('.');
   }
 
   start() {
