@@ -11,7 +11,6 @@ import {
 
 // Import JSM modules
 import { Octree } from 'three/examples/jsm/math/Octree';
-import { Capsule } from 'three/examples/jsm/math/Capsule';
 
 // Import components
 import { createScene } from './components/scene';
@@ -84,29 +83,8 @@ class World {
     scene.add(axesHelper);
     axesHelper.position.set(0, -4, 0);
 
-    const {
-      ambientLight,
-      directionalLight1,
-      directionalLight2,
-      fillLight1,
-      fillLight2,
-      helper1,
-      helper2,
-      helper3,
-      helper4,
-    } = createLights();
-
-    scene.add(
-      ambientLight,
-      directionalLight1,
-      directionalLight2,
-      fillLight1,
-      fillLight2,
-      helper1,
-      helper2,
-      helper3,
-      helper4,
-    );
+    const lightsArray = createLights();
+    scene.add(...lightsArray);
 
     const sprite = createCrosshair();
     camera.add(sprite);
@@ -143,9 +121,6 @@ class World {
       keyStates[e.code] = false;
     });
 
-    // Mouse
-    lockControls();
-
     document.body.addEventListener('mousemove', (e) => {
       if (document.pointerLockElement === document.body) {
         camera.rotation.y -= e.movementX / 500;
@@ -175,9 +150,7 @@ class World {
       }
       scene.add(...boulesHelpers);
 
-      // DETECTORS FOR INFORMATIONS DISPLAY
-      const informations = document.querySelector('#informations-container');
-
+      // Informations display
       document.addEventListener('keydown', () => {
         if (keyStates.KeyH || keyStates.keyR) {
           hideObjectInformations();
@@ -193,7 +166,7 @@ class World {
       }, 200);
     }
 
-    // PARTICLES
+    // Particles
     const particlesGeometry = createParticlesGeometry();
     const particlesUniforms = createParticlesMaterial();
     const particlesMaterial = new ShaderMaterial({
@@ -243,10 +216,12 @@ class World {
       requestAnimationFrame(animate);
     }
 
+    // Temp
     let interval = window.setInterval(() => {
       console.log(camera.rotation.x, camera.rotation.y, camera.rotation.z);
     }, 1000);
 
+    lockControls();
     // Get the user interaction (camera with models)
     getUserInteraction();
     // Detect tab switching (stops audio and animation)

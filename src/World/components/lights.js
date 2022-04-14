@@ -9,27 +9,36 @@ import {
 } from 'three';
 
 function createLights() {
+  const lightsArray = [];
+
   const ambientLight = new AmbientLight(0x6688cc, 0);
+  lightsArray.push(ambientLight);
 
   // Light Red
   const fillLight1 = new DirectionalLight(0xff9999, 5);
   fillLight1.position.set(10, 2, 0);
   fillLight1.castShadow = true;
+  lightsArray.push(fillLight1);
 
   const helper1 = new DirectionalLightHelper(fillLight1, 5);
+  lightsArray.push(helper1);
 
   // Purple
   const fillLight2 = new DirectionalLight(0xff9999, 5);
   fillLight2.position.set(-10.5, 10, -2);
   fillLight2.castShadow = true;
+  lightsArray.push(fillLight2);
 
   const helper2 = new DirectionalLightHelper(fillLight2, 5);
+  lightsArray.push(helper2);
 
   const directionalLight1 = new DirectionalLight(0xffffaa, 5);
   directionalLight1.position.set(-5, 25, -1);
+  lightsArray.push(directionalLight1);
 
   const directionalLight2 = new DirectionalLight(0xffffaa, 5);
   directionalLight2.position.set(5, 25, 1);
+  lightsArray.push(directionalLight2);
 
   const directionals = [directionalLight1, directionalLight2];
 
@@ -48,7 +57,9 @@ function createLights() {
   }
 
   const helper3 = new DirectionalLightHelper(directionalLight1, 5);
+  lightsArray.push(helper3);
   const helper4 = new DirectionalLightHelper(directionalLight2, 5);
+  lightsArray.push(helper4);
 
   const camLight = new SpotLight(
     0xffffaa,
@@ -60,18 +71,7 @@ function createLights() {
   camLight.castShadow = true;
   camLight.receiveShadow = false;
 
-  return {
-    ambientLight,
-    fillLight1,
-    fillLight2,
-    directionalLight1,
-    directionalLight2,
-    camLight,
-    helper1,
-    helper2,
-    helper3,
-    helper4,
-  };
+  return lightsArray;
 }
 
 function createLightDirection() {
