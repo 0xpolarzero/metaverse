@@ -1,5 +1,4 @@
 import {
-  Vector3,
   Clock,
   GridHelper,
   AxesHelper,
@@ -44,13 +43,14 @@ import { lockControls } from './systems/lockControls';
 import { detectTabSwitch } from './systems/tabs';
 
 // Import audio
-import { getAudioReady } from './audio/main';
+import { createAudioScene } from './audio/main';
 import { loadSFX } from './audio/positioned';
-import { spatializeSound } from './audio/spatialize';
+// import { spatializeSound } from './audio/spatialize';
 
 // Import shaders
 import vShader from './shaders/particles/vertex.glsl.js';
 import fShader from './shaders/particles/fragment.glsl.js';
+import { displayNotif } from './utils/notification';
 
 // BASIC SCENE INPUTS
 let scene;
@@ -61,7 +61,7 @@ let loop;
 
 // Audio
 let audioLoaded = false;
-let sfxBoule1;
+let audioFX;
 
 const worldOctree = new Octree();
 
@@ -101,9 +101,12 @@ class World {
   }
 
   async initAudio() {
-    getAudioReady();
+    await createAudioScene();
 
-    sfxBoule1 = await loadSFX();
+    audioFX = await loadSFX().catch((err) => {
+      displayNotif('error', 'The audio file could not be loaded.');
+      console.log(err);
+    });
     audioLoaded = true;
   }
 
@@ -211,9 +214,9 @@ class World {
         moveParticles(deltaFlies);
 
         // Audio
-        if (audioLoaded) {
-          spatializeSound(sfxBoule1, camera);
-        }
+        // if (audioLoaded) {
+        //   spatializeSound(audioFX, camera);
+        // }
       }
 
       renderer.render(scene, camera);
@@ -222,9 +225,9 @@ class World {
     }
 
     // Temp
-    let interval = window.setInterval(() => {
-      console.log(camera.rotation, camera.rotation.x);
-    }, 1000);
+    // let interval = window.setInterval(() => {
+    //   console.log(camera.rotation, camera.rotation.x);
+    // }, 1000);
 
     lockControls();
     // Get the user interaction (camera with models)

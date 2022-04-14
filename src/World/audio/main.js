@@ -1,31 +1,72 @@
 import { loadAmbientMusic } from './static';
-import { loadSFX } from './positioned';
-import * as ambisonics from 'ambisonics';
+// import { ResonanceAudio } from 'resonance-audio';
+import { ResonanceAudio, FOARenderer } from './resonance-audio';
+// import { default as Omnitone } from 'omnitone/build/omnitone.esm';
+import { displayNotif } from '../utils/notification';
+
+const order = 1;
+const outputMode = 'binaural';
 
 // Initiate audio context
-const AudioContext = window.AudioContext || window.webkitAudioContext;
-let binDecoder;
+const audioContext = window.AudioContext || window.webkitAudioContext;
 
-// Settings object for global audio
-const audioParams = {
-  context: new AudioContext(),
-  order: 1,
-  getBinDecoder: function () {
-    return binDecoder;
-  },
+let audioParams = {
+  context: new audioContext(),
 };
 
-// Set up the initial audio config (after user interaction)
-function getAudioReady() {
-  const context = audioParams.context;
-  const order = audioParams.order;
-  const outGain = context.createGain();
+// Set up the audio scene (after user interaction)
+async function createAudioScene() {
+  console.log(FOARenderer);
+  console.log(ResonanceAudio);
+  // Set the audio scene
+  const audioScene = new ResonanceAudio(audioParams.context, {
+    ambisonicOrder: order,
+  });
 
-  binDecoder = new ambisonics.binDecoder(context, order);
-  binDecoder.out.connect(outGain);
-  outGain.connect(context.destination);
+  audioScene.output.connect(audioParams.context.destination);
+  audioParams.scene = audioScene;
 
-  loadAmbientMusic();
+  // Setup the static ambisonic rendering
+  audioParams.foaRenderer = Omnitone.createFOARenderer(audioParams.context);
+  await audioParams.foaRenderer.initialize().catch((err) => {
+    displayNotif('error', 'The renderer could not be initialized');
+    console.log(err);
+  });
+  audioParams.foaRenderer.output.connect(audioParams.context.destination);
+
+  // Set the audio context output mode
+  audioParams.context.channelCount = setOutputMode(outputMode, order);
+
+  // Set the room parameters
+  const room = {
+    dimensions: {
+      width: 15,
+      height: 10,
+      depth: 30,
+    },
+    materials: {
+      left: 'brick-bare',
+      right: 'curtain-heavy',
+      front: 'marble',
+      back: 'glass-thin',
+      down: 'grass',
+      up: 'transparent',
+    },
+  };
+
+  // Set the audio scene acoustic properties
+  audioScene.setRoomProperties(room.dimensions, room.materials);
+
+  // Launch the sounds
+  // loadAmbientMusic();
+}
+
+function setOutputMode(mode, order) {
+  if (mode === 'binaural') {
+    return 2;
+  } else {
+    return Math.pow(order + 1, 2);
+  }
 }
 
 // Restart audio after tab in
@@ -44,4 +85,4 @@ function stopAudio() {
     });
 }
 
-export { getAudioReady, audioParams, resumeAudio, stopAudio };
+export { createAudioScene, audioParams, resumeAudio, stopAudio };

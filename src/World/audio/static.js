@@ -1,7 +1,6 @@
 import { loadSample } from '../utils/fetch-audio';
-import { displayNotif } from '../utils/notification';
 import { audioParams } from './main';
-import * as ambisonics from 'ambisonics';
+import { displayNotif } from '../utils/notification';
 
 // Load the ambient sound
 async function loadAmbientMusic() {
@@ -16,15 +15,13 @@ async function loadAmbientMusic() {
 
 // Play it after the sample was fetched
 const playAmbientMusic = (decodedBuffer) => {
-  const converterAmb = new ambisonics.converters.wxyz2acn(audioParams.context);
-  const binDecoder = audioParams.getBinDecoder();
-  converterAmb.out.connect(binDecoder.in);
-
   const soundBuffer = decodedBuffer;
   const sound = audioParams.context.createBufferSource();
   sound.buffer = soundBuffer;
   sound.loop = true;
-  sound.connect(converterAmb.in);
+
+  sound.connect(audioParams.foaRenderer.input);
+
   sound.start(0);
   sound.isPlaying = true;
 };
