@@ -41,7 +41,8 @@ import { detectTabSwitch } from './systems/tabs';
 
 // Import audio
 import { getAudioReady } from './audio/main';
-import { loadSFX, spatializeSound } from './audio/spatialized';
+import { loadSFX } from './audio/positioned';
+import { spatializeSound } from './audio/spatialize';
 
 // Import shaders
 import vShader from './shaders/particles/vertex.glsl.js';
@@ -337,11 +338,6 @@ class World {
 
         // Visual effects
         moveParticles(deltaFlies);
-
-        // Audio
-        if (audioLoaded) {
-          spatializeSound(sfxBoule1, camera);
-        }
       }
 
       renderer.render(scene, camera);
@@ -359,6 +355,12 @@ class World {
     detectTabSwitch();
     // The structure is already loaded so the animation can start
     animate();
+  }
+
+  // Audio
+  if(audioLoaded) {
+    spatializeSound(sfxBoule1, camera);
+    console.log('.');
   }
 
   start() {

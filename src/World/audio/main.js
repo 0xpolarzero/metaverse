@@ -1,5 +1,5 @@
 import { loadAmbientMusic } from './static';
-import { loadSFX } from './spatialized';
+import { loadSFX } from './positioned';
 import * as ambisonics from 'ambisonics';
 
 // Initiate audio context
