@@ -1,40 +1,40 @@
 import { loadSample } from '../utils/fetch-audio';
 import { audioParams } from './main';
-import { createBlendsEnv } from '../components/objects/blends';
-
-// Get the objects sound path and position
-const objArray = createBlendsEnv();
 
 // Load the sounds
-async function loadSFX() {
+async function loadSFX(objArray) {
   const urlSFX = './assets/audio/SFXtest.wav';
-  let sfxBoule1;
+  let sfxBoule1 = {};
+  let sfxBoule2 = {};
+  let sfxBoule3 = {};
+  const sfxArray = [sfxBoule1, sfxBoule2, sfxBoule3];
 
   // TODO Mettre les 3, puis Promise.all
   await loadSample(urlSFX, audioParams.context).then((sample) => {
     // Create an object for each sound with its own properties
-    sfxBoule1 = MonoSource(sample);
-    sfxBoule1.playSFX();
+    for (let i = 0; i < objArray.length; i++) {
+      sfxArray[i] = MonoSource(sample, objArray[i]);
+      sfxArray[i].playSFX();
+    }
   });
 
-  return sfxBoule1;
+  return sfxArray;
 }
 
 // Get each sound its rotator and settings
-const MonoSource = (sample) => {
+const MonoSource = (sample, obj) => {
   const source = audioParams.scene.createSource();
 
-  const playSFX = () => {
+  const playSFX = async () => {
     const soundBuffer = sample;
     const sound = audioParams.context.createBufferSource();
     sound.buffer = soundBuffer;
     sound.loop = true;
 
     sound.connect(source.input);
-    source.setPosition(10, 0, 0); // Absolute position
-    // ! setFromMatrix(matrix4) // the placement in the room for spatialization
-    // ! setMaxDistance()
-    // ! setMinDistance()
+    source.setPosition(obj.position.x, obj.position.y, obj.position.z); // Absolute position
+    source.setMaxDistance(10);
+    source.setMinDistance(1);
     // ! setSourceWidth // 360 : omnidirectional source
 
     sound.start(0);
@@ -44,4 +44,8 @@ const MonoSource = (sample) => {
   return { source, playSFX };
 };
 
-export { loadSFX };
+function updateListener(camera) {
+  audioParams.scene.setListenerFromMatrix(camera.matrixWorld);
+}
+
+export { loadSFX, updateListener };

@@ -44,8 +44,7 @@ import { detectTabSwitch } from './systems/tabs';
 
 // Import audio
 import { createAudioScene } from './audio/main';
-import { loadSFX } from './audio/positioned';
-// import { spatializeSound } from './audio/spatialize';
+import { loadSFX, updateListener } from './audio/positioned';
 
 // Import shaders
 import vShader from './shaders/particles/vertex.glsl.js';
@@ -62,6 +61,7 @@ let loop;
 // Audio
 let audioLoaded = false;
 let audioFX;
+let envArray; // to get the objects positions
 
 const worldOctree = new Octree();
 
@@ -102,11 +102,11 @@ class World {
 
   async initAudio() {
     await createAudioScene();
-
-    audioFX = await loadSFX().catch((err) => {
+    audioFX = await loadSFX(envArray).catch((err) => {
       displayNotif('error', 'The audio file could not be loaded.');
       console.log(err);
     });
+
     audioLoaded = true;
   }
 
@@ -131,11 +131,11 @@ class World {
       }
     });
 
-    function getUserInteraction() {
+    async function getUserInteraction() {
       // INTERACTION WITH THE MODELS
       const camSphereDetector = createCamColliders();
       camera.add(camSphereDetector);
-      const envArray = createBlendsEnv();
+      envArray = await createBlendsEnv();
       scene.add(...envArray);
 
       // HELPERS FOR VISUAL
@@ -212,11 +212,6 @@ class World {
 
         // Visual effects
         moveParticles(deltaFlies);
-
-        // Audio
-        // if (audioLoaded) {
-        //   spatializeSound(audioFX, camera);
-        // }
       }
 
       renderer.render(scene, camera);
@@ -224,10 +219,11 @@ class World {
       requestAnimationFrame(animate);
     }
 
-    // Temp
-    // let interval = window.setInterval(() => {
-    //   console.log(camera.rotation, camera.rotation.x);
-    // }, 1000);
+    let audioUpdateInterval = window.setInterval(() => {
+      if (audioLoaded) {
+        updateListener(camera);
+      }
+    }, 0.1);
 
     lockControls();
     // Get the user interaction (camera with models)

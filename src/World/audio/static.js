@@ -20,7 +20,6 @@ const playAmbientMusic = (decodedBuffer) => {
   sound.buffer = soundBuffer;
   sound.loop = true;
 
-  console.log(audioParams.scene.listener.renderer.input);
   sound.connect(audioParams.scene.listener.renderer.input);
 
   sound.start(0);

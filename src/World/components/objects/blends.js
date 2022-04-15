@@ -57,7 +57,7 @@ async function loadBlends() {
   };
 }
 
-function createBlendsEnv() {
+async function createBlendsEnv() {
   const objGeometry = new SphereGeometry(2, 32, 16);
   const objMaterial = new MeshBasicMaterial({
     color: 'red',

@@ -23,23 +23,15 @@ async function createAudioScene() {
   audioScene.output.connect(audioParams.context.destination);
   audioParams.scene = audioScene;
 
-  /*  // Setup the static ambisonic rendering
-  audioParams.foaRenderer = Omnitone.createFOARenderer(audioParams.context);
-  await audioParams.foaRenderer.initialize().catch((err) => {
-    displayNotif('error', 'The renderer could not be initialized');
-    console.log(err);
-  });
-  audioParams.foaRenderer.output.connect(audioParams.context.destination); */
-
   // Set the audio context output mode
   audioParams.context.channelCount = setOutputMode(outputMode, order);
 
   // Set the room parameters
   const room = {
     dimensions: {
-      width: 15,
-      height: 10,
-      depth: 30,
+      width: 35.3,
+      height: 7,
+      depth: 41.3,
     },
     materials: {
       left: 'brick-bare',
@@ -52,10 +44,12 @@ async function createAudioScene() {
   };
 
   // Set the audio scene acoustic properties
-  audioScene.setRoomProperties(room.dimensions, room.materials);
+  // audioScene.setRoomProperties(room.dimensions, room.materials);
 
   // Launch the sounds
   loadAmbientMusic();
+
+  return audioScene;
 }
 
 function setOutputMode(mode, order) {
