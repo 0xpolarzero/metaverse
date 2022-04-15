@@ -18,5 +18,7 @@ I aim to offer an idea of how much 3D Audio could help achieve deep immersion in
 
 <ul>
 <li><a href="https://github.com/mrdoob/three.js">Three.js</a></li>
+<li><a href="https://github.com/resonance-audio/resonance-audio-web-sdk">Resonance Audio Web SDK</a></li>
+<li><a href=https://github.com/GoogleChrome/omnitone>Omnitone</a></li>
 <li><a href="https://github.com/polarch/JSAmbisonics">JSAmbisonics</a></li>
 </ul>
