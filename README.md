@@ -12,7 +12,7 @@ I aim to offer an idea of how much 3D Audio could help achieve deep immersion in
 
 ## Roadmap
 
-<a href="https://polarzero.notion.site/Roadmap-bccd54bf20b44be9aca686c6c6e71bda">Click here to see the Roadmap.</a>
+<a href="https://polarzero.notion.site/Roadmap-public-7929ba02e275408f945b0133ae87e61b">Click here to see the Roadmap.</a>
 
 ## Dependencies
 
