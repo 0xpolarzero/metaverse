@@ -225,7 +225,7 @@ class World {
       }
     }, 0.1);
 
-    lockControls();
+    lockControls(camera);
     // Get the user interaction (camera with models)
     getUserInteraction();
     // Detect tab switching (stops audio and animation)

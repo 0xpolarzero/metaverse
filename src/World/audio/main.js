@@ -10,21 +10,21 @@ const outputMode = 'binaural';
 // Initiate audio context
 const audioContext = window.AudioContext || window.webkitAudioContext;
 
-let audioParams = {
+let audioConfig = {
   context: new audioContext(),
 };
 
 // Set up the audio scene (after user interaction)
 async function createAudioScene() {
   // Set the audio scene
-  const audioScene = new ResonanceAudio(audioParams.context, {
+  const audioScene = new ResonanceAudio(audioConfig.context, {
     ambisonicOrder: order,
   });
-  audioScene.output.connect(audioParams.context.destination);
-  audioParams.scene = audioScene;
+  audioScene.output.connect(audioConfig.context.destination);
+  audioConfig.scene = audioScene;
 
   // Set the audio context output mode
-  audioParams.context.channelCount = setOutputMode(outputMode, order);
+  audioConfig.context.channelCount = setOutputMode(outputMode, order);
 
   // Set the room parameters
   const room = {
@@ -62,18 +62,18 @@ function setOutputMode(mode, order) {
 
 // Restart audio after tab in
 function resumeAudio() {
-  if (audioParams.context.state === 'suspended')
-    audioParams.context.resume().catch((err) => {
+  if (audioConfig.context.state === 'suspended')
+    audioConfig.context.resume().catch((err) => {
       console.log(err);
     });
 }
 
 // Suspend audio after tab out
 function stopAudio() {
-  if (audioParams.context.state === 'running')
-    audioParams.context.suspend().catch((err) => {
+  if (audioConfig.context.state === 'running')
+    audioConfig.context.suspend().catch((err) => {
       console.log(err);
     });
 }
 
-export { createAudioScene, audioParams, resumeAudio, stopAudio };
+export { createAudioScene, audioConfig, resumeAudio, stopAudio };
