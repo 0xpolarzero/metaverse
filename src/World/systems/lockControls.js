@@ -1,4 +1,5 @@
-import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js';
+import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
+import { resumeAudio, stopAudio } from '../audio/main';
 
 function lockControls(camera) {
   // LOCK SCREEN & INFOS
@@ -13,11 +14,13 @@ function lockControls(camera) {
   controls.addEventListener('lock', function () {
     instructions.style.display = 'none';
     blocker.style.display = 'none';
+    resumeAudio();
   });
 
   controls.addEventListener('unlock', function () {
     blocker.style.display = 'block';
     instructions.style.display = '';
+    stopAudio();
   });
 }
 

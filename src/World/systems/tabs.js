@@ -6,11 +6,11 @@ function detectTabSwitch() {
 }
 
 function onTabOut() {
-  stopAudio();
+  // stopAudio();
 }
 
 function onTabIn() {
-  resumeAudio();
+  // resumeAudio();
 }
 
 export { detectTabSwitch };
