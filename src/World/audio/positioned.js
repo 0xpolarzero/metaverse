@@ -1,3 +1,6 @@
+import { Quaternion } from 'three';
+import { Vector3 } from 'three';
+import { Matrix4 } from 'three';
 import { loadSample } from '../utils/fetch-audio';
 import { audioConfig } from './main';
 
@@ -40,14 +43,64 @@ const MonoSource = (sample, obj) => {
 
     sound.start(0);
     sound.isPlaying = true;
-    source.setGain(0);
   };
 
   return { source, playSFX };
 };
 
-function updateListener(camera) {
-  audioConfig.scene.setListenerFromMatrix(camera.matrixWorld);
+let oldPosition;
+let oldRotation;
+let newRotation = new Quaternion();
+
+function initListener(camera) {
+  oldPosition = new Vector3().setFromMatrixPosition(camera.matrixWorld);
+  oldRotation = new Quaternion().setFromRotationMatrix(camera.matrixWorld);
 }
 
-export { loadSFX, updateListener };
+function updateListener(camera) {
+  // console.log(camera.rotation);
+  // Get the camera rotation
+  // Access the old rotation
+  // if camera rotation too much > old rotation
+  // new rotation = camera rotation - old rotation / coeff (proportional with how much camera > old)
+  // else if camera rotation not too much > old rotation
+  // new rotation = camera rotation
+  // ! BETTER : always line 58 (no else) : just the coeff is like 1
+
+  const currentPosition = new Vector3().setFromMatrixPosition(
+    camera.matrixWorld,
+  );
+  const newPosition = getVectorDiff(currentPosition, oldPosition);
+  oldPosition = newPosition;
+
+  const rotation = new Quaternion().setFromRotationMatrix(camera.matrixWorld);
+  const scale = new Vector3().setFromMatrixScale(camera.matrixWorld);
+
+  const matrixCam = new Matrix4().compose(newPosition, rotation, scale);
+  audioConfig.scene.setListenerFromMatrix(matrixCam);
+
+  // * vector3.setFromMatrixPosition // position
+  // * quaternion.setFromRotationMatrix // rotation - quaternion
+  // * vector3.setFromMatrixScale // scale
+  // * matrix4.compose(position, quaternion, scale)
+
+  // audioConfig.scene.setListenerFromMatrix(camera.matrixWorld);
+
+  // oldRotation = quat;
+}
+
+function getVectorDiff(newVector, oldVector) {
+  const x = newVector['x'] - oldVector['x'];
+  const y = newVector['y'] - oldVector['y'];
+  const z = newVector['z'] - oldVector['z'];
+
+  const result = new Vector3(
+    oldVector['x'] + x / 1000,
+    oldVector['y'] + y / 1000,
+    oldVector['z'] + z / 1000,
+  );
+
+  return result;
+}
+
+export { loadSFX, initListener, updateListener };

@@ -22,8 +22,8 @@ const playAmbientMusic = (decodedBuffer) => {
 
   sound.connect(audioConfig.scene.listener.renderer.input);
 
-  sound.start(0);
-  sound.isPlaying = true;
+  // sound.start(0);
+  // sound.isPlaying = true;
 };
 
 export { loadAmbientMusic };

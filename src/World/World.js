@@ -33,7 +33,7 @@ import { detectTabSwitch } from './systems/tabs';
 
 // Import audio
 import { createAudioScene } from './audio/main';
-import { loadSFX, updateListener } from './audio/positioned';
+import { loadSFX, initListener, updateListener } from './audio/positioned';
 
 import { displayNotif } from './utils/notification';
 
@@ -92,6 +92,7 @@ class World {
       displayNotif('error', 'The audio file could not be loaded.');
       console.log(err);
     });
+    initListener(camera);
 
     audioLoaded = true;
   }
