@@ -1,4 +1,4 @@
-import { PerspectiveCamera, Vector3 } from 'three';
+import { PerspectiveCamera } from 'three';
 
 function createCamera() {
   const camera = new PerspectiveCamera(
@@ -8,7 +8,7 @@ function createCamera() {
     1000,
   );
   camera.rotation.order = 'YXZ';
-  camera.position.set(0, 30, 0);
+  // camera.position.set(0, 0, 0);
 
   return camera;
 }

@@ -8,8 +8,8 @@ const vShader = `
     void main()
     {
         vec4 modelPosition = modelMatrix * vec4(position, 1.0);
-        modelPosition.y += sin((0.3 * uTime) + modelPosition.x * 30.0) * aScale * 0.15;
-        modelPosition.x += cos((0.2 * uTime) + modelPosition.y * 10.0) * aScale * 0.1;
+        modelPosition.y += sin((0.3 * uTime) + modelPosition.x * 300.0) * aScale * 0.15;
+        modelPosition.x += cos((0.3 * uTime) + modelPosition.y * 10.0) * aScale * 0.1;
         modelPosition.z += cos((0.1 * uTime) + modelPosition.x * 10.0) * aScale * 0.1;
         vec4 viewPosition = viewMatrix * modelPosition;
         vec4 projectionPosition = projectionMatrix * viewPosition;

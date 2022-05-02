@@ -1,12 +1,4 @@
-import {
-  Clock,
-  GridHelper,
-  AxesHelper,
-  Box3Helper,
-  Points,
-  ShaderMaterial,
-  AdditiveBlending,
-} from 'three';
+import { Clock, GridHelper, AxesHelper, Box3Helper } from 'three';
 
 // Import JSM modules
 import { Octree } from 'three/examples/jsm/math/Octree';
@@ -28,10 +20,7 @@ import {
   hideObjectInformations,
   showUserHint,
 } from './components/camCollision';
-import {
-  createParticlesGeometry,
-  createParticlesMaterial,
-} from './components/particles';
+import { initParticles } from './components/particles';
 import { loadBlends, createBlendsEnv } from './components/objects/blends';
 import { createStructure } from './components/objects/structure';
 
@@ -46,9 +35,6 @@ import { detectTabSwitch } from './systems/tabs';
 import { createAudioScene } from './audio/main';
 import { loadSFX, updateListener } from './audio/positioned';
 
-// Import shaders
-import vShader from './shaders/particles/vertex.glsl.js';
-import fShader from './shaders/particles/fragment.glsl.js';
 import { displayNotif } from './utils/notification';
 
 // BASIC SCENE INPUTS
@@ -83,8 +69,8 @@ class World {
     scene.add(axesHelper);
     axesHelper.position.set(0, -4, 0);
 
-    const lightsArray = createLights();
-    scene.add(...lightsArray);
+    const lights = createLights();
+    scene.add(...lights);
 
     const sprite = createCrosshair();
     camera.add(sprite);
@@ -126,8 +112,8 @@ class World {
 
     document.body.addEventListener('mousemove', (e) => {
       if (document.pointerLockElement === document.body) {
-        camera.rotation.y -= e.movementX / 500;
-        camera.rotation.x -= e.movementY / 500;
+        camera.rotation.y -= e.movementX / 10000;
+        camera.rotation.x -= e.movementY / 10000;
       }
     });
 
@@ -170,29 +156,8 @@ class World {
     }
 
     // Particles
-    const particlesGeometry = createParticlesGeometry();
-    const particlesUniforms = createParticlesMaterial();
-    const particlesMaterial = new ShaderMaterial({
-      blending: AdditiveBlending, // more shining
-      uniforms: particlesUniforms,
-      vertexShader: vShader,
-      fragmentShader: fShader,
-      transparent: true,
-      depthWrite: false, // prevent them from hiding each other
-    });
-    const particlesMesh = new Points(particlesGeometry, particlesMaterial);
+    const { particlesMesh, moveParticles } = initParticles(resizer);
     scene.add(particlesMesh);
-
-    function moveParticles(deltaFlies) {
-      particlesMaterial.uniforms.uTime.value = deltaFlies;
-    }
-
-    resizer.onResize = () => {
-      particlesMaterial.uniforms.uPixelRatio.value = Math.min(
-        window.devicePixelRatio,
-        2,
-      );
-    };
 
     const clock = new Clock();
 
@@ -212,18 +177,16 @@ class World {
 
         // Visual effects
         moveParticles(deltaFlies);
+
+        if (audioLoaded) {
+          updateListener(camera);
+        }
       }
 
       renderer.render(scene, camera);
 
       requestAnimationFrame(animate);
     }
-
-    let audioUpdateInterval = window.setInterval(() => {
-      if (audioLoaded) {
-        updateListener(camera);
-      }
-    }, 0.1);
 
     lockControls(camera);
     // Get the user interaction (camera with models)

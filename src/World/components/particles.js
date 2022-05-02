@@ -1,5 +1,15 @@
-import { BufferGeometry, BufferAttribute, Points } from 'three';
+import {
+  BufferGeometry,
+  BufferAttribute,
+  Points,
+  ShaderMaterial,
+  AdditiveBlending,
+} from 'three';
+import vShader from '../shaders/particles/vertex.glsl';
+import fShader from '../shaders/particles/fragment.glsl';
 import { createScene } from './scene';
+
+const scene = createScene();
 
 function createParticlesGeometry() {
   // Particles field
@@ -27,10 +37,10 @@ function createParticlesGeometry() {
 }
 
 function createParticlesMaterial() {
-  const scene = createScene();
-
   const particlesUniforms = {
-    uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
+    uPixelRatio: {
+      value: Math.min(window.devicePixelRatio, window.innerHeight / 350),
+    },
     uSize: { value: 300 },
     uTime: { value: 0 },
     fogColor: { type: 'c', value: scene.fog.color },
@@ -41,4 +51,31 @@ function createParticlesMaterial() {
   return particlesUniforms;
 }
 
-export { createParticlesGeometry, createParticlesMaterial };
+function initParticles(resizer) {
+  const particlesGeometry = createParticlesGeometry();
+  const particlesUniforms = createParticlesMaterial();
+  const particlesMaterial = new ShaderMaterial({
+    blending: AdditiveBlending, // more shining
+    uniforms: particlesUniforms,
+    vertexShader: vShader,
+    fragmentShader: fShader,
+    transparent: true,
+    depthWrite: false, // prevent them from hiding each other
+  });
+  const particlesMesh = new Points(particlesGeometry, particlesMaterial);
+
+  function moveParticles(delta) {
+    particlesMaterial.uniforms.uTime.value = delta;
+  }
+
+  resizer.onResize = () => {
+    particlesMaterial.uniforms.uPixelRatio.value = Math.min(
+      window.devicePixelRatio,
+      window.innerHeight / 350,
+    );
+  };
+
+  return { particlesMesh, moveParticles };
+}
+
+export { initParticles };

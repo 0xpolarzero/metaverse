@@ -7,6 +7,8 @@ function lockControls(camera) {
   const instructions = document.getElementById('instructions');
   const blocker = document.getElementById('container');
 
+  controls.pointerSpeed = 0.01;
+
   instructions.addEventListener('click', function () {
     controls.lock();
   });
