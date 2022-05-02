@@ -74,7 +74,7 @@ function getSideVector(camera) {
 
 // Player controls
 function controls(deltaTime, keyStates, camera) {
-  // Gives a bit of air control
+  // Let the user walk / run, gives a bit of air control
   const speedDelta =
     deltaTime * (playerOnFloor ? (keyStates.ShiftLeft ? 25 : 15) : 2);
 
