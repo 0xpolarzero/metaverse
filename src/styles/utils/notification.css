@@ -9,6 +9,7 @@
   pointer-events: none;
 
   transition: opacity 0.5s;
+  z-index: 10;
 }
 
 .notif.error {

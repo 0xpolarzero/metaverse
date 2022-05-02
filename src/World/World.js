@@ -23,6 +23,7 @@ import {
 import { initParticles } from './components/particles';
 import { loadBlends, createBlendsEnv } from './components/objects/blends';
 import { createStructure } from './components/objects/structure';
+import { initMenu } from './components/menu';
 
 // Import systems
 import { createRenderer } from './systems/renderer';
@@ -192,8 +193,10 @@ class World {
     lockControls(camera);
     // Get the user interaction (camera with models)
     getUserInteraction();
+    // Add the menu settings
+    initMenu();
     // Detect tab switching (stops audio and animation)
-    detectTabSwitch();
+    // detectTabSwitch();
     // The structure is already loaded so the animation can start
     animate();
   }
