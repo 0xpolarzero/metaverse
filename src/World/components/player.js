@@ -75,7 +75,8 @@ function getSideVector(camera) {
 // Player controls
 function controls(deltaTime, keyStates, camera) {
   // Gives a bit of air control
-  const speedDelta = deltaTime * (playerOnFloor ? 25 : 8);
+  const speedDelta =
+    deltaTime * (playerOnFloor ? (keyStates.ShiftLeft ? 25 : 15) : 2);
 
   if (keyStates.KeyW || keyStates.KeyZ || keyStates.ArrowUp) {
     playerVelocity.add(getForwardVector(camera).multiplyScalar(speedDelta));
