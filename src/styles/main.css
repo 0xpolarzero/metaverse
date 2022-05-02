@@ -24,9 +24,9 @@ body {
   height: 100%;
 }
 
-/* LOCK THE SCREEN WITH INSTRUCTIONS */
+/* LOCK THE SCREEN WITH user-menu */
 
-#instructions {
+#user-menu {
   position: absolute;
   font-family: 'Poppins', sans-serif;
   font-size: 1rem;
@@ -65,7 +65,7 @@ body {
   box-shadow: 1px 3px 1px 1px rgba(0, 0, 0, 0.15);
 }
 
-.instructions-keys {
+.user-menu-keys {
   color: #fbaf00;
 }
 

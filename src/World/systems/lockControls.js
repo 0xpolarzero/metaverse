@@ -4,24 +4,24 @@ import { resumeAudio, stopAudio } from '../audio/main';
 function lockControls(camera) {
   // LOCK SCREEN & INFOS
   const controls = new PointerLockControls(camera, document.body);
-  const instructions = document.getElementById('instructions');
-  const blocker = document.getElementById('container');
+  const menu = document.querySelector('#user-menu');
+  const blocker = document.querySelector('#container');
 
   controls.pointerSpeed = 0.3;
 
-  instructions.addEventListener('click', function () {
+  menu.addEventListener('click', function () {
     controls.lock();
   });
 
   controls.addEventListener('lock', function () {
-    instructions.style.display = 'none';
+    menu.style.display = 'none';
     blocker.style.display = 'none';
     resumeAudio();
   });
 
   controls.addEventListener('unlock', function () {
     blocker.style.display = 'block';
-    instructions.style.display = '';
+    menu.style.display = '';
     stopAudio();
   });
 }
