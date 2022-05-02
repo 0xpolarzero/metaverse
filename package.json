@@ -44,6 +44,6 @@
     "ambisonics": "^0.2.3",
     "omnitone": "^1.3.0",
     "resonance-audio": "^1.0.0",
-    "three": "^0.137.5"
+    "three": "^0.140.0"
   }
 }

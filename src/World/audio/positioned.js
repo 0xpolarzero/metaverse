@@ -1,7 +1,7 @@
 import { Quaternion } from 'three';
 import { Vector3 } from 'three';
 import { Matrix4 } from 'three';
-import { loadSample } from '../utils/fetch-audio';
+// import { loadSample } from '../utils/fetch-audio';
 import { audioConfig } from './main';
 
 // Load the sounds
@@ -12,37 +12,36 @@ async function loadSFX(objArray) {
   let sfxBoule3 = {};
   const sfxArray = [sfxBoule1, sfxBoule2, sfxBoule3];
 
-  // TODO LOAD IT STREAMING NOT ASYNC
-  await loadSample(urlSFX, audioConfig.context).then((sample) => {
-    // Create an object for each sound with its own properties
-    for (let i = 0; i < objArray.length; i++) {
-      sfxArray[i] = MonoSource(sample, objArray[i]);
-      sfxArray[i].playSFX();
-    }
-  });
+  // Create an object for each sound with its own properties
+  for (let i = 0; i < objArray.length; i++) {
+    sfxArray[i] = MonoSource(urlSFX, objArray[i]);
+    sfxArray[i].playSFX();
+  }
 
   return sfxArray;
 }
 
 // Get each sound its rotator and settings
-const MonoSource = (sample, obj) => {
-  const source = audioConfig.scene.createSource();
+const MonoSource = (url, obj) => {
+  const audioElem = document.createElement('audio');
+  audioElem.src = url;
+  audioElem.crossOrigin = 'anonymous';
+  audioElem.preload = 'none';
+  audioElem.load();
+  audioElem.loop = true;
+
+  const audioElemSrc = audioConfig.context.createMediaElementSource(audioElem);
+  const source = audioConfig.scene.createSource(audioElem);
 
   const playSFX = async () => {
-    const soundBuffer = sample;
-    const sound = audioConfig.context.createBufferSource();
-    sound.buffer = soundBuffer;
-    sound.loop = true;
-
-    sound.connect(source.input);
+    audioElemSrc.connect(source.input);
     source.setFromMatrix(obj.matrixWorld);
     source.setRolloff('logarithmic');
     // source.setMaxDistance(10);
     // source.setMinDistance(0);
     // source.setSourceWidth(360); // omnidirectional source
 
-    sound.start(0);
-    sound.isPlaying = true;
+    audioElem.play();
   };
 
   return { source, playSFX };
@@ -50,7 +49,6 @@ const MonoSource = (sample, obj) => {
 
 let oldPosition;
 let oldRotation;
-let newRotation = new Quaternion();
 
 function initListener(camera) {
   oldPosition = new Vector3().setFromMatrixPosition(camera.matrixWorld);
@@ -58,47 +56,30 @@ function initListener(camera) {
 }
 
 function updateListener(camera) {
-  // console.log(camera.rotation);
-  // Get the camera rotation
-  // Access the old rotation
-  // if camera rotation too much > old rotation
-  // new rotation = camera rotation - old rotation / coeff (proportional with how much camera > old)
-  // else if camera rotation not too much > old rotation
-  // new rotation = camera rotation
-  // ! BETTER : always line 58 (no else) : just the coeff is like 1
-
   const currentPosition = new Vector3().setFromMatrixPosition(
     camera.matrixWorld,
   );
-  const newPosition = getVectorDiff(currentPosition, oldPosition);
+  const newPosition = easeTransition(currentPosition, oldPosition);
   oldPosition = newPosition;
 
-  const rotation = new Quaternion().setFromRotationMatrix(camera.matrixWorld);
+  const currentRotation = new Quaternion().setFromRotationMatrix(
+    camera.matrixWorld,
+  );
+  const newRotation = easeTransition(currentRotation, oldRotation);
+  oldRotation = newRotation;
+
   const scale = new Vector3().setFromMatrixScale(camera.matrixWorld);
 
-  const matrixCam = new Matrix4().compose(newPosition, rotation, scale);
+  const matrixCam = new Matrix4().compose(newPosition, currentRotation, scale);
   audioConfig.scene.setListenerFromMatrix(matrixCam);
-
-  // * vector3.setFromMatrixPosition // position
-  // * quaternion.setFromRotationMatrix // rotation - quaternion
-  // * vector3.setFromMatrixScale // scale
-  // * matrix4.compose(position, quaternion, scale)
-
-  // audioConfig.scene.setListenerFromMatrix(camera.matrixWorld);
-
-  // oldRotation = quat;
 }
 
-function getVectorDiff(newVector, oldVector) {
-  const x = newVector['x'] - oldVector['x'];
-  const y = newVector['y'] - oldVector['y'];
-  const z = newVector['z'] - oldVector['z'];
-
-  const result = new Vector3(
-    oldVector['x'] + x / 1000,
-    oldVector['y'] + y / 1000,
-    oldVector['z'] + z / 1000,
-  );
+function easeTransition(current, old) {
+  let result = {};
+  for (const arg in current) {
+    const diff = current[arg] - old[arg];
+    result[arg] = old[arg] + diff / 1000;
+  }
 
   return result;
 }
