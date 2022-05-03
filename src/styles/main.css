@@ -2,6 +2,7 @@
 @import './utils/notification.css';
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+@import '../assets/fonts/bootstrap-icons/font/bootstrap-icons.css';
 
 body {
   position: relative;
@@ -94,13 +95,28 @@ body {
   overflow-y: auto;
 }
 
+.menu-btn {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .settings-btn {
   all: unset;
+  font-size: 2rem;
   background: rgba(251, 175, 0, 0.7);
-  border-radius: 6px;
-  padding: 0.5rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 50%;
+  padding: 0.7rem;
 }
 
 .settings-btn:hover {
   background: rgba(251, 175, 0, 1);
+}
+
+.settings-btn > i {
+  font-size: 2rem;
 }

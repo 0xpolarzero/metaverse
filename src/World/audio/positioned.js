@@ -78,7 +78,7 @@ function easeTransition(current, old) {
   let result = {};
   for (const arg in current) {
     const diff = current[arg] - old[arg];
-    result[arg] = old[arg] + diff / 1000;
+    result[arg] = old[arg] + diff / 100;
   }
 
   return result;
