@@ -47,41 +47,8 @@ const MonoSource = (url, obj) => {
   return { source, playSFX };
 };
 
-let oldPosition;
-let oldRotation;
-
-function initListener(camera) {
-  oldPosition = new Vector3().setFromMatrixPosition(camera.matrixWorld);
-  oldRotation = new Quaternion().setFromRotationMatrix(camera.matrixWorld);
-}
-
 function updateListener(camera) {
-  const currentPosition = new Vector3().setFromMatrixPosition(
-    camera.matrixWorld,
-  );
-  const newPosition = easeTransition(currentPosition, oldPosition);
-  oldPosition = newPosition;
-
-  const currentRotation = new Quaternion().setFromRotationMatrix(
-    camera.matrixWorld,
-  );
-  const newRotation = easeTransition(currentRotation, oldRotation);
-  oldRotation = newRotation;
-
-  const scale = new Vector3().setFromMatrixScale(camera.matrixWorld);
-
-  const matrixCam = new Matrix4().compose(newPosition, currentRotation, scale);
-  audioConfig.scene.setListenerFromMatrix(matrixCam);
+  audioConfig.scene.setListenerFromMatrix(camera.matrixWorld);
 }
 
-function easeTransition(current, old) {
-  let result = {};
-  for (const arg in current) {
-    const diff = current[arg] - old[arg];
-    result[arg] = old[arg] + diff / 100;
-  }
-
-  return result;
-}
-
-export { loadSFX, initListener, updateListener };
+export { loadSFX, updateListener };
