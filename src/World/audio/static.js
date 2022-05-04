@@ -6,7 +6,7 @@ import { displayNotif } from '../utils/notification';
 async function loadAmbientMusic() {
   const url = './assets/audio/ExtinctionAmb4ch.wav';
   const ambient = createSource(url, null);
-  ambient.playSource();
+  // ambient.playSource();
 }
 
 export { loadAmbientMusic };

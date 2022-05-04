@@ -1,6 +1,3 @@
-import { Quaternion } from 'three';
-import { Vector3 } from 'three';
-import { Matrix4 } from 'three';
 // import { loadSample } from '../utils/fetch-audio';
 import { audioConfig, createSource } from './main';
 
