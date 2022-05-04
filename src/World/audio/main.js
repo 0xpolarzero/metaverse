@@ -3,19 +3,22 @@ import { loadAmbientMusic } from './static';
 import { ResonanceAudio } from './resonance-audio';
 // import { default as Omnitone } from 'omnitone/build/omnitone.esm';
 import { displayNotif } from '../utils/notification';
+import { loadSFX } from './positioned';
 
 const order = 1;
 const outputMode = 'binaural';
+const sources = [];
 
 // Initiate audio context
 const audioContext = window.AudioContext || window.webkitAudioContext;
 
-let audioConfig = {
+const audioConfig = {
   context: new audioContext(),
+  sources: sources,
 };
 
 // Set up the audio scene (after user interaction)
-async function createAudioScene() {
+async function createAudioScene(envArray) {
   // Set the audio scene
   const audioScene = new ResonanceAudio(audioConfig.context, {
     ambisonicOrder: order,
@@ -46,10 +49,13 @@ async function createAudioScene() {
   // Set the audio scene acoustic properties
   // audioScene.setRoomProperties(room.dimensions, room.materials);
 
-  // Launch the sounds
+  // Load the sounds
   loadAmbientMusic();
-
-  return audioScene;
+  loadSFX(envArray);
+  // Play it
+  for (const source of audioConfig.sources) {
+    source.play();
+  }
 }
 
 function setOutputMode(mode, order) {
@@ -76,4 +82,33 @@ function stopAudio() {
     });
 }
 
-export { createAudioScene, audioConfig, resumeAudio, stopAudio };
+const createSource = (url, obj) => {
+  const audioElem = document.createElement('audio');
+  audioElem.src = url;
+  audioElem.crossOrigin = 'anonymous';
+  audioElem.preload = 'none';
+  audioElem.load();
+  audioElem.loop = true;
+
+  const audioElemSrc = audioConfig.context.createMediaElementSource(audioElem);
+  const source = audioConfig.scene.createSource(audioElem);
+
+  const playSource = async () => {
+    if (obj !== null) {
+      audioElemSrc.connect(source.input);
+      source.setFromMatrix(obj.matrixWorld);
+    } else {
+      audioElemSrc.connect(audioConfig.scene.listener.renderer.input);
+    }
+    // source.setRolloff('logarithmic');
+    // source.setMaxDistance(10);
+    // source.setMinDistance(0);
+    // source.setSourceWidth(360); // omnidirectional source
+
+    audioConfig.sources.push(audioElem);
+  };
+
+  return { source, playSource };
+};
+
+export { createAudioScene, audioConfig, createSource, resumeAudio, stopAudio };

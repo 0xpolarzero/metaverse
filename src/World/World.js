@@ -47,7 +47,6 @@ let loop;
 
 // Audio
 let audioLoaded = false;
-let audioFX;
 let envArray; // to get the objects positions
 
 const worldOctree = new Octree();
@@ -88,12 +87,10 @@ class World {
   }
 
   async initAudio() {
-    await createAudioScene();
-    audioFX = await loadSFX(envArray).catch((err) => {
+    await createAudioScene(envArray).catch((err) => {
       displayNotif('error', 'The audio file could not be loaded.');
       console.log(err);
     });
-
     audioLoaded = true;
   }
 
