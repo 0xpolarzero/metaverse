@@ -6,7 +6,7 @@ async function loadSFX(objArray) {
   let sfxBoule1 = {};
   sfxBoule1.url = './assets/audio/positioned_pad.wav';
   let sfxBoule2 = {};
-  sfxBoule2.url = './assets/audio/positioned_keyboard.wav';
+  sfxBoule2.url = './assets/audio/positioned_key.wav';
   let sfxBoule3 = {};
   sfxBoule3.url = './assets/audio/positioned_perc.wav';
   const sfxArray = [sfxBoule1, sfxBoule2, sfxBoule3];
