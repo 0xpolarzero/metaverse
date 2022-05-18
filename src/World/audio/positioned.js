@@ -4,11 +4,11 @@ import { audioConfig, createSource } from './main';
 // Load the sounds
 async function loadSFX(objArray) {
   let sfxBoule1 = {};
-  sfxBoule1.url = './assets/audio/drums.ogg';
+  sfxBoule1.url = './assets/audio/positioned_pad.wav';
   let sfxBoule2 = {};
-  sfxBoule2.url = './assets/audio/guitar.ogg';
+  sfxBoule2.url = './assets/audio/positioned_keyboard.wav';
   let sfxBoule3 = {};
-  sfxBoule3.url = './assets/audio/perc.ogg';
+  sfxBoule3.url = './assets/audio/positioned_perc.wav';
   const sfxArray = [sfxBoule1, sfxBoule2, sfxBoule3];
 
   // Create an object for each sound with its own properties
