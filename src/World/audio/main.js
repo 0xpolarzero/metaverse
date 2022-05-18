@@ -1,7 +1,7 @@
 import { loadAmbientMusic } from './static';
 // import { ResonanceAudio } from 'resonance-audio';
 import { ResonanceAudio } from './resonance-audio';
-// import { default as Omnitone } from 'omnitone/build/omnitone.esm';
+import { default as Omnitone } from 'omnitone/build/omnitone.esm';
 import { displayNotif } from '../utils/notification';
 import { loadSFX } from './positioned';
 
@@ -98,7 +98,14 @@ const createSource = (url, obj) => {
       audioElemSrc.connect(source.input);
       source.setFromMatrix(obj.matrixWorld);
     } else {
-      audioElemSrc.connect(audioConfig.scene.listener.renderer.input);
+      // audioElemSrc.connect(audioConfig.scene.listener.renderer.input);
+      // not working : the renderer would move with the camera
+      // Set the renderer for non-positioned sources
+      const renderer = Omnitone.createFOARenderer(audioConfig.context);
+      renderer.initialize().then(function () {
+        audioElemSrc.connect(renderer.input);
+        renderer.output.connect(audioConfig.context.destination);
+      });
     }
     // source.setRolloff('logarithmic');
     // source.setMaxDistance(10);
