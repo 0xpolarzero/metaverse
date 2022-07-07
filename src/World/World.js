@@ -33,8 +33,7 @@ import { lockControls } from './systems/lockControls';
 import { detectTabSwitch } from './systems/tabs';
 
 // Import audio
-import { createAudioScene } from './audio/main';
-import { loadSFX, updateListener } from './audio/positioned';
+import { createAudioScene, updateListener } from './audio/main';
 
 import { displayNotif } from './utils/notification';
 

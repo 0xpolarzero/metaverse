@@ -1,5 +1,4 @@
 import { loadSample } from '../utils/fetch-audio';
-import { audioConfig, createSource } from './main';
 import { displayNotif } from '../utils/notification';
 
 // Load the ambient sound

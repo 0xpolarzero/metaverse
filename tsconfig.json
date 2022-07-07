@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "sourceMap": true
+  },
+  "include": ["node_modules/@atmokyaudio"],
+  "files": ["node_modules/@atmokyaudio/websdk/dist/types/index.d.ts"]
+}
