@@ -31,7 +31,7 @@ async function createAudioScene(envArray) {
       renderer.externalizer.amount.value = 30;
       renderer.externalizer.character.value = 70;
 
-      // openSourceViewer(renderer);
+      openSourceViewer(renderer);
     })
     .then(() => {
       for (let i = 0; i < sourcesUrl.length; i++) {

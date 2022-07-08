@@ -7,7 +7,7 @@ function lockControls(camera) {
   const menu = document.querySelector('#user-menu');
   const blocker = document.querySelector('#container');
 
-  controls.pointerSpeed = 0.3;
+  controls.pointerSpeed = 0.5;
 
   menu.addEventListener('click', function () {
     controls.lock();
