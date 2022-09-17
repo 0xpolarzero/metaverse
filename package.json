@@ -19,7 +19,6 @@
   },
   "homepage": "https://github.com/polar0/metaverse#readme",
   "devDependencies": {
-    "@atmokyaudio/websdk-dev-tools": "^0.1.0",
     "@babel/core": "^7.17.8",
     "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.16.11",
@@ -45,7 +44,7 @@
     "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
-    "@atmokyaudio/websdk": "^0.2.0",
+    "@atmokyaudio/websdk": "^0.4.0",
     "ambisonics": "^0.2.3",
     "omnitone": "^1.3.0",
     "resonance-audio": "^1.0.0",

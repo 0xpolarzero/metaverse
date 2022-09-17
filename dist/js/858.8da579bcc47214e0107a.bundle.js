@@ -1,1 +1,0 @@
-(self.webpackChunkmetaverse=self.webpackChunkmetaverse||[]).push([[858],{3858:()=>{}}]);

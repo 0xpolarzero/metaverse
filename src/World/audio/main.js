@@ -1,5 +1,5 @@
 import { Manager, Renderer } from '@atmokyaudio/websdk';
-import { openSourceViewer } from '@atmokyaudio/websdk-dev-tools';
+// import { openSourceViewer } from '@atmokyaudio/websdk-dev-tools';
 
 // Initiate audio
 const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -24,14 +24,14 @@ async function createAudioScene(envArray) {
       renderer.connect(audioContext.destination, 0, 0);
       console.log('Audio setup complete');
 
-      console.log(renderer.attenuationCurve.getParameters());
+      console.log(renderer.attenuationCurves.getParameters());
       renderer.attenuationCurve.setParameters(1, 0, 10, -20, 50, -60, 60);
 
       renderer.reverb.amount.value = 20;
       renderer.externalizer.amount.value = 30;
       renderer.externalizer.character.value = 70;
 
-      openSourceViewer(renderer);
+      // openSourceViewer(renderer);
     })
     .then(() => {
       for (let i = 0; i < sourcesUrl.length; i++) {
