@@ -63,10 +63,10 @@ class World {
     const gridHelper = new GridHelper(30, 30);
     scene.add(gridHelper);
     gridHelper.position.set(0, -4.5, 0);
-    const axesHelper = new AxesHelper(50);
-    axesHelper.setColors('blue', 'red', 'green');
-    scene.add(axesHelper);
-    axesHelper.position.set(0, -4, 0);
+    // const axesHelper = new AxesHelper(50);
+    // axesHelper.setColors('blue', 'red', 'green');
+    // scene.add(axesHelper);
+    // axesHelper.position.set(0, -4, 0);
 
     const lights = createLights();
     scene.add(...lights);
