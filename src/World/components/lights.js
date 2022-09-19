@@ -20,8 +20,8 @@ function createLights() {
   fillLight1.castShadow = true;
   lightsArray.push(fillLight1);
 
-  const helper1 = new DirectionalLightHelper(fillLight1, 5);
-  lightsArray.push(helper1);
+  // const helper1 = new DirectionalLightHelper(fillLight1, 5);
+  // lightsArray.push(helper1);
 
   // Purple
   const fillLight2 = new DirectionalLight(0xff9999, 5);
@@ -29,8 +29,8 @@ function createLights() {
   fillLight2.castShadow = true;
   lightsArray.push(fillLight2);
 
-  const helper2 = new DirectionalLightHelper(fillLight2, 5);
-  lightsArray.push(helper2);
+  // const helper2 = new DirectionalLightHelper(fillLight2, 5);
+  // lightsArray.push(helper2);
 
   const directionalLight1 = new DirectionalLight(0xffffaa, 5);
   directionalLight1.position.set(-5, 25, -1);
@@ -56,10 +56,10 @@ function createLights() {
     dir.shadow.bias = -0.00006;
   }
 
-  const helper3 = new DirectionalLightHelper(directionalLight1, 5);
-  lightsArray.push(helper3);
-  const helper4 = new DirectionalLightHelper(directionalLight2, 5);
-  lightsArray.push(helper4);
+  // const helper3 = new DirectionalLightHelper(directionalLight1, 5);
+  // lightsArray.push(helper3);
+  // const helper4 = new DirectionalLightHelper(directionalLight2, 5);
+  // lightsArray.push(helper4);
 
   const camLight = new SpotLight(
     0xffffaa,
