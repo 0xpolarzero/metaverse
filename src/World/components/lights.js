@@ -15,7 +15,7 @@ function createLights() {
   lightsArray.push(ambientLight);
 
   // Light Red
-  const fillLight1 = new DirectionalLight(0xff9999, 5);
+  const fillLight1 = new DirectionalLight(0xff9999, 1);
   fillLight1.position.set(10, 2, 0);
   fillLight1.castShadow = true;
   lightsArray.push(fillLight1);
@@ -24,7 +24,7 @@ function createLights() {
   // lightsArray.push(helper1);
 
   // Purple
-  const fillLight2 = new DirectionalLight(0xff9999, 5);
+  const fillLight2 = new DirectionalLight(0xff9999, 3);
   fillLight2.position.set(-10.5, 10, -2);
   fillLight2.castShadow = true;
   lightsArray.push(fillLight2);
@@ -32,11 +32,11 @@ function createLights() {
   // const helper2 = new DirectionalLightHelper(fillLight2, 5);
   // lightsArray.push(helper2);
 
-  const directionalLight1 = new DirectionalLight(0xffffaa, 5);
+  const directionalLight1 = new DirectionalLight(0xffffaa, 2);
   directionalLight1.position.set(-5, 25, -1);
   lightsArray.push(directionalLight1);
 
-  const directionalLight2 = new DirectionalLight(0xffffaa, 5);
+  const directionalLight2 = new DirectionalLight(0xffffaa, 3);
   directionalLight2.position.set(5, 25, 1);
   lightsArray.push(directionalLight2);
 
