@@ -8,13 +8,11 @@ const modelsArray = [];
 async function loadBlends() {
   const loader = new GLTFLoader().setPath('./assets/models/');
 
-  const [boule1Data, boule2Data, boule3Data, bouleTransData] =
-    await Promise.all([
-      loader.loadAsync('boule1.glb'),
-      loader.loadAsync('boule2.glb'),
-      loader.loadAsync('boule3.glb'),
-      loader.loadAsync('bouleTrans.glb'),
-    ]);
+  const [boule1Data, boule2Data, boule3Data] = await Promise.all([
+    loader.loadAsync('boule1.glb'),
+    loader.loadAsync('boule2.glb'),
+    loader.loadAsync('boule3.glb'),
+  ]);
 
   const boule1 = setupModel(boule1Data);
   boule1.position.set(10, -3.5, 0);
@@ -27,10 +25,6 @@ async function loadBlends() {
   const boule3 = setupModel(boule3Data);
   boule3.position.set(-3, -3.5, 0);
   boule3.castShadow = true;
-
-  const bouleTrans = setupModel(bouleTransData);
-  bouleTrans.position.set(-5, -3.5, -5);
-  bouleTrans.castShadow = true;
 
   boule1.tick = (delta) => {
     const radiansPerSecond = MathUtils.degToRad(35);
@@ -53,7 +47,6 @@ async function loadBlends() {
     boule1,
     boule2,
     boule3,
-    bouleTrans,
   };
 }
 
