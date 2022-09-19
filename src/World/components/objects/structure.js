@@ -11,7 +11,6 @@ async function createStructure(collider, scene) {
   // LOADING THE STRUCTURE
   const loader = new GLTFLoader(loadingManager).setPath('./assets/models/');
 
-  // LOADING WITH THE APPLIED TEXTURE
   loader.load('structureDivided.glb', (gltf) => {
     scene.add(gltf.scene);
     collider.fromGraphNode(gltf.scene);
