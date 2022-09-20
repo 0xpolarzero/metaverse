@@ -18,10 +18,10 @@ let sourcesUrl = [
   './assets/audio/Instru_stems-rim.mp3',
   './assets/audio/Instru_stems-perc.mp3',
   './assets/audio/Instru_stems-trance-pad.mp3',
-  './assets/audio/Instru_stems_VX-main.mp3',
-  './assets/audio/Instru_stems_VX-adlib.mp3',
-  './assets/audio/Instru_stems_VX-backs.mp3',
-  './assets/audio/Instru_stems_VX-amb.mp3',
+  // './assets/audio/Instru_stems_VX-main.mp3',
+  // './assets/audio/Instru_stems_VX-adlib.mp3',
+  // './assets/audio/Instru_stems_VX-backs.mp3',
+  // './assets/audio/Instru_stems_VX-amb.mp3',
 ];
 
 // Set up the audio scene (after user interaction)
@@ -81,36 +81,36 @@ async function createAudioScene() {
       speed: 35,
       color: 'green',
     },
-    {
-      type: 'VX Main',
-      position: { x: 0, y: -3.5, z: 6 },
-      speed: 35,
-      color: 'rose',
-    },
-    {
-      type: 'VX Adlib',
-      position: { x: 0, y: -2, z: 14 },
-      speed: 35,
-      color: 'yellow',
-    },
-    {
-      type: 'VX Backs',
-      position: { x: 2, y: 4, z: 16 },
-      speed: 35,
-      color: 'yellow',
-    },
-    {
-      type: 'VX Ambient',
-      position: { x: -2, y: 4, z: 16 },
-      speed: 35,
-      color: 'yellow',
-    },
+    // {
+    //   type: 'VX Main',
+    //   position: { x: 0, y: -3.5, z: 6 },
+    //   speed: 35,
+    //   color: 'rose',
+    // },
+    // {
+    //   type: 'VX Adlib',
+    //   position: { x: 0, y: -2, z: 14 },
+    //   speed: 35,
+    //   color: 'yellow',
+    // },
+    // {
+    //   type: 'VX Backs',
+    //   position: { x: 2, y: 4, z: 16 },
+    //   speed: 35,
+    //   color: 'yellow',
+    // },
+    // {
+    //   type: 'VX Ambient',
+    //   position: { x: -2, y: 4, z: 16 },
+    //   speed: 35,
+    //   color: 'yellow',
+    // },
   ];
 
   manager
     .prepareContext(audioContext)
     .then(() => {
-      let numSources = 13;
+      let numSources = 9;
       renderer = manager.createRenderer(numSources);
       renderer.connect(audioContext.destination, 0, 0);
       console.log('Audio setup complete');
