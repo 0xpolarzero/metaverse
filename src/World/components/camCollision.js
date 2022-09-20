@@ -1,14 +1,14 @@
 import { displayNotif } from '../utils/notification';
 
-import { Mesh, DodecahedronGeometry, MeshBasicMaterial, Box3 } from 'three';
+import { Mesh, MeshBasicMaterial, Box3, CapsuleGeometry } from 'three';
 
 function createCamColliders() {
   const camSphereDetector = new Mesh(
-    new DodecahedronGeometry(),
+    new CapsuleGeometry(1, 0),
     new MeshBasicMaterial({
       color: 'red',
-      transparent: true,
-      opacity: 0,
+      transparent: false,
+      opacity: 1,
     }),
   );
 
