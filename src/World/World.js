@@ -198,9 +198,10 @@ class World {
     // detectTabSwitch();
 
     const randomize = document.querySelector('.random-pos');
-    randomize.addEventListener('click', () => {
+    randomize.addEventListener('click', (e) => {
       resetAudio();
       this.initAudio('random');
+      e.stopPropagation();
     });
 
     // The structure is already loaded so the animation can start
