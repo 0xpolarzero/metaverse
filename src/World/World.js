@@ -32,7 +32,7 @@ import { lockControls } from './systems/lockControls';
 import { detectTabSwitch } from './systems/tabs';
 
 // Import audio
-import { createAudioScene, updateListener } from './audio/main';
+import { createAudioScene, resetAudio, updateListener } from './audio/main';
 
 import { displayNotif } from './utils/notification';
 
@@ -78,9 +78,12 @@ class World {
     await createStructure(worldOctree, scene);
   }
 
-  async initAudio() {
-    await createAudioScene()
+  async initAudio(status) {
+    await createAudioScene(status)
       .then((objs) => {
+        // Remove the objects if they already exist
+        envArray && scene.remove(...envArray);
+        // Get them (again) with the new positions
         envArray = loadBlends(objs);
         scene.add(...envArray);
         // loop.updatables.push(...bullets);
@@ -114,8 +117,6 @@ class World {
     });
 
     async function getUserInteraction() {
-      console.log(envArray);
-
       // INTERACTION WITH THE MODELS
       const camSphereDetector = createCamColliders();
       camera.add(camSphereDetector);
@@ -195,6 +196,13 @@ class World {
     document.addEventListener('click', isInteractionReady);
     // Detect tab switching (stops audio and animation)
     // detectTabSwitch();
+
+    const randomize = document.querySelector('.random-pos');
+    randomize.addEventListener('click', () => {
+      resetAudio();
+      this.initAudio('random');
+    });
+
     // The structure is already loaded so the animation can start
     animate();
   }

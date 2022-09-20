@@ -25,59 +25,68 @@ let sourcesUrl = [
 ];
 
 // Set up the audio scene (after user interaction)
-async function createAudioScene() {
+async function createAudioScene(status) {
   const objInfos = [
     {
       type: 'Chords',
-      position: { x: 4, y: -3.5, z: -1 },
+      position:
+        status === 'random' ? getRandomPosition() : { x: 4, y: -3.5, z: -1 },
       speed: 35,
       color: 'purple',
     },
     {
       type: 'Bass',
-      position: { x: 0, y: 0, z: -2 },
+      position:
+        status === 'random' ? getRandomPosition() : { x: 0, y: 0, z: -2 },
       speed: 35,
       color: 'red',
     },
     {
       type: 'Kick',
-      position: { x: 1.25, y: -1, z: -1 },
+      position:
+        status === 'random' ? getRandomPosition() : { x: 1.25, y: -1, z: -1 },
       speed: 35,
       color: 'blue',
     },
     {
       type: 'Snare',
-      position: { x: -1.25, y: -1, z: -1 },
+      position:
+        status === 'random' ? getRandomPosition() : { x: -1.25, y: -1, z: -1 },
       speed: 35,
       color: 'blue',
     },
     {
       type: 'Hats',
-      position: { x: -6, y: -2.5, z: 2 },
+      position:
+        status === 'random' ? getRandomPosition() : { x: -6, y: -2.5, z: 2 },
       speed: 35,
       color: 'blue',
     },
     {
       type: 'Hats 2',
-      position: { x: 6, y: -2.5, z: 2 },
+      position:
+        status === 'random' ? getRandomPosition() : { x: 6, y: -2.5, z: 2 },
       speed: 35,
       color: 'blue',
     },
     {
       type: 'Rim',
-      position: { x: 5, y: -1.5, z: 7 },
+      position:
+        status === 'random' ? getRandomPosition() : { x: 5, y: -1.5, z: 7 },
       speed: 35,
       color: 'blue',
     },
     {
       type: 'Percs',
-      position: { x: -5, y: -1.5, z: 7 },
+      position:
+        status === 'random' ? getRandomPosition() : { x: -5, y: -1.5, z: 7 },
       speed: 35,
       color: 'blue',
     },
     {
       type: 'Trance Pad',
-      position: { x: -4, y: -3.5, z: -1 },
+      position:
+        status === 'random' ? getRandomPosition() : { x: -4, y: -3.5, z: -1 },
       speed: 35,
       color: 'green',
     },
@@ -106,6 +115,8 @@ async function createAudioScene() {
     //   color: 'yellow',
     // },
   ];
+
+  console.log(objInfos);
 
   manager
     .prepareContext(audioContext)
@@ -171,6 +182,12 @@ function stopAudio() {
     });
 }
 
+function resetAudio() {
+  for (const source of sources) {
+    renderer.removeSource(source);
+  }
+}
+
 function updateListener(camera) {
   if (!renderer) return;
 
@@ -187,4 +204,13 @@ function updateListener(camera) {
   );
 }
 
-export { createAudioScene, resumeAudio, stopAudio, updateListener };
+function getRandomPosition() {
+  // Return x and z between -10 and 10 & y between -3.5 and -1
+  return {
+    x: Math.random() * 20 - 10,
+    y: Math.random() * 2.5 - 3.5,
+    z: Math.random() * 20 - 10,
+  };
+}
+
+export { createAudioScene, resumeAudio, stopAudio, resetAudio, updateListener };
