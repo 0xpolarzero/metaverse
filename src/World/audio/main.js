@@ -116,8 +116,6 @@ async function createAudioScene(status) {
     // },
   ];
 
-  console.log(objInfos);
-
   manager
     .prepareContext(audioContext)
     .then(() => {

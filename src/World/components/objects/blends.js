@@ -1,15 +1,40 @@
-import { MathUtils, Mesh, SphereGeometry, MeshBasicMaterial } from 'three';
+import {
+  MathUtils,
+  Mesh,
+  SphereGeometry,
+  MeshBasicMaterial,
+  PointsMaterial,
+  Points,
+  BufferGeometry,
+  Float32BufferAttribute,
+} from 'three';
 
 function loadBlends(objects) {
   let bulletsArray = [];
 
   for (const obj of objects) {
-    const object = new Mesh(
-      new SphereGeometry(1, 16, 16),
-      new MeshBasicMaterial({
-        color: obj.color,
-      }),
+    const geometry = new SphereGeometry(1, 16, 32);
+
+    const particlesGeometry = new BufferGeometry();
+    const particlesCnt = 1000;
+
+    const posArray = new Float32Array(particlesCnt * 3);
+
+    for (let i = 0; i < particlesCnt * 3; i++) {
+      posArray[i] = Math.random();
+    }
+
+    particlesGeometry.setAttribute(
+      'position',
+      new Float32BufferAttribute(posArray, 3),
     );
+
+    const material = new PointsMaterial({
+      size: 0.005,
+    });
+
+    const object = new Points(geometry, material);
+
     object.position.set(obj.position.x, obj.position.y, obj.position.z);
     object.castShadow = true;
     object.tick = (delta) => {
