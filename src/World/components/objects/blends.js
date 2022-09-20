@@ -7,7 +7,7 @@ function loadBlends(objects) {
     const object = new Mesh(
       new SphereGeometry(1, 16, 16),
       new MeshBasicMaterial({
-        color: 'red',
+        color: obj.color,
       }),
     );
     object.position.set(obj.position.x, obj.position.y, obj.position.z);

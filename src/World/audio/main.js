@@ -18,6 +18,10 @@ let sourcesUrl = [
   './assets/audio/Instru_stems-rim.mp3',
   './assets/audio/Instru_stems-perc.mp3',
   './assets/audio/Instru_stems-trance-pad.mp3',
+  './assets/audio/Instru_stems_VX-main.mp3',
+  './assets/audio/Instru_stems_VX-adlib.mp3',
+  './assets/audio/Instru_stems_VX-backs.mp3',
+  './assets/audio/Instru_stems_VX-amb.mp3',
 ];
 
 // Set up the audio scene (after user interaction)
@@ -25,55 +29,88 @@ async function createAudioScene() {
   const objInfos = [
     {
       type: 'Chords',
-      position: { x: 0, y: -3.5, z: 0 },
+      position: { x: 4, y: -3.5, z: 8 },
       speed: 35,
+      color: 'purple',
     },
     {
       type: 'Bass',
-      position: { x: 0, y: -3.5, z: -4 },
+      position: { x: 0, y: 0, z: 7 },
       speed: 35,
+      color: 'red',
     },
     {
       type: 'Kick',
-      position: { x: -4, y: -3.5, z: 0 },
+      position: { x: 1.25, y: -1, z: 8 },
       speed: 35,
+      color: 'blue',
     },
     {
       type: 'Snare',
-      position: { x: -8, y: -3.5, z: 0 },
+      position: { x: -1.25, y: -1, z: 8 },
       speed: 35,
+      color: 'blue',
     },
     {
       type: 'Hats',
-      position: { x: -12, y: -3.5, z: 0 },
+      position: { x: -6, y: -2.5, z: 6 },
       speed: 35,
+      color: 'blue',
     },
     {
       type: 'Hats 2',
-      position: { x: 12, y: -3.5, z: 0 },
+      position: { x: 6, y: -2.5, z: 6 },
       speed: 35,
+      color: 'blue',
     },
     {
       type: 'Rim',
-      position: { x: 8, y: -3.5, z: 0 },
+      position: { x: 7, y: -1.5, z: 12 },
       speed: 35,
+      color: 'blue',
     },
     {
       type: 'Percs',
-      position: { x: 8, y: -3.5, z: 4 },
+      position: { x: -7, y: -1.5, z: 12 },
       speed: 35,
+      color: 'blue',
     },
     {
       type: 'Trance Pad',
-      position: { x: -8, y: -3.5, z: 4 },
+      position: { x: -4, y: -3.5, z: 8 },
       speed: 35,
+      color: 'green',
+    },
+    {
+      type: 'VX Main',
+      position: { x: 0, y: -3.5, z: 6 },
+      speed: 35,
+      color: 'rose',
+    },
+    {
+      type: 'VX Adlib',
+      position: { x: 0, y: -2, z: 14 },
+      speed: 35,
+      color: 'yellow',
+    },
+    {
+      type: 'VX Backs',
+      position: { x: 2, y: 4, z: 16 },
+      speed: 35,
+      color: 'yellow',
+    },
+    {
+      type: 'VX Ambient',
+      position: { x: -2, y: 4, z: 16 },
+      speed: 35,
+      color: 'yellow',
     },
   ];
 
   manager
     .prepareContext(audioContext)
     .then(() => {
-      let numSources = 9;
+      let numSources = 13;
       renderer = manager.createRenderer(numSources);
       renderer.connect(audioContext.destination, 0, 0);
       console.log('Audio setup complete');
