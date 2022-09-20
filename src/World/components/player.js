@@ -7,7 +7,7 @@ const playerVelocity = new Vector3();
 const playerDirection = new Vector3();
 
 // Player capsule
-const initialPosition = [10, 10];
+const initialPosition = [0, 10];
 
 const playerCollider = new Capsule(
   new Vector3(initialPosition[0], 0.35, initialPosition[1]), // Lower part of capsule
