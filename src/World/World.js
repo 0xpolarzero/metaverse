@@ -1,5 +1,4 @@
 import { Clock, GridHelper, Box3Helper } from 'three';
-import * as THREE from 'three';
 
 // Import JSM modules
 import { Octree } from 'three/examples/jsm/math/Octree';
@@ -46,8 +45,8 @@ let resizer;
 let loop;
 
 // Audio
+let envArray;
 let audioLoaded = false;
-let envArray; // to get the objects positions
 
 const worldOctree = new Octree();
 
@@ -76,21 +75,21 @@ class World {
     camera.add(sprite);
   }
 
-  async initObjects() {
-    const { boule1, boule2, boule3, bouleTrans } = await loadBlends();
-    scene.add(boule1, boule2, boule3, bouleTrans);
-    loop.updatables.push(boule1, boule2, boule3);
-  }
-
   async initStructure() {
     await createStructure(worldOctree, scene);
   }
 
   async initAudio() {
-    await createAudioScene(envArray).catch((err) => {
-      displayNotif('error', 'The audio file could not be loaded.');
-      console.log(err);
-    });
+    await createAudioScene()
+      .then((objs) => {
+        envArray = loadBlends(objs);
+        scene.add(...envArray);
+        // loop.updatables.push(...bullets);
+      })
+      .catch((err) => {
+        displayNotif('error', 'The audio file could not be loaded.');
+        console.log(err);
+      });
     audioLoaded = true;
   }
 
@@ -116,11 +115,11 @@ class World {
     });
 
     async function getUserInteraction() {
+      console.log(envArray);
+
       // INTERACTION WITH THE MODELS
       const camSphereDetector = createCamColliders();
       camera.add(camSphereDetector);
-      envArray = await createBlendsEnv();
-      scene.add(...envArray);
 
       // HELPERS FOR VISUAL
       const [camBB, boulesBB] = getObjectProximity(camera, ...envArray);
@@ -187,8 +186,14 @@ class World {
     }
 
     lockControls(camera);
-    // Get the user interaction (camera with models)
-    getUserInteraction();
+    // Get the user interaction (camera with models) only after a click on the page
+    const isInteractionReady = () => {
+      if (audioLoaded) {
+        getUserInteraction();
+        document.removeEventListener('click', isInteractionReady);
+      }
+    };
+    document.addEventListener('click', isInteractionReady);
     // Add the menu settings
     initMenu();
     // Detect tab switching (stops audio and animation)

@@ -42,8 +42,6 @@ function showUserSelection(camera, ...objs) {
 }
 
 function showObjectInformation(object) {
-  console.log(`Got ${object.desc}`);
-
   informations.style.display = 'flex';
   document.querySelector('#informations-box').textContent = object.desc;
 }

@@ -1,79 +1,27 @@
 import { MathUtils, Mesh, SphereGeometry, MeshBasicMaterial } from 'three';
 
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { setupModel } from './setupModel';
+function loadBlends(objects) {
+  let bulletsArray = [];
 
-const modelsArray = [];
-
-async function loadBlends() {
-  const loader = new GLTFLoader().setPath('./assets/models/');
-
-  const [boule1Data, boule2Data, boule3Data] = await Promise.all([
-    loader.loadAsync('boule1.glb'),
-    loader.loadAsync('boule2.glb'),
-    loader.loadAsync('boule3.glb'),
-  ]);
-
-  const boule1 = setupModel(boule1Data);
-  boule1.position.set(10, -3.5, 0);
-  boule1.castShadow = true;
-
-  const boule2 = setupModel(boule2Data);
-  boule2.position.set(0, -3.5, -3);
-  boule2.castShadow = true;
-
-  const boule3 = setupModel(boule3Data);
-  boule3.position.set(-3, -3.5, 0);
-  boule3.castShadow = true;
-
-  boule1.tick = (delta) => {
-    const radiansPerSecond = MathUtils.degToRad(35);
-    boule1.rotation.y += radiansPerSecond * delta;
-  };
-
-  boule2.tick = (delta) => {
-    const radiansPerSecond = MathUtils.degToRad(10);
-    boule2.rotation.y -= radiansPerSecond * delta;
-  };
-
-  boule3.tick = (delta) => {
-    const radiansPerSecond = MathUtils.degToRad(50);
-    boule3.rotation.x += radiansPerSecond * delta;
-  };
-
-  modelsArray.push(boule1, boule2, boule3);
-
-  return {
-    boule1,
-    boule2,
-    boule3,
-  };
-}
-
-async function createBlendsEnv() {
-  const objGeometry = new SphereGeometry(2, 32, 16);
-  const objMaterial = new MeshBasicMaterial({
-    color: 'red',
-    transparent: true,
-    opacity: 0,
-  });
-
-  const envArray = [];
-
-  // Create an enveloppe for each blend, for detection and interaction
-  for (let i = 0; i < modelsArray.length; i++) {
-    const object = new Mesh(objGeometry, objMaterial);
-    object.position.set(
-      modelsArray[i].position.x,
-      modelsArray[i].position.y,
-      modelsArray[i].position.z,
+  for (const obj of objects) {
+    const object = new Mesh(
+      new SphereGeometry(1, 16, 16),
+      new MeshBasicMaterial({
+        color: 'red',
+      }),
     );
-    object.userData = { desc: `model ${i + 1}` };
-    object.userData.sound = `./assets/audio/models/boule${i + 1}.wav`;
-    envArray.push(object);
+    object.position.set(obj.position.x, obj.position.y, obj.position.z);
+    object.castShadow = true;
+    object.tick = (delta) => {
+      const radiansPerSecond = MathUtils.degToRad(object.speed);
+      object.rotation.y += radiansPerSecond * delta;
+    };
+    object.userData = { desc: obj.type };
+
+    bulletsArray.push(object);
   }
 
-  return envArray;
+  return bulletsArray;
 }
 
-export { loadBlends, createBlendsEnv };
+export { loadBlends };

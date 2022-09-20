@@ -9,17 +9,71 @@ let manager = new Manager();
 
 let sources = [];
 let sourcesUrl = [
-  './assets/audio/positioned_pad.wav',
-  './assets/audio/positioned_perc.wav',
-  './assets/audio/positioned_key.wav',
+  './assets/audio/Instru_stems-chords.mp3',
+  './assets/audio/Instru_stems-bass.mp3',
+  './assets/audio/Instru_stems-kick.mp3',
+  './assets/audio/Instru_stems-snare.mp3',
+  './assets/audio/Instru_stems-hats.mp3',
+  './assets/audio/Instru_stems-hats-2.mp3',
+  './assets/audio/Instru_stems-rim.mp3',
+  './assets/audio/Instru_stems-perc.mp3',
+  './assets/audio/Instru_stems-trance-pad.mp3',
 ];
 
 // Set up the audio scene (after user interaction)
-async function createAudioScene(envArray) {
+async function createAudioScene() {
+  const objInfos = [
+    {
+      type: 'Chords',
+      position: { x: 0, y: -3.5, z: 0 },
+      speed: 35,
+    },
+    {
+      type: 'Bass',
+      position: { x: 0, y: -3.5, z: -4 },
+      speed: 35,
+    },
+    {
+      type: 'Kick',
+      position: { x: -4, y: -3.5, z: 0 },
+      speed: 35,
+    },
+    {
+      type: 'Snare',
+      position: { x: -8, y: -3.5, z: 0 },
+      speed: 35,
+    },
+    {
+      type: 'Hats',
+      position: { x: -12, y: -3.5, z: 0 },
+      speed: 35,
+    },
+    {
+      type: 'Hats 2',
+      position: { x: 12, y: -3.5, z: 0 },
+      speed: 35,
+    },
+    {
+      type: 'Rim',
+      position: { x: 8, y: -3.5, z: 0 },
+      speed: 35,
+    },
+    {
+      type: 'Percs',
+      position: { x: 8, y: -3.5, z: 4 },
+      speed: 35,
+    },
+    {
+      type: 'Trance Pad',
+      position: { x: -8, y: -3.5, z: 4 },
+      speed: 35,
+    },
+  ];
+
   manager
     .prepareContext(audioContext)
     .then(() => {
-      let numSources = 3;
+      let numSources = 9;
       renderer = manager.createRenderer(numSources);
       renderer.connect(audioContext.destination, 0, 0);
       console.log('Audio setup complete');
@@ -34,13 +88,15 @@ async function createAudioScene(envArray) {
     })
     .then(() => {
       for (let i = 0; i < sourcesUrl.length; i++) {
-        const source = createSource(sourcesUrl[i], envArray[i]);
+        const source = createSource(sourcesUrl[i], objInfos[i]);
         sources.push(source);
       }
     })
     .catch((err) => {
       console.log(err);
     });
+
+  return objInfos;
 }
 
 const createSource = (url, obj) => {
