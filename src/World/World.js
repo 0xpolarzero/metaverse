@@ -32,7 +32,12 @@ import { lockControls } from './systems/lockControls';
 import { detectTabSwitch } from './systems/tabs';
 
 // Import audio
-import { createAudioScene, resetAudio, updateListener } from './audio/main';
+import {
+  createAudioScene,
+  resetAudio,
+  updateListener,
+  updateRoomParameters,
+} from './audio/main';
 
 import { displayNotif } from './utils/notification';
 
@@ -202,6 +207,14 @@ class World {
       resetAudio();
       this.initAudio('random');
       e.stopPropagation();
+    });
+
+    const parameters = document.querySelectorAll('input[type="range"]');
+    parameters.forEach((param) => {
+      param.addEventListener('click', (e) => {
+        updateRoomParameters(e.target);
+        e.stopPropagation();
+      });
     });
 
     // The structure is already loaded so the animation can start

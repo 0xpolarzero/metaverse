@@ -23,13 +23,56 @@
       <div id="user-menu">
         <div class="title">CLICK TO ENTER</div>
         <div class="content">
-          <div>
-            Move : <span class="user-menu-keys">WASD</span> (Hold
-            <span class="user-menu-keys">SHIFT</span> to go faster)
+          <div class="instructions">
+            <div>
+              Move : <span class="user-menu-keys">WASD</span> (Hold
+              <span class="user-menu-keys">SHIFT</span> to go faster)
+            </div>
+            <div>Get infos : <span class="user-menu-keys">CLICK</span></div>
+            <div>Menu : <span class="user-menu-keys">ESCAPE</span></div>
           </div>
-          <div>Get infos : <span class="user-menu-keys">CLICK</span></div>
-          <div>Menu : <span class="user-menu-keys">ESCAPE</span></div>
-          <button class="random-pos">Randomize positions</button>
+
+          <div class="parameters">
+            <button class="random-pos">Randomize positions</button>
+
+            <div class="wrapper">
+              <div class="reverb-title">Reverb</div>
+
+              <div class="reverb">
+                <label for="reverb-amount">Amount</label>
+                <input
+                  type="range"
+                  name="reverb"
+                  id="reverb-amount"
+                  min="0"
+                  max="100"
+                  value="20"
+                />
+              </div>
+
+              <div class="externalizer">
+                <label for="externalizer-character">Room character</label>
+                <input
+                  type="range"
+                  name="externalizer-character"
+                  id="externalizer-character"
+                  min="0"
+                  max="100"
+                  value="50"
+                />
+
+                <label for="externalizer-amount">Intensity</label>
+                <input
+                  type="range"
+                  name="externalizer-amount"
+                  id="externalizer-amount"
+                  min="0"
+                  max="100"
+                  value="30"
+                />
+              </div>
+            </div>
+          </div>
           <div class="powered">
             Audio powered by
             <span class="user-menu-keys"

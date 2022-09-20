@@ -8,7 +8,7 @@ body {
   position: relative;
   font-family: 'Poppins', sans-serif;
   font-weight: 200;
-  font-size: 12px;
+  font-size: 14px;
   color: #ffffff;
 
   margin: 0;
@@ -97,10 +97,18 @@ body {
   overflow-y: auto;
 }
 
-.menu-btn {
+.content {
   display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.content > div:not(.powered) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 button {
@@ -112,7 +120,7 @@ button {
   align-items: center;
   gap: 1rem;
   border-radius: 6px;
-  padding: 0.3rem 0.7rem;
+  padding: 0.3rem 1rem;
 
   transition: all 0.1s ease-in-out;
 }
@@ -125,10 +133,34 @@ button > i {
   font-size: 2rem;
 }
 
-.content {
+.reverb,
+.externalizer,
+.wrapper {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper {
+  padding: 0.5rem 2rem;
+  border: 1px dashed #fbaf00;
+}
+
+.wrapper > div {
+  padding: 0.7rem 0;
+}
+
+.wrapper > div:not(div:last-of-type) {
+  border-bottom: 1px dashed #fbaf00;
+}
+
+.reverb-title {
+  font-size: 1.5rem;
+}
+
+input {
+  margin: 0.5rem 1rem;
 }
 
 .powered {

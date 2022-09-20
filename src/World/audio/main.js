@@ -128,9 +128,12 @@ async function createAudioScene(status) {
 
       // renderer.attenuationCurves.setParameters(1, 0, 10, -20, 50, -60, 60);
 
-      renderer.reverb.amount.value = 20;
-      renderer.externalizer.amount.value = 30;
-      renderer.externalizer.character.value = 70;
+      renderer.reverb.amount.value =
+        document.querySelector('#reverb-amount').value || 20;
+      renderer.externalizer.amount.value =
+        document.querySelector('#externalizer-amount').value || 30;
+      renderer.externalizer.character.value =
+        document.querySelector('#externalizer-character').value || 50;
 
       // openSourceViewer(renderer);
     })
@@ -213,4 +216,19 @@ function getRandomPosition() {
   };
 }
 
-export { createAudioScene, resumeAudio, stopAudio, resetAudio, updateListener };
+function updateRoomParameters(input) {
+  if (input.id === 'reverb-amount') renderer.reverb.amount.value = input.value;
+  if (input.id === 'externalizer-amount')
+    renderer.externalizer.amount.value = input.value;
+  if (input.id === 'externalizer-character')
+    renderer.externalizer.character.value = input.value;
+}
+
+export {
+  createAudioScene,
+  resumeAudio,
+  stopAudio,
+  resetAudio,
+  updateListener,
+  updateRoomParameters,
+};
