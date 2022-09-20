@@ -59,7 +59,7 @@ class World {
     resizer = new Resizer(container, camera, renderer);
 
     // Grid to help localization
-    const gridHelper = new GridHelper(37, 30);
+    const gridHelper = new GridHelper(23, 30);
     scene.add(gridHelper);
     gridHelper.position.set(0, -4.6, 0);
     // const axesHelper = new AxesHelper(50);
