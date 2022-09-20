@@ -23,7 +23,6 @@ import {
 import { initParticles } from './components/particles';
 import { loadBlends, createBlendsEnv } from './components/objects/blends';
 import { createStructure } from './components/objects/structure';
-import { initMenu } from './components/menu';
 
 // Import systems
 import { createRenderer } from './systems/renderer';
@@ -194,8 +193,6 @@ class World {
       }
     };
     document.addEventListener('click', isInteractionReady);
-    // Add the menu settings
-    initMenu();
     // Detect tab switching (stops audio and animation)
     // detectTabSwitch();
     // The structure is already loaded so the animation can start

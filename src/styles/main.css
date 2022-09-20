@@ -1,12 +1,13 @@
 @import './utils/loader.css';
 @import './utils/notification.css';
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600&display=swap');
 @import '../assets/fonts/bootstrap-icons/font/bootstrap-icons.css';
 
 body {
   position: relative;
   font-family: 'Poppins', sans-serif;
+  font-weight: 200;
   font-size: 12px;
   color: #ffffff;
 
@@ -73,6 +74,7 @@ body {
 }
 
 .user-menu-keys {
+  font-weight: 400;
   color: #fbaf00;
 }
 
@@ -119,4 +121,24 @@ body {
 
 .settings-btn > i {
   font-size: 2rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.powered {
+  font-size: smaller;
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+a {
+  font-weight: 300;
+  color: #fbaf00;
+  text-decoration: none;
 }
