@@ -13,10 +13,10 @@ function loadBlends(objects) {
   let bulletsArray = [];
 
   for (const obj of objects) {
-    const geometry = new SphereGeometry(1, 16, 32);
+    const geometry = new SphereGeometry(1, 32, 32);
 
     const particlesGeometry = new BufferGeometry();
-    const particlesCnt = 1000;
+    const particlesCnt = 2000;
 
     const posArray = new Float32Array(particlesCnt * 3);
 
@@ -30,7 +30,8 @@ function loadBlends(objects) {
     );
 
     const material = new PointsMaterial({
-      size: 0.005,
+      size: 0.01,
+      color: obj.color,
     });
 
     const object = new Points(geometry, material);
@@ -38,7 +39,7 @@ function loadBlends(objects) {
     object.position.set(obj.position.x, obj.position.y, obj.position.z);
     object.castShadow = true;
     object.tick = (delta) => {
-      const radiansPerSecond = MathUtils.degToRad(object.speed);
+      const radiansPerSecond = MathUtils.degToRad(obj.speed);
       object.rotation.y += radiansPerSecond * delta;
     };
     object.userData = { desc: obj.type };

@@ -91,7 +91,7 @@ class World {
         // Get them (again) with the new positions
         envArray = loadBlends(objs);
         scene.add(...envArray);
-        loop.updatables.push(envArray[0]);
+        loop.updatables.push(...envArray);
       })
       .catch((err) => {
         displayNotif('error', 'The audio file could not be loaded.');

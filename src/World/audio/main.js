@@ -31,64 +31,64 @@ async function createAudioScene(status) {
       type: 'Chords',
       position:
         status === 'random' ? getRandomPosition() : { x: 4, y: -3.5, z: -1 },
-      speed: 35,
+      speed: 5,
       color: 'purple',
     },
     {
       type: 'Bass',
       position:
         status === 'random' ? getRandomPosition() : { x: 0, y: 0, z: -2 },
-      speed: 35,
+      speed: 5,
       color: 'red',
     },
     {
       type: 'Kick',
       position:
         status === 'random' ? getRandomPosition() : { x: 1.25, y: -1, z: -1 },
-      speed: 35,
-      color: 'blue',
+      speed: 5,
+      color: 'white',
     },
     {
       type: 'Snare',
       position:
         status === 'random' ? getRandomPosition() : { x: -1.25, y: -1, z: -1 },
-      speed: 35,
-      color: 'blue',
+      speed: 5,
+      color: 'white',
     },
     {
       type: 'Hats',
       position:
         status === 'random' ? getRandomPosition() : { x: -6, y: -2.5, z: 2 },
-      speed: 35,
-      color: 'blue',
+      speed: 5,
+      color: 'white',
     },
     {
       type: 'Hats 2',
       position:
         status === 'random' ? getRandomPosition() : { x: 6, y: -2.5, z: 2 },
-      speed: 35,
-      color: 'blue',
+      speed: 5,
+      color: 'white',
     },
     {
       type: 'Rim',
       position:
         status === 'random' ? getRandomPosition() : { x: 5, y: -1.5, z: 7 },
-      speed: 35,
-      color: 'blue',
+      speed: 5,
+      color: 'white',
     },
     {
       type: 'Percs',
       position:
         status === 'random' ? getRandomPosition() : { x: -5, y: -1.5, z: 7 },
-      speed: 35,
-      color: 'blue',
+      speed: 5,
+      color: 'white',
     },
     {
       type: 'Trance Pad',
       position:
         status === 'random' ? getRandomPosition() : { x: -4, y: -3.5, z: -1 },
-      speed: 35,
-      color: 'green',
+      speed: 5,
+      color: 'blue',
     },
     // {
     //   type: 'VX Main',
