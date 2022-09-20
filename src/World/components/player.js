@@ -2,7 +2,7 @@ import { Vector3 } from 'three';
 import { Capsule } from 'three/examples/jsm/math/Capsule';
 
 // Game variables
-const GRAVITY = 30;
+const GRAVITY = 10;
 const playerVelocity = new Vector3();
 const playerDirection = new Vector3();
 
@@ -96,7 +96,7 @@ function controls(deltaTime, keyStates, camera) {
 
   if (playerOnFloor) {
     if (keyStates.Space) {
-      playerVelocity.y = 10;
+      playerVelocity.y = 13;
     }
   }
 }
