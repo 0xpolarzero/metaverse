@@ -1,4 +1,5 @@
-import { Clock, GridHelper, AxesHelper, Box3Helper } from 'three';
+import { Clock, GridHelper, Box3Helper } from 'three';
+import * as THREE from 'three';
 
 // Import JSM modules
 import { Octree } from 'three/examples/jsm/math/Octree';
@@ -60,9 +61,9 @@ class World {
     resizer = new Resizer(container, camera, renderer);
 
     // Grid to help localization
-    const gridHelper = new GridHelper(30, 30);
+    const gridHelper = new GridHelper(37, 30);
     scene.add(gridHelper);
-    gridHelper.position.set(0, -4.5, 0);
+    gridHelper.position.set(0, -4.6, 0);
     // const axesHelper = new AxesHelper(50);
     // axesHelper.setColors('blue', 'red', 'green');
     // scene.add(axesHelper);
@@ -134,7 +135,7 @@ class World {
         helper.name = `Box3Helper for boule ${i}`;
         boulesHelpers[i] = helper;
       }
-      scene.add(...boulesHelpers);
+      // scene.add(...boulesHelpers);
 
       // Informations display
       document.addEventListener('keydown', () => {
