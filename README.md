@@ -2,7 +2,7 @@
 
 This is an experimentation of a virtual space, easily accessible through the browser, to showcase the major benefits of immersive audio in such environments. You can see it as a discovery area, and decide for yourself.
 
-This demonstration is enabled by the Atmoky package, which supports the 3D sound objects distribution & the Binaural spatialization.
+This demonstration is enabled by [the Atmoky package](https://atmoky.com/), which supports the 3D sound objects distribution & the Binaural spatialization.
 
 ## General indications
 
