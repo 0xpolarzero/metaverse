@@ -1,9 +1,27 @@
-## Metaverse
+## A virtual world on the Web, with immersive audio integration
 
-This is a successful experimentation with the Atmoky package.
+This is an experimentation of a virtual space, easily accessible through the browser, to showcase the major benefits of immersive audio in such environments. You can see it as a discovery area, and decide for yourself.
+
+This demonstration is enabled by the Atmoky package, which supports the 3D sound objects distribution & the Binaural spatialization.
+
+## General indications
 
 This virtual space is accessible only through a computer, and not yet available for mobile.
 
 If the window is cropped, and displays most of the screen as white, try slightly resizing the page. This will refresh the window dimensions.
 
 This environment is best experienced with a headset, and in full screen.
+
+## Thoughts
+
+I started this project without any notion in JavaScript or Three.js, a few months ago. Then I picked it up again after having gained some experience.
+
+So the code is obviously messy sometimes, I would have used React or one of its frameworks if I had started now.
+
+But feel free to send me messages if you have any comments, recommendations, criticisms, or just to chat!
+
+## Links
+
+A Twitter thread on Immersive Audio in the Metaverse (or the article version).
+
+[My Twitter](https://twitter.com/0xpolarzero)
