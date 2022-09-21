@@ -142,7 +142,7 @@ button > i {
   align-items: center;
 }
 
-.hint {
+.externalizer-hint {
   font-size: 0.8rem;
   display: flex;
   gap: 1rem;
