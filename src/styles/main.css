@@ -183,3 +183,10 @@ a {
   color: #fbaf00;
   text-decoration: none;
 }
+
+.bug-fix {
+  font-weight: 400;
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
