@@ -24,6 +24,6 @@ But feel free to send me messages if you have any comments, recommendations, cri
 
 ## Links
 
-A Twitter thread on Immersive Audio in the Metaverse (or the article version).
+[A Twitter thread on Immersive Audio in the Metaverse](https://twitter.com/0xpolarzero/status/1572528447565725696) ([or the article version](https://polarzero.hashnode.dev/immersive-audio-in-the-metaverse)).
 
 [My Twitter](https://twitter.com/0xpolarzero)
