@@ -12,6 +12,8 @@ If the window is cropped, and displays most of the screen as white, try slightly
 
 This environment is best experienced with a headset, and in full screen.
 
+![Screenshot of the virtual space](https://cdn.hashnode.com/res/hashnode/image/upload/v1663754118866/hQFj-NZmH.png)
+
 ## Thoughts
 
 I started this project without any notion in JavaScript or Three.js, a few months ago. Then I picked it up again after having gained some experience.
