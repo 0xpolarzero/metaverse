@@ -22,6 +22,8 @@ So the code is obviously messy sometimes, I would have used React or one of its 
 
 But feel free to send me messages if you have any comments, recommendations, criticisms, or just to chat!
 
+[The original music featured in the virtual space](https://soundcloud.com/completementduper/eternite).
+
 ## Links
 
 [A Twitter thread on Immersive Audio in the Metaverse](https://twitter.com/0xpolarzero/status/1572528447565725696) ([or the article version](https://polarzero.hashnode.dev/immersive-audio-in-the-metaverse)).
