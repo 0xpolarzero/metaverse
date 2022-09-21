@@ -28,7 +28,7 @@ let sourcesUrl = [
 async function createAudioScene(status) {
   const objInfos = [
     {
-      type: 'Chords',
+      type: 'Backwards Piano',
       position:
         status === 'random' ? getRandomPosition() : { x: 4, y: -3.5, z: -1 },
       speed: 5,
@@ -42,49 +42,49 @@ async function createAudioScene(status) {
       color: 'red',
     },
     {
-      type: 'Kick',
+      type: 'Kick (Drums)',
       position:
         status === 'random' ? getRandomPosition() : { x: 1.25, y: -1, z: -1 },
       speed: 5,
       color: 'white',
     },
     {
-      type: 'Snare',
+      type: 'Snare (Drums)',
       position:
         status === 'random' ? getRandomPosition() : { x: -1.25, y: -1, z: -1 },
       speed: 5,
       color: 'white',
     },
     {
-      type: 'Hats',
+      type: 'Hi Hat (Drums)',
       position:
         status === 'random' ? getRandomPosition() : { x: -6, y: -2.5, z: 2 },
       speed: 5,
       color: 'white',
     },
     {
-      type: 'Hats 2',
+      type: 'Hi Hat 2 (Drums)',
       position:
         status === 'random' ? getRandomPosition() : { x: 6, y: -2.5, z: 2 },
       speed: 5,
       color: 'white',
     },
     {
-      type: 'Rim',
+      type: 'Rim (Drums)',
       position:
         status === 'random' ? getRandomPosition() : { x: 5, y: -1.5, z: 7 },
       speed: 5,
       color: 'white',
     },
     {
-      type: 'Percs',
+      type: 'Perc (Drum)',
       position:
         status === 'random' ? getRandomPosition() : { x: -5, y: -1.5, z: 7 },
       speed: 5,
       color: 'white',
     },
     {
-      type: 'Trance Pad',
+      type: 'Trance Lead',
       position:
         status === 'random' ? getRandomPosition() : { x: -4, y: -3.5, z: -1 },
       speed: 5,
