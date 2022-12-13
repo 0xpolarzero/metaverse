@@ -1,0 +1,64 @@
+.crossair__wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.crosshair__dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.crosshair__dot.default {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 1);
+  transition: all 0.2s ease-in-out;
+}
+
+.crosshair__dot.hover {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  transition: all 0.2s ease-in-out;
+}
+
+.crosshair__dot.interacting {
+  width: 12px;
+  height: 12px;
+  background-color: rgba(255, 255, 255, 0);
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  transition: width 0.2s ease-in-out, height 0.2s ease-in-out,
+    background-color 0.2s ease-in-out;
+  animation: loading 1s ease-in-out infinite;
+}
+
+@keyframes loading {
+  0% {
+    width: 12px;
+    height: 12px;
+    background-color: rgba(255, 255, 255, 0);
+    border: 2px solid #ffffff;
+  }
+  50% {
+    width: 14px;
+    height: 14px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 2px solid #ffffff;
+  }
+  100% {
+    width: 12px;
+    height: 12px;
+    background-color: rgba(255, 255, 255, 0);
+    border: 2px solid #ffffff;
+  }
+}

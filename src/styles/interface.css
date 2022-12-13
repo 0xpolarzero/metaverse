@@ -1,0 +1,174 @@
+#overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+#overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.interface {
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-family: 'Futura PT', system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+    sans-serif;
+  height: 100%;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.interface.light {
+  background: rgba(255, 255, 255, 0.5);
+  color: #000;
+}
+
+/**
+* Button
+*/
+
+.interface button,
+.interface .mock-btn {
+  position: relative;
+  background: transparent;
+  font-family: 'Futura PT', system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+    sans-serif;
+  color: inherit;
+  font-size: 1.2rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  padding: 0.5rem;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.interface button.active,
+.interface .mock-btn.active {
+  opacity: 1;
+}
+
+.interface button::after,
+.interface .mock-btn::after {
+  content: '';
+  background: #fff;
+  width: 30%;
+  height: 0.01rem;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
+}
+
+.interface.light button::after,
+.interface.light .mock-btn::after {
+  background: #000;
+}
+
+.interface button:hover,
+.interface .mock-btn:hover {
+  opacity: 1;
+}
+
+.interface button:hover::after,
+.interface button.active::after,
+.interface .mock-btn:hover::after,
+.interface .mock-btn.active::after {
+  width: 80%;
+}
+
+/**
+* Content
+*/
+
+.interface .wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+}
+
+.interface__content {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+/**
+* Header
+*/
+
+.interface__title {
+  font-weight: 400;
+  letter-spacing: 1.5rem;
+  text-align: center;
+}
+
+.interface__close {
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+  font-size: 2rem;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.interface__close:hover {
+  opacity: 1;
+}
+
+/**
+* Theme
+*/
+
+.interface__rows {
+  display: grid;
+  justify-items: space-between;
+  align-items: center;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 1rem;
+  row-gap: 2rem;
+}
+
+.interface__rows button {
+  padding: 1rem;
+}
+
+.interface__rows .separator {
+  font-weight: 100;
+  font-size: 1.5rem;
+  opacity: 0.5;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .interface button,
+  .interface .mock-btn {
+    font-size: 1.5rem;
+  }
+
+  .interface__rows {
+    gap: 2rem;
+  }
+}
