@@ -1,12 +1,10 @@
-import World from './World';
-import Interface, { Crosshair } from './Interface';
-import useInterface from './stores/Interface';
 import { Canvas } from '@react-three/fiber';
 import * as DREI from '@react-three/drei';
+import { Perf } from 'r3f-perf';
+import World from './World';
+import Interface, { Crosshair } from './Interface';
 
 const App = () => {
-  const { setShowMenu } = useInterface();
-
   return (
     <>
       <DREI.KeyboardControls
@@ -25,13 +23,11 @@ const App = () => {
             fov: 75,
             near: 0.1,
             far: 1000,
+            position: [-4, 2, -4],
           }}
         >
+          <Perf position='top-left' />
           <World />
-          <DREI.PointerLockControls
-            onLock={() => setShowMenu(false)}
-            onUnlock={() => setShowMenu(true)}
-          />
         </Canvas>
       </DREI.KeyboardControls>
       <Interface />
