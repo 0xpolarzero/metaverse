@@ -10,7 +10,7 @@ const Environment = () => {
     <>
       <Structure />
       <Lights />
-      <Particles count={scale.x * scale.y} />
+      <Particles count={(scale.x * scale.y) / 10} />
     </>
   );
 };

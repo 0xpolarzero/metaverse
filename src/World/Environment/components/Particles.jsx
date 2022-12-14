@@ -6,9 +6,9 @@ const Particles = ({ count = 1000 }) => {
 
   return (
     <DREI.Sparkles
-      size={6}
+      size={4}
       scale={[scale.x, scale.y, scale.z]}
-      position-y={1}
+      position-y={scale.y / 2}
       speed={0.2}
       count={count}
     />

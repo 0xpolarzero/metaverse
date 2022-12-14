@@ -4,10 +4,13 @@ import Environment from './Environment';
 import Player from './Controls';
 import useWorld from '../stores/World';
 import useInterface from '../stores/Interface';
+import { useMemo } from 'react';
 
 const World = () => {
   const { gravity } = useWorld();
   const { setShowMenu } = useInterface();
+
+  const environment = useMemo(() => <Environment />, []);
 
   return (
     <>
@@ -18,7 +21,7 @@ const World = () => {
       />
 
       <Physics gravity={gravity}>
-        <Environment />
+        {environment}
         <Player />
         <mesh>
           <sphereGeometry args={[1, 32, 32]} />
