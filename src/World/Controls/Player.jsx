@@ -3,6 +3,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import * as DREI from '@react-three/drei';
 import { CapsuleCollider, RigidBody, useRapier } from '@react-three/rapier';
 import { Ray as RapierRay } from '@dimforge/rapier3d-compat';
+import { isMobile } from 'react-device-detect';
 import { useRef } from 'react';
 
 const SPEED = 5;
@@ -16,8 +17,17 @@ const Player = () => {
   const { camera } = useThree();
   const [, getKeys] = DREI.useKeyboardControls();
 
+  const getUserInput = () => {
+    if (isMobile) {
+      //
+    } else {
+      return getKeys();
+    }
+  };
+
   useFrame(() => {
-    const { forward, backward, left, right, jump } = getKeys();
+    const { forward, backward, left, right, jump } = getUserInput();
+
     const velocity = player.current.linvel();
     // Camera
     camera.position.set(...player.current.translation());
