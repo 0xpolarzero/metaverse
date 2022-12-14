@@ -19,7 +19,6 @@ const Player = () => {
 
   const getUserInput = () => {
     if (isMobile) {
-      //
     } else {
       return getKeys();
     }

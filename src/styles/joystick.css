@@ -1,0 +1,12 @@
+.joystick {
+  position: absolute;
+  bottom: 1rem;
+}
+
+.joystick__left {
+  left: 2rem;
+}
+
+.joystick__right {
+  right: 2rem;
+}
