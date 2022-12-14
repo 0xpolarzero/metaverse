@@ -16,9 +16,7 @@ const Interface = () => {
     },
   });
   // Randomize positions
-  // Reverb amount (min 0 max 100 value 20)
   // Externalizer / Room character (min 0 max 100 value 50) - warm neutral airy
-  // Externalizer intensity (min 0 max 100 value 30)
 
   return (
     <>
