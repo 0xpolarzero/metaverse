@@ -6531,6 +6531,11 @@ neo-async@^2.6.2:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
+nipplejs@0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/nipplejs/-/nipplejs-0.9.0.tgz#b5fcfcc7a85bf3e025cd3955a738ef9dc0bb0afe"
+  integrity sha512-TH2CkxWiTAnc0ld/Q8wQMFAhlWTL1QYWuwNLqmMzh8Y1dLv3ECKYydkfiyoiRwSy+fQvCukXvu2RSHinvjOoUg==
+
 no-case@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/no-case/-/no-case-3.0.4.tgz#d361fd5c9800f558551a8369fc0dcd4662b6124d"
@@ -7803,6 +7808,13 @@ react-scripts@5.0.1:
     workbox-webpack-plugin "^6.4.1"
   optionalDependencies:
     fsevents "^2.3.2"
+
+react-three-fpscontrols@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/react-three-fpscontrols/-/react-three-fpscontrols-0.2.0.tgz#6d4a9f5b9ef870bac79d5be9af156e44267acbd4"
+  integrity sha512-xV6H5Q9a13ps03NEOwzYplX7WqqP/LojthJo0bGUpCb/b44Lk47GINsT0K++nKRRPO6Il1JaHS7wJxWU6ixrmg==
+  dependencies:
+    nipplejs "0.9.0"
 
 react-use-measure@^2.1.1:
   version "2.1.1"

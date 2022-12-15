@@ -3,9 +3,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import * as DREI from '@react-three/drei';
 import { CapsuleCollider, RigidBody, useRapier } from '@react-three/rapier';
 import { Ray as RapierRay } from '@dimforge/rapier3d-compat';
-import { isMobile } from 'react-device-detect';
 import { useRef } from 'react';
-import useJoystick from '../../stores/Joystick';
 
 const SPEED = 5;
 const direction = new THREE.Vector3();
@@ -25,18 +23,9 @@ const Player = () => {
   const rapier = useRapier();
   const { camera } = useThree();
   const [, getKeys] = DREI.useKeyboardControls();
-  const { getJoystick } = useJoystick();
-
-  const getUserInput = () => {
-    if (isMobile) {
-      return getJoystick();
-    } else {
-      return getKeys();
-    }
-  };
 
   useFrame(() => {
-    const { forward, backward, left, right, sprint, jump } = getUserInput();
+    const { forward, backward, left, right, sprint, jump } = getKeys();
 
     const velocity = player.current.linvel();
     // Camera

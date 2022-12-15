@@ -3,7 +3,8 @@ import { useState } from 'react';
 import useJoystick from '../../stores/Joystick';
 
 const MobileControls = () => {
-  const { actions, setJoystick } = useJoystick();
+  const { actions, setJoystickMove, setJoystickView, getJoystickView } =
+    useJoystick();
 
   const handleMove = (e) => {
     console.log(e);
@@ -11,35 +12,45 @@ const MobileControls = () => {
     const y = e.y;
 
     // Reset directions
-    for (const action of actions) setJoystick(action, false);
+    for (const action of actions) setJoystickMove(action, false);
 
     // Set main direction
     if (Math.abs(x) > Math.abs(y)) {
-      x > 0 ? setJoystick('right', true) : setJoystick('left', true);
+      x > 0 ? setJoystickMove('right', true) : setJoystickMove('left', true);
     } else {
-      y > 0 ? setJoystick('forward', true) : setJoystick('backward', true);
+      y > 0
+        ? setJoystickMove('forward', true)
+        : setJoystickMove('backward', true);
     }
 
     // Set secondary direction
     // It can go both ways only if the other direction is pressed
     // at least 70% as much as the main direction
     if (Math.abs(x) > Math.abs(y) && Math.abs(y) > 0.7 * Math.abs(x)) {
-      y > 0 ? setJoystick('forward', true) : setJoystick('backward', true);
+      y > 0
+        ? setJoystickMove('forward', true)
+        : setJoystickMove('backward', true);
     } else if (Math.abs(y) > Math.abs(x) && Math.abs(x) > 0.7 * Math.abs(y)) {
-      x > 0 ? setJoystick('right', true) : setJoystick('left', true);
+      x > 0 ? setJoystickMove('right', true) : setJoystickMove('left', true);
     }
 
     // Set sprint
-    if (Math.abs(x) > 0.7 || Math.abs(y) > 0.7) setJoystick('sprint', true);
+    if (Math.abs(x) > 0.7 || Math.abs(y) > 0.7) setJoystickMove('sprint', true);
   };
 
   const handleRotate = (e) => {
-    console.log('rotate', e);
+    const x = e.x;
+    const y = e.y;
+
+    setJoystickView(x, y);
   };
 
-  const handleStop = (e) => {
-    console.log('stop', e);
-    for (const action of actions) setJoystick(action, false);
+  const handleStopMove = (e) => {
+    for (const action of actions) setJoystickMove(action, false);
+  };
+
+  const handleStopRotate = (e) => {
+    setJoystickView(0, 0);
   };
 
   return (
@@ -50,7 +61,7 @@ const MobileControls = () => {
           baseColor='rgba(255, 255, 255, 0.2)'
           stickColor='rgba(255, 255, 255, 0.5)'
           move={handleMove}
-          stop={handleStop}
+          stop={handleStopMove}
         ></Joystick>
       </div>
 
@@ -60,7 +71,7 @@ const MobileControls = () => {
           baseColor='rgba(255, 255, 255, 0.2)'
           stickColor='rgba(255, 255, 255, 0.5)'
           move={handleRotate}
-          stop={handleStop}
+          stop={handleStopRotate}
         ></Joystick>
       </div>
     </>

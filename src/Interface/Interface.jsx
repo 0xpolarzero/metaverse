@@ -18,7 +18,6 @@ import { Leva, useControls } from 'leva';
 import { isMobile } from 'react-device-detect';
 import { useState } from 'react';
 import Crosshair from './components/Crosshair';
-import MobileControls from './components/MobileControls';
 import useInterface from '../stores/Interface';
 
 const Interface = () => {
@@ -44,7 +43,6 @@ const Interface = () => {
 const MobileInterface = () => {
   return (
     <>
-      <MobileControls />
       <Leva collapsed />
     </>
   );
