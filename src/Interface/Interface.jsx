@@ -13,7 +13,7 @@ import {
   MdKeyboardArrowLeft,
   MdKeyboardArrowRight,
 } from 'react-icons/md';
-import { BsShift, BsMouse } from 'react-icons/bs';
+import { BsHeadphones, BsShift, BsMouse } from 'react-icons/bs';
 import { Leva, useControls } from 'leva';
 import { isMobile } from 'react-device-detect';
 import { useState } from 'react';
@@ -128,15 +128,20 @@ const DesktopInterface = () => {
             </div>
           </div>
           <div className='interface__credits'>
-            Audio powered by{' '}
-            <a
-              href='https://atmoky.com/'
-              target='_blank'
-              rel='noopener noreferrer'
-              onClick={(e) => e.stopPropagation()}
-            >
-              Atmoky
-            </a>
+            <div className='headphones'>
+              <BsHeadphones /> Best experienced with headphones
+            </div>
+            <div>
+              Audio powered by{' '}
+              <a
+                href='https://atmoky.com/'
+                target='_blank'
+                rel='noopener noreferrer'
+                onClick={(e) => e.stopPropagation()}
+              >
+                Atmoky
+              </a>
+            </div>
           </div>
         </div>
       </div>

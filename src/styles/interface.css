@@ -161,6 +161,20 @@
   font-size: 1rem;
   font-weight: 300;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.interface__credits .headphones {
+  font-size: 1rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.7;
 }
 
 .interface__credits a {
