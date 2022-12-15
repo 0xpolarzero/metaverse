@@ -10,14 +10,6 @@ const direction = new THREE.Vector3();
 const frontVector = new THREE.Vector3();
 const sideVector = new THREE.Vector3();
 
-/**
- * Create Player store in which movements are set
- * in useFrame, just retrieve forward, backward... from the store
- *
- * Maybe in MobileControls we can set the store directly from the joystick
- * Here we can set the store from the keyboard
- */
-
 const Player = () => {
   const player = useRef();
   const rapier = useRapier();

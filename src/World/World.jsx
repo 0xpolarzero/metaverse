@@ -2,7 +2,7 @@ import * as DREI from '@react-three/drei';
 import { Physics } from '@react-three/rapier';
 import { FPSControls } from 'react-three-fpscontrols';
 import { isDesktop } from 'react-device-detect';
-import { Suspense, useMemo } from 'react';
+import { useMemo } from 'react';
 import Environment from './Environment';
 import Player from './Controls';
 import useWorld from '../stores/World';
@@ -33,19 +33,15 @@ const World = () => {
             camProps={{
               makeDefault: true,
               fov: 45,
-              position: [0, 2.537, 0.7],
+              position: [0, 1.5, 0.7],
             }}
             orbitProps={{
-              target: [0, 2.537, 0],
+              target: [0, 1.5, 0],
             }}
             enableJoystick
             enableKeyboard
           />
         )}
-        <mesh>
-          <sphereGeometry args={[1, 32, 32]} />
-          <meshStandardMaterial color='red' />
-        </mesh>
       </Physics>
     </>
   );
