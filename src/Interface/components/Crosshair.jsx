@@ -1,3 +1,4 @@
+import React from 'react';
 import useInterface from '../../stores/Interface';
 
 const Crosshair = () => {

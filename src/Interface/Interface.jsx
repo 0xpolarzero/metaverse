@@ -16,7 +16,7 @@ import {
 import { BsHeadphones, BsShift, BsMouse } from 'react-icons/bs';
 import { Leva, useControls } from 'leva';
 import { isMobile } from 'react-device-detect';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Crosshair from './components/Crosshair';
 import useInterface from '../stores/Interface';
 

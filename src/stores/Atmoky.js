@@ -10,6 +10,11 @@ export default create((set) => ({
     set((state) => ({ sources: state.sources.filter((s) => s !== source) })),
   clearSources: () => set((state) => ({ sources: [] })),
 
+  // Listener
+  listenerPosition: [0, 0, 0],
+  setListenerPosition: (position) =>
+    set((state) => ({ listenerPosition: position })),
+
   // Settings
   // Reverb
   reverbAmount: 20,
@@ -27,6 +32,4 @@ export default create((set) => ({
     set((state) => ({ externalizerAmount: amount })),
   setExternalizerIntensity: (intensity) =>
     set((state) => ({ externalizerIntensity: intensity })),
-
-  setControls: () => {},
 }));

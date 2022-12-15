@@ -2,9 +2,10 @@ import * as DREI from '@react-three/drei';
 import { Physics } from '@react-three/rapier';
 import { FPSControls } from 'react-three-fpscontrols';
 import { isDesktop } from 'react-device-detect';
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import Environment from './Environment';
 import Player from './Controls';
+import Audio from './Audio';
 import useWorld from '../stores/World';
 import useInterface from '../stores/Interface';
 
@@ -43,6 +44,8 @@ const World = () => {
           />
         )}
       </Physics>
+
+      <Audio />
     </>
   );
 };

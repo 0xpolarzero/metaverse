@@ -2,7 +2,7 @@ import { Canvas } from '@react-three/fiber';
 import * as DREI from '@react-three/drei';
 import { Perf } from 'r3f-perf';
 import { isMobile } from 'react-device-detect';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import World from './World';
 import Interface, { Crosshair } from './Interface';
 

@@ -1,4 +1,5 @@
 import * as DREI from '@react-three/drei';
+import React from 'react';
 import useWorld from '../../../stores/World';
 
 const Particles = ({ count = 1000 }) => {

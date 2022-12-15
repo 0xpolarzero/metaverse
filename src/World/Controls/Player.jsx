@@ -3,7 +3,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import * as DREI from '@react-three/drei';
 import { CapsuleCollider, RigidBody, useRapier } from '@react-three/rapier';
 import { Ray as RapierRay } from '@dimforge/rapier3d-compat';
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 
 const SPEED = 5;
 const direction = new THREE.Vector3();

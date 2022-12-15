@@ -2,9 +2,8 @@ import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 import * as DREI from '@react-three/drei';
 import { CuboidCollider, RigidBody } from '@react-three/rapier';
-import { useMemo, useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import useWorld from '../../../stores/World';
-import { vertexShader, fragmentShader } from './shaders';
 
 const geometry = new THREE.BoxGeometry(1, 1, 1);
 

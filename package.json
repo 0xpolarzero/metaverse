@@ -12,23 +12,16 @@
     "url": "https://github.com/polar0/metaverse/issues"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
+  ],
   "dependencies": {
     "@atmokyaudio/websdk": "^0.4.1",
     "@dimforge/rapier3d-compat": "^0.10.0",
@@ -48,6 +41,11 @@
     "zustand": "^4.1.5"
   },
   "devDependencies": {
-    "r3f-perf": "^6.6.0"
+    "@babel/plugin-transform-typescript": "^7.20.2",
+    "@babel/preset-react": "^7.18.6",
+    "@craco/craco": "^7.0.0",
+    "ignore-loader": "^0.1.2",
+    "r3f-perf": "^6.6.0",
+    "typescript": "^4.9.4"
   }
 }
