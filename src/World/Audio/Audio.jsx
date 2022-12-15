@@ -1,5 +1,5 @@
 // import { Manager, Renderer } from '@atmokyaudio/websdk';
-import { Manager, Renderer } from '../../lib/@atmokyaudio/websdk';
+import { Manager, Renderer } from '@atmokyaudio/websdk';
 import { useEffect } from 'react';
 import useAtmoky from '../../stores/Atmoky';
 import { sources as sourceObjects } from './data/sources';
