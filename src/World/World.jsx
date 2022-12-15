@@ -2,7 +2,7 @@ import * as DREI from '@react-three/drei';
 import { Physics } from '@react-three/rapier';
 import { FPSControls } from 'react-three-fpscontrols';
 import { isDesktop } from 'react-device-detect';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import Environment from './Environment';
 import Player from './Controls';
 import Audio from './Audio';
@@ -14,6 +14,12 @@ const World = () => {
   const { setShowMenu } = useInterface();
 
   const environment = useMemo(() => <Environment />, []);
+
+  useEffect(() => {
+    if (isDesktop) {
+      setShowMenu(true);
+    }
+  }, []);
 
   return (
     <>

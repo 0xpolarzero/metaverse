@@ -21,17 +21,6 @@ import Crosshair from './components/Crosshair';
 import useInterface from '../stores/Interface';
 
 const Interface = () => {
-  const { speed } = useControls({
-    speed: {
-      value: 1,
-      min: 0,
-      max: 10,
-      step: 0.1,
-    },
-  });
-  // Randomize positions
-  // Externalizer / Room character (min 0 max 100 value 50) - warm neutral airy
-
   return (
     <>
       <Crosshair />
@@ -43,7 +32,7 @@ const Interface = () => {
 const MobileInterface = () => {
   return (
     <>
-      <Leva collapsed />
+      <Leva collapsed hideCopyButton />
     </>
   );
 };
@@ -55,7 +44,7 @@ const DesktopInterface = () => {
   return (
     <div id='overlay' className={showMenu ? 'visible' : ''}>
       <div className='leva-wrapper' onClick={(e) => e.stopPropagation()}>
-        <Leva />
+        <Leva hideCopyButton />
       </div>
       <div
         className='interface'
