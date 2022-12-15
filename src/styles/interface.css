@@ -137,11 +137,12 @@
 }
 
 .interface__keys .key {
-  padding: 0.5rem;
-  border-radius: 0.5rem;
   background: rgba(255, 255, 255, 0.1);
   letter-spacing: 0.1rem;
   text-align: center;
+  display: flex;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
   transition: background 0.3s ease;
 }
 

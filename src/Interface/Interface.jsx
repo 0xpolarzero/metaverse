@@ -1,9 +1,25 @@
-import Crosshair from './components/Crosshair';
-import MobileControls from './components/MobileControls';
-import useInterface from '../stores/Interface';
+import {
+  TbLetterW,
+  TbLetterA,
+  TbLetterS,
+  TbLetterD,
+  TbLetterE,
+  TbLetterC,
+  TbClick,
+} from 'react-icons/tb';
+import {
+  MdKeyboardArrowUp,
+  MdKeyboardArrowDown,
+  MdKeyboardArrowLeft,
+  MdKeyboardArrowRight,
+} from 'react-icons/md';
+import { BsShift, BsMouse } from 'react-icons/bs';
 import { Leva, useControls } from 'leva';
 import { isMobile } from 'react-device-detect';
 import { useState } from 'react';
+import Crosshair from './components/Crosshair';
+import MobileControls from './components/MobileControls';
+import useInterface from '../stores/Interface';
 
 const Interface = () => {
   const { speed } = useControls({
@@ -60,25 +76,56 @@ const DesktopInterface = () => {
             <div className='interface__instructions'>
               <span>Move</span>
               <span className='interface__keys'>
-                <span className='key'>W</span>
-                <span className='key'>A</span>
-                <span className='key'>S</span>
-                <span className='key'>D</span>{' '}
+                <span className='key'>
+                  <TbLetterW />
+                </span>
+                <span className='key'>
+                  <TbLetterA />
+                </span>
+                <span className='key'>
+                  <TbLetterS />
+                </span>
+                <span className='key'>
+                  <TbLetterD />
+                </span>{' '}
                 <span className='separator'>/</span>{' '}
-                <span className='key'>↑</span>
-                <span className='key'>←</span>
-                <span className='key'>↓</span>
-                <span className='key'>→</span>
+                <span className='key'>
+                  <MdKeyboardArrowUp />
+                </span>
+                <span className='key'>
+                  <MdKeyboardArrowLeft />
+                </span>
+                <span className='key'>
+                  <MdKeyboardArrowDown />
+                </span>
+                <span className='key'>
+                  <MdKeyboardArrowRight />
+                </span>
+              </span>
+              <span>Faster</span>
+              <span className='interface__keys'>
+                <span className='key'>
+                  <BsShift />
+                </span>
               </span>
               <span>Interact</span>
               <span className='interface__keys'>
-                <span className='key'>Click</span>{' '}
+                <span className='key'>
+                  <BsMouse />
+                  <TbClick />
+                </span>{' '}
                 <span className='separator'>/</span>{' '}
-                <span className='key'>E</span>
+                <span className='key'>
+                  <TbLetterE />
+                </span>
               </span>
               <span>Menu</span>
               <span className='interface__keys'>
-                <span className='key'>ESC</span>
+                <span className='key' style={{ fontSize: '1rem' }}>
+                  <TbLetterE />
+                  <TbLetterS />
+                  <TbLetterC />
+                </span>
               </span>
             </div>
           </div>
