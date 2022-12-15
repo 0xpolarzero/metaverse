@@ -5,27 +5,38 @@ import { CapsuleCollider, RigidBody, useRapier } from '@react-three/rapier';
 import { Ray as RapierRay } from '@dimforge/rapier3d-compat';
 import { isMobile } from 'react-device-detect';
 import { useRef } from 'react';
+import useJoystick from '../../stores/Joystick';
 
 const SPEED = 5;
 const direction = new THREE.Vector3();
 const frontVector = new THREE.Vector3();
 const sideVector = new THREE.Vector3();
 
+/**
+ * Create Player store in which movements are set
+ * in useFrame, just retrieve forward, backward... from the store
+ *
+ * Maybe in MobileControls we can set the store directly from the joystick
+ * Here we can set the store from the keyboard
+ */
+
 const Player = () => {
   const player = useRef();
   const rapier = useRapier();
   const { camera } = useThree();
   const [, getKeys] = DREI.useKeyboardControls();
+  const { getJoystick } = useJoystick();
 
   const getUserInput = () => {
     if (isMobile) {
+      return getJoystick();
     } else {
       return getKeys();
     }
   };
 
   useFrame(() => {
-    const { forward, backward, left, right, jump } = getUserInput();
+    const { forward, backward, left, right, sprint, jump } = getUserInput();
 
     const velocity = player.current.linvel();
     // Camera
@@ -36,7 +47,7 @@ const Player = () => {
     direction
       .subVectors(frontVector, sideVector)
       .normalize()
-      .multiplyScalar(SPEED)
+      .multiplyScalar(SPEED * (sprint ? 2 : 1))
       .applyEuler(camera.rotation);
     player.current.setLinvel(
       new THREE.Vector3(direction.x, velocity.y, direction.z),

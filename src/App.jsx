@@ -21,6 +21,7 @@ const App = () => {
           { name: 'backward', keys: ['ArrowDown', 'KeyS'] },
           { name: 'left', keys: ['ArrowLeft', 'KeyA'] },
           { name: 'right', keys: ['ArrowRight', 'KeyD'] },
+          { name: 'sprint', keys: ['ShiftLeft', 'ShiftRight'] },
           { name: 'jump', keys: ['Space'] },
           { name: 'interact', keys: ['Click', 'KeyE'] },
         ]}

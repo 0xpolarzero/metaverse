@@ -12,6 +12,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
+  opacity: 0.3;
   transform: translate(-50%, -50%);
 }
 
@@ -60,5 +61,18 @@
     height: 12px;
     background-color: rgba(255, 255, 255, 0);
     border: 2px solid #ffffff;
+  }
+}
+
+@media (max-width: 768px) {
+  .crosshair__dot.default {
+    width: 4px;
+    height: 4px;
+  }
+
+  .crosshair__dot.hover,
+  .crosshair__dot.interacting {
+    width: 8px;
+    height: 8px;
   }
 }
