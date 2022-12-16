@@ -204,18 +204,18 @@ const Hints = ({ visible }) => {
 
   return (
     <div className={`interface__hints ${visible ? 'visible' : ''}`}>
-      {currentState === 'hover' ? (
-        <span className='interface__keys'>
-          <span className='key'>
-            <BsMouse />
-            <TbClick />
-          </span>{' '}
-          <span className='key'>
-            <TbLetterE />
-          </span>{' '}
-          interact
-        </span>
-      ) : null}
+      <span
+        className={`interface__keys ${currentState === 'hover' ? '' : 'hide'}`}
+      >
+        <span className='key'>
+          <BsMouse />
+          <TbClick />
+        </span>{' '}
+        <span className='key'>
+          <TbLetterE />
+        </span>{' '}
+        interact
+      </span>
 
       <span className='interface__keys'>
         <span className='key' style={{ fontSize: '1rem' }}>

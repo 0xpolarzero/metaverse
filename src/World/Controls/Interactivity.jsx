@@ -4,7 +4,7 @@ import useInterface from '../../stores/Interface';
 
 const Interactivity = () => {
   const { camera } = useThree();
-  const { hovered, setHovered, setState } = useInterface();
+  const { interactDistance, hovered, setHovered, setState } = useInterface();
 
   useFrame(({ raycaster, scene, mouse }) => {
     raycaster.setFromCamera(mouse, camera);
@@ -15,7 +15,7 @@ const Interactivity = () => {
       const { distance, object } = first;
       const { userData } = object;
 
-      if (distance < 10) {
+      if (distance < interactDistance) {
         setHovered([userData]);
       } else {
         setHovered([]);

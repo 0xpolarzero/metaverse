@@ -11,6 +11,7 @@ export default create((set) => ({
   states: ['default', 'hover', 'interacting'],
   currentState: 'default',
   setState: (state) => set({ currentState: state }),
+  interactDistance: 10,
 
   hovered: [],
   setHovered: (hovered) => set({ hovered }),

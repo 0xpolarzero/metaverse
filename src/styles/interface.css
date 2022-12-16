@@ -145,6 +145,12 @@
   display: flex;
   gap: 0.5rem;
   align-items: center;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.interface__keys.hide {
+  opacity: 0;
 }
 
 .interface__keys .key {
