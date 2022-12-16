@@ -6,7 +6,7 @@
   width: 100%;
   height: 100%;
   backdrop-filter: blur(10px);
-  z-index: 999;
+  z-index: 9990;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
@@ -197,6 +197,10 @@
 
 .interface__credits a:hover {
   text-decoration: underline;
+}
+
+.move-down {
+  margin-top: 1rem;
 }
 
 @media (min-width: 768px) {
