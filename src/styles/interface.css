@@ -1,4 +1,5 @@
-#overlay {
+#overlay,
+#overlay-mobile {
   position: absolute;
   top: 0;
   left: 0;
@@ -11,7 +12,8 @@
   transition: opacity 0.3s ease;
 }
 
-#overlay.visible {
+#overlay.visible,
+#overlay-mobile.visible {
   opacity: 1;
   pointer-events: auto;
 }
@@ -24,7 +26,6 @@
     sans-serif;
   font-size: 1.2rem;
   height: 100%;
-  padding: 2rem;
   display: flex;
   justify-content: center;
   cursor: pointer;
@@ -35,6 +36,10 @@
 .interface.light {
   background: rgba(255, 255, 255, 0.5);
   color: #000;
+}
+
+#overlay-mobile.visible .interface {
+  align-items: center;
 }
 
 /**
@@ -107,6 +112,7 @@
   grid-template-rows: repeat(3, auto);
   justify-items: center;
   align-items: center;
+  height: 100%;
 }
 
 .interface__content {
@@ -127,6 +133,11 @@
   grid-template-columns: auto;
   gap: 2rem;
   row-gap: 1rem;
+}
+
+.interface__instructions-mobile {
+  text-transform: uppercase;
+  grid-row: span 2;
 }
 
 .interface__keys {

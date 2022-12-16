@@ -30,9 +30,36 @@ const Interface = () => {
 };
 
 const MobileInterface = () => {
+  const { showMobileOverlay } = useInterface();
+
   return (
     <>
       <Leva collapsed hideCopyButton />
+      <div id='overlay-mobile' className={showMobileOverlay ? 'visible' : ''}>
+        <div className='interface'>
+          <div className='wrapper'>
+            <div className='interface__instructions-mobile'>
+              Please click anywhere to start the experience
+            </div>
+            <div className='interface__credits'>
+              <div className='headphones'>
+                <BsHeadphones /> Best experienced with headphones
+              </div>
+              <div>
+                Audio powered by{' '}
+                <a
+                  href='https://atmoky.com/'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  Atmoky
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
