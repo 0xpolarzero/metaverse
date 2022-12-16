@@ -200,18 +200,22 @@ const DesktopInterface = () => {
 };
 
 const Hints = ({ visible }) => {
+  const { currentState } = useInterface();
+
   return (
     <div className={`interface__hints ${visible ? 'visible' : ''}`}>
-      <span className='interface__keys'>
-        <span className='key'>
-          <BsMouse />
-          <TbClick />
-        </span>{' '}
-        <span className='key'>
-          <TbLetterE />
-        </span>{' '}
-        interact
-      </span>
+      {currentState === 'hover' ? (
+        <span className='interface__keys'>
+          <span className='key'>
+            <BsMouse />
+            <TbClick />
+          </span>{' '}
+          <span className='key'>
+            <TbLetterE />
+          </span>{' '}
+          interact
+        </span>
+      ) : null}
 
       <span className='interface__keys'>
         <span className='key' style={{ fontSize: '1rem' }}>

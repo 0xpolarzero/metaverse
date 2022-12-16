@@ -14,11 +14,11 @@ export default create((set) => ({
 
   hovereds: [],
   setHovereds: (hovereds) => set({ hovereds }),
+  addHovered: (hovered) =>
+    set((state) => ({ hovereds: [...state.hovereds, hovered] })),
+  removeHovered: (hovered) =>
+    set((state) => ({ hovereds: state.hovereds.filter((h) => h !== hovered) })),
 
   interactions: [],
   setInteractions: (interactions) => set({ interactions }),
-
-  setCanInteract: () => set({ crosshairState: 2 }),
-  setInteractionProgress: () => set({ crosshairState: 3 }),
-  setInteractionDone: () => set({ crosshairState: 0 }),
 }));
