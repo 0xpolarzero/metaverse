@@ -4,7 +4,7 @@ import { FPSControls } from 'react-three-fpscontrols';
 import { isDesktop } from 'react-device-detect';
 import React, { useEffect, useMemo, useRef } from 'react';
 import Environment from './Environment';
-import Player from './Controls';
+import Player, { Interactivity } from './Controls';
 import AudioSystem from './Audio';
 import useWorld from '../stores/World';
 import useInterface from '../stores/Interface';
@@ -52,19 +52,7 @@ const World = () => {
   return (
     <>
       <color attach='background' args={['#131313']} />
-      {isDesktop && (
-        <DREI.PointerLockControls
-          ref={controls}
-          onLock={() => {
-            // setShowMenu(false);
-            // resumeAudio();
-          }}
-          onUnlock={(e) => {
-            // setShowMenu(true);
-            // pauseAudio();
-          }}
-        />
-      )}
+      {isDesktop && <DREI.PointerLockControls ref={controls} />}
 
       <Physics gravity={gravity}>
         {environment}
@@ -87,6 +75,7 @@ const World = () => {
       </Physics>
 
       <AudioSystem />
+      <Interactivity />
     </>
   );
 };

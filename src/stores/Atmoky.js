@@ -94,7 +94,7 @@ export default create((set, get) => ({
     renderer.externalizer.character.value = externalizerIntensity;
   },
 
-  createSource: (source) => {
+  createSource: (source, index) => {
     const { audioContext, renderer, addSource } = get();
     const position = source.info.position;
     const audioElem = new Audio(source.src);
@@ -114,7 +114,7 @@ export default create((set, get) => ({
     addSource({
       audio: atmSource,
       audioElem: audioElem,
-      info: source.info,
+      info: { ...source.info, id: index },
     });
   },
 
@@ -142,7 +142,7 @@ export default create((set, get) => ({
     try {
       await prepareAudioContext(inputSources.length);
       setRendererParameters();
-      inputSources.forEach((source) => createSource(source));
+      inputSources.forEach((source, index) => createSource(source, index));
 
       return true;
     } catch (err) {
