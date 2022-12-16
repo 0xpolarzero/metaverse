@@ -80,6 +80,9 @@ const DesktopInterface = () => {
       <div className='leva-wrapper' onClick={(e) => e.stopPropagation()}>
         <Leva hideCopyButton />
       </div>
+
+      <Hints visible={!showMenu} />
+
       <div id='overlay' className={showMenu ? 'visible' : ''}>
         <div
           className='interface'
@@ -91,7 +94,7 @@ const DesktopInterface = () => {
           }
         >
           <div className='wrapper'>
-            <div className={hoverEnter ? 'mock-btn active' : 'mock-btn'}>
+            <div className={`mock-btn ${hoverEnter ? 'active' : ''}`}>
               Click to enter
             </div>
             <div className='interface__content'>
@@ -193,6 +196,39 @@ const DesktopInterface = () => {
         </div>
       </div>
     </>
+  );
+};
+
+const Hints = ({ visible }) => {
+  return (
+    <div className={`interface__hints ${visible ? 'visible' : ''}`}>
+      <span className='interface__keys'>
+        <span className='key'>
+          <BsMouse />
+          <TbClick />
+        </span>{' '}
+        <span className='key'>
+          <TbLetterE />
+        </span>{' '}
+        interact
+      </span>
+
+      <span className='interface__keys'>
+        <span className='key'>
+          <TbLetterE />
+          <TbLetterS />
+          <TbLetterC />
+        </span>{' '}
+        free cursor
+      </span>
+
+      <span className='interface__keys'>
+        <span className='key'>
+          <BsArrowReturnLeft />
+        </span>{' '}
+        menu
+      </span>
+    </div>
   );
 };
 
