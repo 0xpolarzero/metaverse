@@ -214,7 +214,7 @@ const Hints = ({ visible }) => {
       </span>
 
       <span className='interface__keys'>
-        <span className='key'>
+        <span className='key' style={{ fontSize: '1rem' }}>
           <TbLetterE />
           <TbLetterS />
           <TbLetterC />
