@@ -42,6 +42,7 @@ const Floor = ({ scale, material }) => {
         position-y={-0.1}
       />
       <mesh
+        name='floor'
         geometry={geometry}
         material={material}
         scale={[scale.x, scale.z, 0.1]}
@@ -59,6 +60,7 @@ const Bounds = ({ scale, material }) => {
     <RigidBody type='fixed' restitution={0.2} friction={1}>
       {/* Left wall */}
       <mesh
+        name='leftWall'
         geometry={geometry}
         material={material}
         position-x={-scale.x / 2}
@@ -67,6 +69,7 @@ const Bounds = ({ scale, material }) => {
       />
       {/* Right wall */}
       <mesh
+        name='rightWall'
         geometry={geometry}
         material={material}
         position-x={scale.x / 2}
@@ -75,6 +78,7 @@ const Bounds = ({ scale, material }) => {
       />
       {/* Back wall */}
       <mesh
+        name='backWall'
         geometry={geometry}
         material={material}
         position-z={-scale.z / 2}
@@ -83,6 +87,7 @@ const Bounds = ({ scale, material }) => {
       />
       {/* Front wall */}
       <mesh
+        name='frontWall'
         geometry={geometry}
         material={material}
         position-z={scale.z / 2}

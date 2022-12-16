@@ -6,12 +6,27 @@ const Interactivity = () => {
   const { camera } = useThree();
   const { interactDistance, hovered, setHovered, setState } = useInterface();
 
+  const ignoreTypes = ['Points', 'GridHelper'];
+  const ignoreNames = [
+    'floor',
+    'leftWall',
+    'rightWall',
+    'backWall',
+    'frontWall',
+  ];
+
   useFrame(({ raycaster, scene, mouse }) => {
     raycaster.setFromCamera(mouse, camera);
-    const intersects = raycaster.intersectObjects(scene.children, true);
+    // Ignore particles, floor and walls
+    const objects = scene.children.filter(
+      (child) =>
+        !ignoreTypes.includes(child.type) && !ignoreNames.includes(child.name),
+    );
+    const intersects = raycaster.intersectObjects(objects, true);
 
     if (intersects.length > 0) {
       const [first] = intersects;
+
       const { distance, object } = first;
       const { userData } = object;
 
