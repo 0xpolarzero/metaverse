@@ -8,7 +8,6 @@ import AudioSphere from './components/AudioSphere';
 let audioLoaded = false;
 
 const AudioSystem = () => {
-  const [audioReady, setAudioReady] = useState(false);
   const [audioStarted, setAudioStarted] = useState(false);
   const { camera } = useThree();
   const { sources, renderer, startAudio, initAudio } = useAtmoky();

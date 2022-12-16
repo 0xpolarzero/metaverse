@@ -1,5 +1,6 @@
 import create from 'zustand';
 import { Manager } from '@atmokyaudio/websdk';
+import { getRandomPosition } from '../World/Audio/data/sources';
 
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 
@@ -20,6 +21,7 @@ export default create((set, get) => ({
    * Sources
    */
   sources: [],
+  setSources: (sources) => set((state) => ({ sources })),
   addSource: (source) =>
     set((state) => ({ sources: [...state.sources, source] })),
   removeSource: (source) =>
@@ -40,7 +42,11 @@ export default create((set, get) => ({
   reverbAmount: 20,
   minReverbAmount: 0,
   maxReverbAmount: 100,
-  setReverbAmount: (amount) => set((state) => ({ reverbAmount: amount })),
+  setReverbAmount: (amount) => {
+    const { renderer } = get();
+    if (renderer) renderer.reverb.amount.value = amount;
+    set((state) => ({ reverbAmount: amount }));
+  },
   // Externalizer
   externalizerAmount: 50,
   externalizerIntensity: 30,
@@ -48,10 +54,16 @@ export default create((set, get) => ({
   minExternalizerIntensity: 0,
   maxExternalizerAmount: 100,
   maxExternalizerIntensity: 100,
-  setExternalizerAmount: (amount) =>
-    set((state) => ({ externalizerAmount: amount })),
-  setExternalizerIntensity: (intensity) =>
-    set((state) => ({ externalizerIntensity: intensity })),
+  setExternalizerAmount: (amount) => {
+    const { renderer } = get();
+    if (renderer) renderer.externalizer.amount.value = amount;
+    set((state) => ({ externalizerAmount: amount }));
+  },
+  setExternalizerIntensity: (intensity) => {
+    const { renderer } = get();
+    if (renderer) renderer.externalizer.character.value = intensity;
+    set((state) => ({ externalizerIntensity: intensity }));
+  },
 
   /**
    * Actions
@@ -163,5 +175,18 @@ export default create((set, get) => ({
     for (const source of sources) {
       renderer.removeSource(source.audio);
     }
+  },
+
+  randomizePositions: () => {
+    const { sources, setSources } = get();
+
+    const newSources = sources.map((source) => {
+      const newPosition = getRandomPosition();
+      source.audio.setPosition(newPosition.x, newPosition.y, newPosition.z);
+      source.info.position = newPosition;
+
+      return source;
+    });
+    setSources(newSources);
   },
 }));

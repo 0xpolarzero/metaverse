@@ -8,7 +8,7 @@ import rim from '../../../asset/audio/Instru_stems-rim.mp3';
 import perc from '../../../asset/audio/Instru_stems-perc.mp3';
 import trancePad from '../../../asset/audio/Instru_stems-trance-pad.mp3';
 
-const getRandomPosition = () => {
+export const getRandomPosition = () => {
   return {
     x: Math.random() * 20 - 10,
     y: Math.random() * 4 + 1,

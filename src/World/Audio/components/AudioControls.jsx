@@ -36,7 +36,7 @@ const AudioControls = () => {
   // Add a button to randomize positions
   useControls('Sources', {
     'Randomize positions': button(() => {
-      audioParams.setRandomPositions();
+      audioParams.randomizePositions();
     }),
   });
 
