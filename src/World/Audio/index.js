@@ -1,3 +1,3 @@
-import Audio from './Audio';
+import AudioSystem from './AudioSystem';
 
-export default Audio;
+export default AudioSystem;

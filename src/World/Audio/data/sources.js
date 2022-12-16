@@ -1,3 +1,13 @@
+import backwardsPiano from '../../../asset/audio/Instru_stems-chords.mp3';
+import bass from '../../../asset/audio/Instru_stems-bass.mp3';
+import kick from '../../../asset/audio/Instru_stems-kick.mp3';
+import snare from '../../../asset/audio/Instru_stems-snare.mp3';
+import hats from '../../../asset/audio/Instru_stems-hats.mp3';
+import hats2 from '../../../asset/audio/Instru_stems-hats-2.mp3';
+import rim from '../../../asset/audio/Instru_stems-rim.mp3';
+import perc from '../../../asset/audio/Instru_stems-perc.mp3';
+import trancePad from '../../../asset/audio/Instru_stems-trance-pad.mp3';
+
 const getRandomPosition = () => {
   return {
     x: Math.random() * 20 - 10,
@@ -15,7 +25,7 @@ const colors = {
 
 export const sources = [
   {
-    url: '../../../asset/audio/Instru_stems-chords.mp3',
+    src: backwardsPiano,
     info: {
       name: 'Backwards Piano',
       position: getRandomPosition(),
@@ -23,7 +33,7 @@ export const sources = [
     },
   },
   {
-    url: '../../../asset/audio/Instru_stems-bass.mp3',
+    src: bass,
     info: {
       name: 'Bass',
       position: getRandomPosition(),
@@ -31,7 +41,7 @@ export const sources = [
     },
   },
   {
-    url: '../../../asset/audio/Instru_stems-kick.mp3',
+    src: kick,
     info: {
       name: 'Kick (Drums)',
       position: getRandomPosition(),
@@ -39,7 +49,7 @@ export const sources = [
     },
   },
   {
-    url: '../../../asset/audio/Instru_stems-snare.mp3',
+    src: snare,
     info: {
       name: 'Snare (Drums)',
       position: getRandomPosition(),
@@ -47,7 +57,7 @@ export const sources = [
     },
   },
   {
-    url: '../../../asset/audio/Instru_stems-hats.mp3',
+    src: hats,
     info: {
       name: 'Hi Hat (Drums)',
       position: getRandomPosition(),
@@ -55,7 +65,7 @@ export const sources = [
     },
   },
   {
-    url: '../../../asset/audio/Instru_stems-hats-2.mp3',
+    src: hats2,
     info: {
       name: 'Hi Hat 2 (Drums)',
       position: getRandomPosition(),
@@ -63,7 +73,7 @@ export const sources = [
     },
   },
   {
-    url: '../../../asset/audio/Instru_stems-rim.mp3',
+    src: rim,
     info: {
       name: 'Rim (Drums)',
       position: getRandomPosition(),
@@ -71,7 +81,7 @@ export const sources = [
     },
   },
   {
-    url: '../../../asset/audio/Instru_stems-perc.mp3',
+    src: perc,
     info: {
       name: 'Perc (Drums)',
       position: getRandomPosition(),
@@ -79,7 +89,7 @@ export const sources = [
     },
   },
   {
-    url: '../../../asset/audio/Instru_stems-lead.mp3',
+    src: trancePad,
     info: {
       name: 'Trance Lead',
       position: getRandomPosition(),
