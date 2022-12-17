@@ -4,7 +4,8 @@ import React from 'react';
 const Lights = () => {
   return (
     <>
-      <DREI.Environment preset='dawn' />
+      {/* <DREI.Environment preset='dawn' /> */}
+      <ambientLight intensity={0.5} />
     </>
   );
 };

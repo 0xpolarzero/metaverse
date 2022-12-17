@@ -59,7 +59,7 @@ const AudioSphere = ({ audio, info }) => {
         {info.name}
       </DREI.Text> */}
       <sphereGeometry args={[1, 32, 32]} />
-      <meshBasicMaterial color={info.color} wireframe={isHovered} />
+      <meshBasicMaterial color={info.color} wireframe={!isHovered} />
     </mesh>
   );
 };
