@@ -94,8 +94,9 @@ export default create((set, get) => ({
     renderer.externalizer.character.value = externalizerIntensity;
   },
 
+  // Create source
   createSource: (source, index) => {
-    const { audioContext, renderer, addSource } = get();
+    const { audioContext, renderer, addSource, createAnalyser } = get();
     const position = source.info.position;
     const audioElem = new Audio(source.src);
     audioElem.crossOrigin = 'anonymous';
@@ -105,15 +106,16 @@ export default create((set, get) => ({
 
     const audioElemSrc = audioContext.createMediaElementSource(audioElem);
 
+    const analyser = createAnalyser(audioElemSrc);
+
     let atmSource = renderer.createSource();
     atmSource.setInput(audioElemSrc);
     atmSource.setPosition(position.x, position.y, position.z);
 
-    // audioElem.play();
-
     addSource({
       audio: atmSource,
       audioElem: audioElem,
+      analyser: analyser,
       info: { ...source.info, id: index },
     });
   },
@@ -152,6 +154,7 @@ export default create((set, get) => ({
     }
   },
 
+  // Resume audio
   resumeAudio: () => {
     const { audioContext } = get();
     if (!audioContext) return;
@@ -162,6 +165,7 @@ export default create((set, get) => ({
       });
   },
 
+  // Pause audio
   pauseAudio: () => {
     const { audioContext } = get();
     if (audioContext.state === 'running')
@@ -177,6 +181,7 @@ export default create((set, get) => ({
     }
   },
 
+  // Randomize position for all sources
   randomizePositions: () => {
     const { sources, setSources } = get();
 
@@ -188,5 +193,61 @@ export default create((set, get) => ({
       return source;
     });
     setSources(newSources);
+  },
+
+  // Get an analyser for a source
+  createAnalyser: (source) => {
+    const { audioContext } = get();
+    const analyser = audioContext.createAnalyser();
+    const gainNode = audioContext.createGain();
+    analyser.fftSize = 64;
+    source.connect(analyser);
+    analyser.connect(gainNode);
+
+    // Create a script processor
+    let info = {};
+    const scriptProcessor = audioContext.createScriptProcessor(2048, 1, 1);
+    scriptProcessor.onaudioprocess = () => {
+      // const buffer = new Float32Array(analyser.frequencyBinCount);
+      // analyser.getFloatFrequencyData(buffer);
+      // const gain = buffer.reduce((a, b) => a + b) / buffer.length;
+      // info.gain = gain;
+
+      const data = new Uint8Array(analyser.frequencyBinCount);
+      analyser.getByteFrequencyData(data);
+      const gain = data.reduce((a, b) => a + b) / data.length;
+      info.gain = gain;
+    };
+    gainNode.connect(scriptProcessor);
+    scriptProcessor.connect(audioContext.destination);
+
+    return info;
+  },
+
+  getAnalyser: (source) => {
+    console.log(source);
+    // Create an analyser with the Audio API
+    const { audioContext } = get();
+    const analyser = audioContext.createAnalyser();
+    analyser.fftSize = 2048;
+    source.connect(analyser);
+
+    // Create a gain node
+    const gainNode = audioContext.createGain();
+    analyser.connect(gainNode);
+
+    // Create a script processor
+    const scriptProcessor = audioContext.createScriptProcessor(2048, 1, 1);
+    scriptProcessor.onaudioprocess = () => {
+      const buffer = new Float32Array(analyser.frequencyBinCount);
+      analyser.getFloatFrequencyData(buffer);
+      const gain = buffer.reduce((a, b) => a + b) / buffer.length;
+      gainNode.gain.value = gain;
+      source.info.frequency = frequency;
+    };
+    gainNode.connect(scriptProcessor);
+    scriptProcessor.connect(audioContext.destination);
+
+    return gainNode;
   },
 }));

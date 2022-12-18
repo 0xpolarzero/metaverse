@@ -6,14 +6,15 @@ import useInterface from '../../../stores/Interface';
 
 Globals.assign({ frameLoop: 'always' });
 
-const AudioSphere = ({ audio, info }) => {
+const AudioSphere = ({ audio, info, analyser }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [gain, setGain] = useState(0);
   const { hovered } = useInterface();
   const ref = useRef();
   const rotationSpeed = useMemo(() => Math.random() - 0.5, []);
 
   const { scale } = useSpring({
-    scale: isHovered ? 1.2 : 1,
+    scale: isHovered ? 1.2 : 1 + gain,
     config: config.wobbly,
   });
 
@@ -25,6 +26,9 @@ const AudioSphere = ({ audio, info }) => {
 
   useFrame(({ clock }) => {
     ref.current.rotation.y = clock.getElapsedTime() * rotationSpeed;
+
+    // The value will be between 0 and 255
+    setGain(analyser.gain / 255);
   });
 
   useEffect(() => {
@@ -40,14 +44,13 @@ const AudioSphere = ({ audio, info }) => {
   }, [hovered, info.id]);
 
   return (
-    <animated.mesh
-      ref={ref}
-      position={[info.position.x, info.position.y, info.position.z]}
-      onClick={handleClick}
-      scale={scale}
-    >
+    <group position={[info.position.x, info.position.y, info.position.z]}>
+      <animated.mesh ref={ref} onClick={handleClick} scale={scale}>
+        <sphereGeometry args={[1, 32, 32]} />
+        <meshBasicMaterial color={info.color} wireframe />
+      </animated.mesh>
       <DREI.Html
-        position-y={info.position.y < 2 ? 1.5 : -1.5}
+        position-y={info.position.y < 2 ? 1.7 : -1.7}
         center
         distanceFactor={10}
       >
@@ -64,13 +67,7 @@ const AudioSphere = ({ audio, info }) => {
           <h3>{info.name}</h3>
         </div>
       </DREI.Html>
-
-      {/* <DREI.Text position-y={1.5} fontSize={0.4}>
-        {info.name}
-      </DREI.Text> */}
-      <sphereGeometry args={[1, 32, 32]} />
-      <meshBasicMaterial color={info.color} wireframe />
-    </animated.mesh>
+    </group>
   );
 };
 

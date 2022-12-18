@@ -61,7 +61,14 @@ const AudioSystem = () => {
     <>
       <AudioControls />
       {sources.map((source, i) => {
-        return <AudioSphere key={i} audio={source.audio} info={source.info} />;
+        return (
+          <AudioSphere
+            key={i}
+            audio={source.audio}
+            info={source.info}
+            analyser={source.analyser}
+          />
+        );
       })}
     </>
   );
