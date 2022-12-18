@@ -1,6 +1,6 @@
 import { useFrame } from '@react-three/fiber';
 import * as DREI from '@react-three/drei';
-import { Globals, animated, useSpring } from '@react-spring/three';
+import { Globals, animated, config, useSpring } from '@react-spring/three';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import useInterface from '../../../stores/Interface';
 
@@ -14,12 +14,12 @@ const AudioSphere = ({ audio, info }) => {
 
   const { scale } = useSpring({
     scale: isHovered ? 1.2 : 1,
+    config: config.wobbly,
   });
 
   // ! Add here, is the object is in hovereds and is clicked to i.e. mute it
   const handleClick = () => {
     if (hovered[0] && hovered[0].id === info.id) {
-      // ! use @react-spring/three to animate, ask ChatGPT to write it
     }
   };
 
