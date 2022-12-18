@@ -27,6 +27,22 @@ export default create((set, get) => ({
   removeSource: (source) =>
     set((state) => ({ sources: state.sources.filter((s) => s !== source) })),
   clearSources: () => set((state) => ({ sources: [] })),
+  // Mute
+  mutedSources: [],
+  toggleMuteSource: (audioSource, id) => {
+    const { mutedSources } = get();
+    if (mutedSources.includes(id)) {
+      audioSource.setGainLinear(1);
+      set((state) => ({
+        mutedSources: state.mutedSources.filter((i) => i !== id),
+      }));
+    } else {
+      audioSource.setGainLinear(0);
+      set((state) => ({
+        mutedSources: [...state.mutedSources, id],
+      }));
+    }
+  },
 
   /**
    * Listener

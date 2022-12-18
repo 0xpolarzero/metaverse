@@ -18,6 +18,7 @@ body {
   position: fixed;
   overflow: hidden;
   overscroll-behavior-y: none;
+  background: #131313;
 }
 
 canvas {

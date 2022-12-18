@@ -112,8 +112,8 @@ const DesktopInterface = () => {
                   </span>
                   <span className='key'>
                     <TbLetterD />
-                  </span>{' '}
-                  <span className='separator'>/</span>{' '}
+                  </span>
+                  <Separator />
                   <span className='key'>
                     <MdKeyboardArrowUp />
                   </span>
@@ -138,8 +138,8 @@ const DesktopInterface = () => {
                   <span className='key'>
                     <BsMouse />
                     <TbClick />
-                  </span>{' '}
-                  <span className='separator'>/</span>{' '}
+                  </span>
+                  <Separator />
                   <span className='key'>
                     <TbLetterE />
                   </span>
@@ -150,16 +150,16 @@ const DesktopInterface = () => {
                     <TbLetterE />
                     <TbLetterS />
                     <TbLetterC />
-                  </span>{' '}
-                  <span className='separator'>/</span>{' '}
+                  </span>
+                  <Separator />
                   <span className='key'>
                     <ImCtrl />
-                  </span>{' '}
-                  <span className='separator'>/</span>{' '}
+                  </span>
+                  <Separator />
                   <span className='key'>
                     <ImOpt />
-                  </span>{' '}
-                  <span className='separator'>/</span>{' '}
+                  </span>
+                  <Separator />
                   <span className='key'>
                     <ImCommand />
                   </span>
@@ -168,8 +168,8 @@ const DesktopInterface = () => {
                 <span className='interface__keys'>
                   <span className='key'>
                     <MdKeyboardTab />
-                  </span>{' '}
-                  <span className='separator'>/</span>{' '}
+                  </span>
+                  <Separator />
                   <span className='key'>
                     <BsArrowReturnLeft />
                   </span>
@@ -235,5 +235,12 @@ const Hints = ({ visible }) => {
     </div>
   );
 };
+
+const Separator = () => (
+  <>
+    {' '}
+    <span className='separator'>|</span>{' '}
+  </>
+);
 
 export default Interface;

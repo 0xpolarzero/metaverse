@@ -51,7 +51,6 @@ const World = () => {
 
   return (
     <>
-      <color attach='background' args={['#131313']} />
       {isDesktop && <DREI.PointerLockControls ref={controls} />}
 
       <Physics gravity={gravity}>
@@ -69,7 +68,6 @@ const World = () => {
               target: [0, 1.5, 0],
             }}
             enableJoystick
-            enableKeyboard
           />
         )}
       </Physics>

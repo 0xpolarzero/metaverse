@@ -3,25 +3,31 @@ import * as DREI from '@react-three/drei';
 import { Globals, animated, config, useSpring } from '@react-spring/three';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import useInterface from '../../../stores/Interface';
+import useAtmoky from '../../../stores/Atmoky';
 
 Globals.assign({ frameLoop: 'always' });
 
 const AudioSphere = ({ audio, info, analyser }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [gain, setGain] = useState(0);
+  const [isMuted, setIsMuted] = useState(false);
+
   const { hovered } = useInterface();
+  const { toggleMuteSource } = useAtmoky();
+
   const ref = useRef();
   const rotationSpeed = useMemo(() => Math.random() - 0.5, []);
 
   const { scale } = useSpring({
-    scale: isHovered ? 1.2 : 1 + gain,
+    scale: isHovered ? (isMuted ? 0.65 : 1.2) : isMuted ? 0.5 : 1 + gain,
     config: config.wobbly,
   });
 
   // ! Add here, is the object is in hovereds and is clicked to i.e. mute it
-  const handleClick = () => {
-    if (hovered[0] && hovered[0].id === info.id) {
-    }
+  const handleClick = async (e) => {
+    e.stopPropagation();
+    setIsMuted(!isMuted);
+    toggleMuteSource(audio, info.id);
   };
 
   useFrame(({ clock }) => {
