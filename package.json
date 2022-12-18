@@ -25,6 +25,7 @@
   "dependencies": {
     "@atmokyaudio/websdk": "^0.4.1",
     "@dimforge/rapier3d-compat": "^0.10.0",
+    "@react-spring/three": "^9.6.1",
     "@react-three/drei": "9.46.3",
     "@react-three/fiber": "^8.9.1",
     "@react-three/postprocessing": "^2.7.0",
