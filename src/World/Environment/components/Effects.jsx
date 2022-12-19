@@ -7,8 +7,6 @@ const Effects = () => {
   const { ssr: ssrEnabled, dof: dofEnabled } = useGraphics();
   return (
     <>
-      <EffectsControls />
-
       <EffectComposer>
         {ssrEnabled && (
           <SSR
@@ -48,19 +46,6 @@ const Effects = () => {
       </EffectComposer>
     </>
   );
-};
-
-const EffectsControls = () => {
-  const { setGraphics } = useGraphics();
-
-  useControls('Graphics', {
-    // Select between low and high
-    Quality: {
-      options: ['low', 'high'],
-      onChange: (value) => setGraphics(value),
-    },
-  });
-  return null;
 };
 
 export default Effects;

@@ -19,6 +19,7 @@ body {
   overflow: hidden;
   overscroll-behavior-y: none;
   background: #131313;
+  /* background: linear-gradient(to right, #00bfff, #add8e6, #4b0082, #9400d3); */
 }
 
 canvas {

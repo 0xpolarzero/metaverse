@@ -1,5 +1,6 @@
 import create from 'zustand';
 import { Manager } from '@atmokyaudio/websdk';
+import chroma from 'chroma-js';
 import { getRandomPosition } from '../World/Audio/data/sources';
 
 const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -213,7 +214,7 @@ export default create((set, get) => ({
 
   // Get an analyser for a source
   createAnalyser: (source) => {
-    const { audioContext } = get();
+    const { audioContext, getColorFromGradient } = get();
     const analyser = audioContext.createAnalyser();
     const gainNode = audioContext.createGain();
     analyser.fftSize = 64;
@@ -224,15 +225,20 @@ export default create((set, get) => ({
     let info = {};
     const scriptProcessor = audioContext.createScriptProcessor(2048, 1, 1);
     scriptProcessor.onaudioprocess = () => {
-      // const buffer = new Float32Array(analyser.frequencyBinCount);
-      // analyser.getFloatFrequencyData(buffer);
-      // const gain = buffer.reduce((a, b) => a + b) / buffer.length;
-      // info.gain = gain;
-
       const data = new Uint8Array(analyser.frequencyBinCount);
       analyser.getByteFrequencyData(data);
+
       const gain = data.reduce((a, b) => a + b) / data.length;
       info.gain = gain;
+
+      const mainFrequencyIndex = data.indexOf(Math.max(...data));
+      const mainFrequencyInHz =
+        (mainFrequencyIndex * (audioContext.sampleRate / 2)) /
+        analyser.frequencyBinCount;
+      info.mainFrequencyInHz = mainFrequencyInHz;
+
+      const color = getColorFromGradient(mainFrequencyInHz);
+      info.color = color;
     };
     gainNode.connect(scriptProcessor);
     scriptProcessor.connect(audioContext.destination);
@@ -240,30 +246,14 @@ export default create((set, get) => ({
     return info;
   },
 
-  getAnalyser: (source) => {
-    console.log(source);
-    // Create an analyser with the Audio API
-    const { audioContext } = get();
-    const analyser = audioContext.createAnalyser();
-    analyser.fftSize = 2048;
-    source.connect(analyser);
+  getColorFromGradient: (frequency) => {
+    // The frequencies will mainly be between 20 and 10000 Hz
+    // So we need to map from 20 to 10 000 but still it can be higher
+    // So we need to map from 0 to 20000 BUT the highest will be 10000
+    const gradient = chroma.scale(['#00bfff', '#add8e6', '#4b0082', '#9400d3']);
+    const normalizedFrequency = frequency / 10000;
+    const color = gradient(normalizedFrequency).hex();
 
-    // Create a gain node
-    const gainNode = audioContext.createGain();
-    analyser.connect(gainNode);
-
-    // Create a script processor
-    const scriptProcessor = audioContext.createScriptProcessor(2048, 1, 1);
-    scriptProcessor.onaudioprocess = () => {
-      const buffer = new Float32Array(analyser.frequencyBinCount);
-      analyser.getFloatFrequencyData(buffer);
-      const gain = buffer.reduce((a, b) => a + b) / buffer.length;
-      gainNode.gain.value = gain;
-      source.info.frequency = frequency;
-    };
-    gainNode.connect(scriptProcessor);
-    scriptProcessor.connect(audioContext.destination);
-
-    return gainNode;
+    return color;
   },
 }));

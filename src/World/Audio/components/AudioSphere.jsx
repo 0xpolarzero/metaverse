@@ -10,6 +10,7 @@ Globals.assign({ frameLoop: 'always' });
 const AudioSphere = ({ audio, info, analyser }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [gain, setGain] = useState(0);
+  const [matColor, setMatColor] = useState(['#000000']);
   const [isMuted, setIsMuted] = useState(false);
 
   const { hovered } = useInterface();
@@ -18,8 +19,9 @@ const AudioSphere = ({ audio, info, analyser }) => {
   const ref = useRef();
   const rotationSpeed = useMemo(() => Math.random() - 0.5, []);
 
-  const { scale } = useSpring({
+  const { scale, color } = useSpring({
     scale: isHovered ? (isMuted ? 0.65 : 1.2) : isMuted ? 0.5 : 1 + gain,
+    color: analyser.color,
     config: config.wobbly,
   });
 
@@ -35,7 +37,13 @@ const AudioSphere = ({ audio, info, analyser }) => {
 
     // The value will be between 0 and 255
     setGain(analyser.gain / 255);
+    // setColor([analyser.color]);
+    // ref.current.material.color.set(analyser.color);
   });
+
+  useEffect(() => {
+    console.log(color);
+  }, [color]);
 
   useEffect(() => {
     ref.current.userData = { audio, name: info.name, id: info.id };
@@ -53,7 +61,7 @@ const AudioSphere = ({ audio, info, analyser }) => {
     <group position={[info.position.x, info.position.y, info.position.z]}>
       <animated.mesh ref={ref} onClick={handleClick} scale={scale}>
         <sphereGeometry args={[1, 32, 32]} />
-        <meshBasicMaterial color={info.color} wireframe />
+        <animated.meshBasicMaterial color={color} wireframe />
       </animated.mesh>
       <DREI.Html
         position-y={info.position.y < 2 ? 1.7 : -1.7}

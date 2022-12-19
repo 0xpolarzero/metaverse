@@ -2,8 +2,9 @@ import React from 'react';
 import Lights from './components/Lights';
 import Structure from './components/Structure';
 import Particles from './components/Particles';
-import useWorld from '../../stores/World';
 import Effects from './components/Effects';
+import EnvironmentControls from './components/EnvironmentControls';
+import useWorld from '../../stores/World';
 
 const Environment = () => {
   const { scale } = useWorld();
@@ -14,6 +15,8 @@ const Environment = () => {
       <Lights />
       <Particles count={(scale.x * scale.y) / 10} />
       <Effects />
+
+      <EnvironmentControls />
     </>
   );
 };
