@@ -9,7 +9,7 @@ const geometry = new THREE.BoxGeometry(1, 1, 1);
 
 const Structure = () => {
   const mesh = useRef();
-  const { scale } = useWorld();
+  const { scale, colors } = useWorld();
 
   const uniforms = useMemo(() => ({
     gridSize: { value: 1 },
@@ -27,7 +27,7 @@ const Structure = () => {
 
   return (
     <>
-      <gridHelper args={[scale.x, scale.z, 0x00bfff, 0x9400d3]} />
+      <gridHelper args={[scale.x, scale.z, colors.a, colors.d]} />
       <Floor scale={scale} material={material} />
       <Bounds scale={scale} material={material} />
     </>

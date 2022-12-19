@@ -2,6 +2,7 @@ import create from 'zustand';
 import { Manager } from '@atmokyaudio/websdk';
 import chroma from 'chroma-js';
 import { getRandomPosition } from '../World/Audio/data/sources';
+import useWorld from './World';
 
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 
@@ -247,10 +248,9 @@ export default create((set, get) => ({
   },
 
   getColorFromGradient: (frequency) => {
-    // The frequencies will mainly be between 20 and 10000 Hz
-    // So we need to map from 20 to 10 000 but still it can be higher
-    // So we need to map from 0 to 20000 BUT the highest will be 10000
-    const gradient = chroma.scale(['#00bfff', '#add8e6', '#4b0082', '#9400d3']);
+    const colors = useWorld.getState().colors;
+
+    const gradient = chroma.scale([colors.a, colors.b, colors.c, colors.d]);
     const normalizedFrequency = frequency / 10000;
     const color = gradient(normalizedFrequency).hex();
 
