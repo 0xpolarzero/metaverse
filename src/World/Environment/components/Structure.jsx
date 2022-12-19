@@ -1,21 +1,12 @@
 import * as THREE from 'three';
-import { useFrame } from '@react-three/fiber';
-import * as DREI from '@react-three/drei';
 import { CuboidCollider, RigidBody } from '@react-three/rapier';
-import React, { useMemo, useRef } from 'react';
+import React from 'react';
 import useWorld from '../../../stores/World';
 
 const geometry = new THREE.BoxGeometry(1, 1, 1);
 
 const Structure = () => {
-  const mesh = useRef();
   const { scale, colors } = useWorld();
-
-  const uniforms = useMemo(() => ({
-    gridSize: { value: 1 },
-    color1: { value: new THREE.Color(0x00bfff) }, // light blue
-    color2: { value: new THREE.Color(0x9400d3) }, // dark violet
-  }));
 
   const material = new THREE.MeshBasicMaterial({
     color: 0x00bfff,
@@ -23,11 +14,9 @@ const Structure = () => {
     opacity: 0,
   });
 
-  useFrame(({ clock }) => {});
-
   return (
     <>
-      <gridHelper args={[scale.x, scale.z, colors.a, colors.d]} />
+      <gridHelper args={[scale.x, scale.z, colors.c2, colors.a2]} />
       <Floor scale={scale} material={material} />
       <Bounds scale={scale} material={material} />
     </>

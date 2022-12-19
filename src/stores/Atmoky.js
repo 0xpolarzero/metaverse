@@ -257,3 +257,5 @@ export default create((set, get) => ({
     return color;
   },
 }));
+
+// ! add type to choose the color from the gradient

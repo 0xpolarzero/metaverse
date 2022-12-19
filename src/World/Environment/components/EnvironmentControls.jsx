@@ -15,22 +15,13 @@ const EnvironmentControls = () => {
   });
 
   useControls('Colors', {
-    A: {
-      value: colors.a,
-      onChange: (value) => setColor('a', value),
-    },
-    B: {
-      value: colors.b,
-      onChange: (value) => setColor('b', value),
-    },
-    C: {
-      value: colors.c,
-      onChange: (value) => setColor('c', value),
-    },
-    D: {
-      value: colors.d,
-      onChange: (value) => setColor('d', value),
-    },
+    ...Object.keys(colors).reduce((acc, key) => {
+      acc[key] = {
+        value: colors[key],
+        onChange: (value) => setColor(key, value),
+      };
+      return acc;
+    }, {}),
   });
 
   return null;

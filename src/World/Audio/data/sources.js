@@ -16,20 +16,13 @@ export const getRandomPosition = () => {
   };
 };
 
-const colors = {
-  chords: 'purple',
-  bass: 'red',
-  drums: 'white',
-  lead: 'yellow',
-};
-
 export const sources = [
   {
     src: backwardsPiano,
     info: {
       name: 'Backwards Piano',
       position: getRandomPosition(),
-      color: colors.chords,
+      type: 'chords',
     },
   },
   {
@@ -37,7 +30,7 @@ export const sources = [
     info: {
       name: 'Bass',
       position: getRandomPosition(),
-      color: colors.bass,
+      type: 'bass',
     },
   },
   {
@@ -45,7 +38,7 @@ export const sources = [
     info: {
       name: 'Kick (Drums)',
       position: getRandomPosition(),
-      color: colors.drums,
+      type: 'drums',
     },
   },
   {
@@ -53,7 +46,7 @@ export const sources = [
     info: {
       name: 'Snare (Drums)',
       position: getRandomPosition(),
-      color: colors.drums,
+      type: 'drums',
     },
   },
   {
@@ -61,7 +54,7 @@ export const sources = [
     info: {
       name: 'Hi Hat (Drums)',
       position: getRandomPosition(),
-      color: colors.drums,
+      type: 'drums',
     },
   },
   {
@@ -69,7 +62,7 @@ export const sources = [
     info: {
       name: 'Hi Hat 2 (Drums)',
       position: getRandomPosition(),
-      color: colors.drums,
+      type: 'drums',
     },
   },
   {
@@ -77,7 +70,7 @@ export const sources = [
     info: {
       name: 'Rim (Drums)',
       position: getRandomPosition(),
-      color: colors.drums,
+      type: 'drums',
     },
   },
   {
@@ -85,7 +78,7 @@ export const sources = [
     info: {
       name: 'Perc (Drums)',
       position: getRandomPosition(),
-      color: colors.drums,
+      type: 'drums',
     },
   },
   {
@@ -93,7 +86,7 @@ export const sources = [
     info: {
       name: 'Trance Lead',
       position: getRandomPosition(),
-      color: colors.lead,
+      type: 'lead',
     },
   },
 ];
