@@ -12,13 +12,13 @@ export default create((set) => ({
     // Dark purple: #663399 / Light purple: #D8BFD8
     // Dark blue: #000080 / Light blue: #ADD8E6
     // Dark green: #006400 / Light green: #90EE90
-    a1: '#FF1493',
+    a1: '#FF69B4',
     a2: '#FFB6C1',
-    b1: '#663399',
+    b1: '#9966CC',
     b2: '#D8BFD8',
-    c1: '#000080',
+    c1: '#333399',
     c2: '#ADD8E6',
-    d1: '#006400',
+    d1: '#339933',
     d2: '#90EE90',
   },
   setColor: (key, value) =>

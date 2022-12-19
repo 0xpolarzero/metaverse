@@ -124,7 +124,7 @@ export default create((set, get) => ({
 
     const audioElemSrc = audioContext.createMediaElementSource(audioElem);
 
-    const analyser = createAnalyser(audioElemSrc);
+    const analyser = createAnalyser(audioElemSrc, source.info.type);
 
     let atmSource = renderer.createSource();
     atmSource.setInput(audioElemSrc);
@@ -214,7 +214,7 @@ export default create((set, get) => ({
   },
 
   // Get an analyser for a source
-  createAnalyser: (source) => {
+  createAnalyser: (source, type) => {
     const { audioContext, getColorFromGradient } = get();
     const analyser = audioContext.createAnalyser();
     const gainNode = audioContext.createGain();
@@ -238,7 +238,7 @@ export default create((set, get) => ({
         analyser.frequencyBinCount;
       info.mainFrequencyInHz = mainFrequencyInHz;
 
-      const color = getColorFromGradient(mainFrequencyInHz);
+      const color = getColorFromGradient(mainFrequencyInHz, type);
       info.color = color;
     };
     gainNode.connect(scriptProcessor);
@@ -247,10 +247,26 @@ export default create((set, get) => ({
     return info;
   },
 
-  getColorFromGradient: (frequency) => {
+  getColorFromGradient: (frequency, type) => {
     const colors = useWorld.getState().colors;
+    let firstColor;
+    let secondColor;
 
-    const gradient = chroma.scale([colors.a, colors.b, colors.c, colors.d]);
+    if (type === 'lead') {
+      firstColor = colors.a1;
+      secondColor = colors.a2;
+    } else if (type === 'chords') {
+      firstColor = colors.b1;
+      secondColor = colors.b2;
+    } else if (type === 'drums') {
+      firstColor = colors.c1;
+      secondColor = colors.c2;
+    } else {
+      firstColor = colors.d1;
+      secondColor = colors.d2;
+    }
+
+    const gradient = chroma.scale([firstColor, secondColor]);
     const normalizedFrequency = frequency / 10000;
     const color = gradient(normalizedFrequency).hex();
 
