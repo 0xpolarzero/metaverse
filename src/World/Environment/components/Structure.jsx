@@ -16,7 +16,16 @@ const Structure = () => {
 
   return (
     <>
-      <gridHelper args={[scale.x, scale.z, colors.c2, colors.a2]} />
+      <gridHelper
+        args={[
+          scale.x,
+          scale.z,
+          // colors.c2
+          0x545454,
+          // colors.a2
+          0x242424,
+        ]}
+      />
       <Floor scale={scale} material={material} />
       <Bounds scale={scale} material={material} />
     </>

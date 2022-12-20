@@ -2,6 +2,17 @@ import useGraphics from '../../../stores/Graphics';
 import useWorld from '../../../stores/World';
 import { useControls } from 'leva';
 
+const types = [
+  'Lead low',
+  'Lead high',
+  'Chords low',
+  'Chords high',
+  'Drums low',
+  'Drums high',
+  'Bass low',
+  'Bass high',
+];
+
 const EnvironmentControls = () => {
   const { setGraphics } = useGraphics();
   const { colors, setColor } = useWorld();
@@ -15,8 +26,8 @@ const EnvironmentControls = () => {
   });
 
   useControls('Colors', {
-    ...Object.keys(colors).reduce((acc, key) => {
-      acc[key] = {
+    ...Object.keys(colors).reduce((acc, key, index) => {
+      acc[types[index]] = {
         value: colors[key],
         onChange: (value) => setColor(key, value),
       };

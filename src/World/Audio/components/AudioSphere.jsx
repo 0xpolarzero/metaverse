@@ -21,7 +21,7 @@ const AudioSphere = ({ audio, info, analyser }) => {
 
   const { scale, color } = useSpring({
     scale: isHovered ? (isMuted ? 0.65 : 1.2) : isMuted ? 0.5 : 1 + gain,
-    color: analyser.color,
+    color: isMuted ? '#ffffff' : analyser.color,
     config: config.wobbly,
   });
 
@@ -33,12 +33,11 @@ const AudioSphere = ({ audio, info, analyser }) => {
   };
 
   useFrame(({ clock }) => {
-    ref.current.rotation.y = clock.getElapsedTime() * rotationSpeed;
+    if (!isMuted)
+      ref.current.rotation.y = clock.getElapsedTime() * rotationSpeed;
 
     // The value will be between 0 and 255
     setGain(analyser.gain / 255);
-    // setColor([analyser.color]);
-    // ref.current.material.color.set(analyser.color);
   });
 
   useEffect(() => {
@@ -61,7 +60,7 @@ const AudioSphere = ({ audio, info, analyser }) => {
     <group position={[info.position.x, info.position.y, info.position.z]}>
       <animated.mesh ref={ref} onClick={handleClick} scale={scale}>
         <sphereGeometry args={[1, 32, 32]} />
-        <animated.meshBasicMaterial color={color} wireframe />
+        <animated.meshStandardMaterial color={color} wireframe={!isMuted} />
       </animated.mesh>
       <DREI.Html
         position-y={info.position.y < 2 ? 1.7 : -1.7}
