@@ -22,3 +22,6 @@ const Environment = () => {
 };
 
 export default Environment;
+
+// ! Particles background apparent
+// ! High quality (SSR) producing artifacts

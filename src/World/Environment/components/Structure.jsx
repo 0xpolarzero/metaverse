@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import * as DREI from '@react-three/drei';
 import { CuboidCollider, RigidBody } from '@react-three/rapier';
 import React from 'react';
 import useWorld from '../../../stores/World';
@@ -6,12 +7,13 @@ import useWorld from '../../../stores/World';
 const geometry = new THREE.BoxGeometry(1, 1, 1);
 
 const Structure = () => {
-  const { scale, colors } = useWorld();
+  const { scale } = useWorld();
 
   const material = new THREE.MeshBasicMaterial({
-    color: 0x00bfff,
+    color: 0x131313,
     transparent: true,
     opacity: 0,
+    depthWrite: true,
   });
 
   return (
