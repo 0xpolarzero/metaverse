@@ -1,10 +1,15 @@
-import { DepthOfField, EffectComposer, SSR } from '@react-three/postprocessing';
+import {
+  DepthOfField,
+  EffectComposer,
+  SSR,
+  SSAO,
+} from '@react-three/postprocessing';
 import { useControls } from 'leva';
 import React from 'react';
 import useGraphics from '../../../stores/Graphics';
 
 const Effects = () => {
-  const { ssr: ssrEnabled, dof: dofEnabled } = useGraphics();
+  const { ssr: ssrEnabled, dof: dofEnabled, ssao: ssaoEnabled } = useGraphics();
   return (
     <>
       <EffectComposer>
@@ -43,6 +48,7 @@ const Effects = () => {
             bokehScale={3}
           />
         )}
+        {ssaoEnabled && <SSAO samples={32} radius={5} intensity={30} />}
       </EffectComposer>
     </>
   );
