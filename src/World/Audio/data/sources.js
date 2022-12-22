@@ -8,11 +8,16 @@ import rim from '../../../asset/audio/Instru_stems-rim.mp3';
 import perc from '../../../asset/audio/Instru_stems-perc.mp3';
 import trancePad from '../../../asset/audio/Instru_stems-trance-pad.mp3';
 
-export const getRandomPosition = () => {
+import defaults from '../../../defaults.config';
+const DEFAULT_SCALE = defaults.world.scale;
+
+export const getRandomPosition = (scale = DEFAULT_SCALE) => {
+  const factor = scale.x / DEFAULT_SCALE.x;
+
   return {
-    x: Math.random() * 20 - 10,
-    y: Math.random() * 4 + 1,
-    z: Math.random() * 20 - 10,
+    x: (Math.random() * 20 - 10) * factor,
+    y: (Math.random() * 4 + 1) * factor,
+    z: (Math.random() * 20 - 10) * factor,
   };
 };
 

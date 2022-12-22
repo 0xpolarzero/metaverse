@@ -1,10 +1,18 @@
 import create from 'zustand';
+import defaults from '../defaults.config';
+
+const {
+  scale: DEFAULT_SCALE,
+  gravity: DEFAULT_GRAVITY,
+  colors: DEFAULT_COLORS,
+} = defaults.world;
 
 export default create((set) => ({
-  gravity: [0, -9.8, 0],
+  gravity: DEFAULT_GRAVITY, // [0, -9.8, 0]
   setGravity: (gravity) => set({ gravity }),
 
-  scale: { x: 100, y: 20, z: 100 },
+  scale: DEFAULT_SCALE, // { x: 50, y: 20, z: 50 }
+  defaultScale: DEFAULT_SCALE,
   setScale: (scale) => set({ scale }),
 
   colors: {
@@ -20,14 +28,14 @@ export default create((set) => ({
     // c2: '#ADD8E6',
     // d1: '#339933',
     // d2: '#90EE90',
-    a1: '#FEC8D8',
-    a2: '#FFE6EA',
-    b1: '#C5B0D5',
-    b2: '#E4D6EC',
-    c1: '#AED6F1',
-    c2: '#D9EAF6',
-    d1: '#A9DFBF',
-    d2: '#DDEFD9',
+    a1: DEFAULT_COLORS.a1,
+    a2: DEFAULT_COLORS.a2,
+    b1: DEFAULT_COLORS.b1,
+    b2: DEFAULT_COLORS.b2,
+    c1: DEFAULT_COLORS.c1,
+    c2: DEFAULT_COLORS.c2,
+    d1: DEFAULT_COLORS.d1,
+    d2: DEFAULT_COLORS.d2,
   },
   setColor: (key, value) =>
     set((state) => ({ colors: { ...state.colors, [key]: value } })),

@@ -202,9 +202,10 @@ export default create((set, get) => ({
   // Randomize position for all sources
   randomizePositions: () => {
     const { sources, setSources } = get();
+    const { scale } = useWorld.getState().scale;
 
     const newSources = sources.map((source) => {
-      const newPosition = getRandomPosition();
+      const newPosition = getRandomPosition(scale);
       source.audio.setPosition(newPosition.x, newPosition.y, newPosition.z);
       source.info.position = newPosition;
 

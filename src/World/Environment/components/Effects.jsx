@@ -4,7 +4,6 @@ import {
   SSR,
   SSAO,
 } from '@react-three/postprocessing';
-import { useControls } from 'leva';
 import React from 'react';
 import useGraphics from '../../../stores/Graphics';
 

@@ -28,13 +28,14 @@ const Structure = () => {
           0x242424,
         ]}
       />
-      <Floor scale={scale} material={material} />
+      <Floor /* scale={scale} */ material={material} />
       <Bounds scale={scale} material={material} />
     </>
   );
 };
 
-const Floor = ({ scale, material }) => {
+const Floor = ({ /* scale, */ material }) => {
+  const { scale } = useWorld();
   return (
     <RigidBody type='fixed' restitution={0.2} friction={1} colliders={false}>
       <CuboidCollider

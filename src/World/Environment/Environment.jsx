@@ -1,8 +1,8 @@
 import React from 'react';
 import Lights from './components/Lights';
 import Structure from './components/Structure';
-import Particles from './components/Particles';
-import Effects from './components/Effects';
+// import Particles from './components/Particles';
+// import Effects from './components/Effects';
 import EnvironmentControls from './components/EnvironmentControls';
 import useWorld from '../../stores/World';
 
@@ -13,8 +13,8 @@ const Environment = () => {
     <>
       <Structure />
       <Lights />
-      <Particles count={(scale.x * scale.y) / 10} />
-      <Effects />
+      {/* <Particles count={(scale.x * scale.y) / 10} /> */}
+      {/* <Effects /> */}
 
       <EnvironmentControls />
     </>
@@ -22,6 +22,3 @@ const Environment = () => {
 };
 
 export default Environment;
-
-// ! Particles background apparent
-// ! High quality (SSR) producing artifacts

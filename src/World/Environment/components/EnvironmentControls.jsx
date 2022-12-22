@@ -1,4 +1,3 @@
-import useGraphics from '../../../stores/Graphics';
 import useWorld from '../../../stores/World';
 import { useControls } from 'leva';
 
@@ -14,14 +13,28 @@ const types = [
 ];
 
 const EnvironmentControls = () => {
-  const { setGraphics } = useGraphics();
-  const { colors, setColor } = useWorld();
+  const { scale, defaultScale, setScale, colors, setColor } = useWorld();
 
-  useControls('Graphics', {
-    // Select between low and high
-    Quality: {
-      options: ['low', 'high'],
-      onChange: (value) => setGraphics(value),
+  // useControls('Graphics', {
+  //   // Select between low and high
+  //   Quality: {
+  //     options: ['low', 'high'],
+  //     onChange: (value) => setGraphics(value),
+  //   },
+  // });
+
+  useControls('Room', {
+    Scale: {
+      value: 1,
+      min: 0.1,
+      max: 10,
+      step: 0.1,
+      onChange: (value) =>
+        setScale({
+          x: defaultScale.x * value,
+          y: defaultScale.y,
+          z: defaultScale.z * value,
+        }),
     },
   });
 
