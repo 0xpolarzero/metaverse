@@ -12,7 +12,6 @@ export default create((set) => ({
   setGravity: (gravity) => set({ gravity }),
 
   scale: DEFAULT_SCALE, // { x: 50, y: 20, z: 50 }
-  defaultScale: DEFAULT_SCALE,
   setScale: (scale) => set({ scale }),
 
   colors: {

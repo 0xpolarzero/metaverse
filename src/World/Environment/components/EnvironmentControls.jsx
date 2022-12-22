@@ -1,5 +1,12 @@
 import useWorld from '../../../stores/World';
 import { useControls } from 'leva';
+import defaults from '../../../defaults.config';
+
+const {
+  scale: DEFAULT_SCALE,
+  maxScaleMultiplier: MAX_SCALE,
+  minScaleMultiplier: MIN_SCALE,
+} = defaults.world;
 
 const types = [
   'Lead low',
@@ -13,7 +20,7 @@ const types = [
 ];
 
 const EnvironmentControls = () => {
-  const { scale, defaultScale, setScale, colors, setColor } = useWorld();
+  const { scale, setScale, colors, setColor } = useWorld();
 
   // useControls('Graphics', {
   //   // Select between low and high
@@ -26,14 +33,14 @@ const EnvironmentControls = () => {
   useControls('Room', {
     Scale: {
       value: 1,
-      min: 0.5,
-      max: 5,
+      min: MIN_SCALE,
+      max: MAX_SCALE,
       step: 0.1,
       onChange: (value) =>
         setScale({
-          x: defaultScale.x * value,
-          y: defaultScale.y,
-          z: defaultScale.z * value,
+          x: DEFAULT_SCALE.x * value,
+          y: DEFAULT_SCALE.y,
+          z: DEFAULT_SCALE.z * value,
         }),
     },
   });
