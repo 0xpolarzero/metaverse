@@ -26,8 +26,8 @@ const EnvironmentControls = () => {
   useControls('Room', {
     Scale: {
       value: 1,
-      min: 0.1,
-      max: 10,
+      min: 0.5,
+      max: 5,
       step: 0.1,
       onChange: (value) =>
         setScale({

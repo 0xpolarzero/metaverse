@@ -11,11 +11,11 @@ import useInterface from '../stores/Interface';
 import useAtmoky from '../stores/Atmoky';
 
 const World = () => {
-  const { gravity } = useWorld();
+  const { gravity, scale } = useWorld();
   const { setShowMenu } = useInterface();
   const { resumeAudio, pauseAudio } = useAtmoky();
 
-  const environment = useMemo(() => <Environment />, []);
+  const environment = useMemo(() => <Environment />, [scale]);
   const controls = useRef();
   const freeCursorKeys = ['Alt', 'Control', 'Meta']; // + default escape
   const menuKeys = ['Tab', 'Enter'];

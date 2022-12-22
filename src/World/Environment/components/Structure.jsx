@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import * as DREI from '@react-three/drei';
-import { CuboidCollider, RigidBody } from '@react-three/rapier';
-import React from 'react';
+import { CuboidCollider, Debug, RigidBody } from '@react-three/rapier';
+import React, { useEffect, useRef } from 'react';
 import useWorld from '../../../stores/World';
 
 const geometry = new THREE.BoxGeometry(1, 1, 1);
@@ -13,7 +13,6 @@ const Structure = () => {
     color: 0x131313,
     transparent: true,
     opacity: 0,
-    depthWrite: true,
   });
 
   return (
@@ -28,17 +27,26 @@ const Structure = () => {
           0x242424,
         ]}
       />
-      <Floor /* scale={scale} */ material={material} />
+      <Floor scale={scale} material={material} />
       <Bounds scale={scale} material={material} />
     </>
   );
 };
 
-const Floor = ({ /* scale, */ material }) => {
-  const { scale } = useWorld();
+const Floor = ({ scale, material }) => {
+  const ref = useRef();
+  console.log(scale);
+
+  useEffect(() => {
+    console.log(ref.current);
+    // ref.current.scale.set(scale.x, scale.z, 0.1);
+  }, [scale]);
+
   return (
     <RigidBody type='fixed' restitution={0.2} friction={1} colliders={false}>
+      <Debug />
       <CuboidCollider
+        ref={ref}
         args={[scale.x * 0.5, 0.1, scale.z * 0.5]}
         position-y={-0.1}
       />
