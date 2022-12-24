@@ -1,18 +1,16 @@
 import * as THREE from 'three';
 import * as DREI from '@react-three/drei';
 import { CuboidCollider, Debug, RigidBody } from '@react-three/rapier';
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import useWorld from '../../../stores/World';
 import defaults from '../../../defaults.config';
-import { useThree } from '@react-three/fiber';
 
 const { scale: DEFAULT_SCALE, maxScaleMultiplier: MAX_SCALE } = defaults.world;
 const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshBasicMaterial({
+const material = new THREE.MeshStandardMaterial({
   color: 0x131313,
   transparent: true,
   opacity: 0.3,
-  side: THREE.DoubleSide,
 });
 
 const Structure = () => {
@@ -24,9 +22,7 @@ const Structure = () => {
         args={[
           DEFAULT_SCALE.x * MAX_SCALE,
           DEFAULT_SCALE.z * MAX_SCALE,
-          // colors.c2
           0x545454,
-          // colors.a2
           0x242424,
         ]}
         position-y={-1}

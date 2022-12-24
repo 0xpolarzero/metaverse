@@ -25,7 +25,6 @@ const AudioSphere = ({ audio, info, analyser }) => {
     config: config.wobbly,
   });
 
-  // ! Add here, is the object is in hovereds and is clicked to i.e. mute it
   const handleClick = async (e) => {
     e.stopPropagation();
     setIsMuted(!isMuted);

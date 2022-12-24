@@ -9,6 +9,7 @@ const Interactivity = () => {
   const ignoreTypes = ['Points', 'GridHelper'];
   const ignoreNames = [
     'floor',
+    'ceiling',
     'leftWall',
     'rightWall',
     'backWall',
@@ -17,7 +18,7 @@ const Interactivity = () => {
 
   useFrame(({ raycaster, scene, mouse }) => {
     raycaster.setFromCamera(mouse, camera);
-    // Ignore particles, floor and walls
+
     const objects = scene.children.filter(
       (child) =>
         !ignoreTypes.includes(child.type) && !ignoreNames.includes(child.name),

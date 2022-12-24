@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { sources as sourceObjects } from './data/sources';
 import AudioControls from './components/AudioControls';
 import AudioSphere from './components/AudioSphere';
+import useWorld from '../../stores/World';
 import useAtmoky from '../../stores/Atmoky';
 import useInterface from '../../stores/Interface';
 
@@ -11,6 +12,7 @@ let audioLoaded = false;
 const AudioSystem = () => {
   const [audioStarted, setAudioStarted] = useState(false);
   const { camera } = useThree();
+  const { scale } = useWorld();
   const { sources, renderer, startAudio, initAudio } = useAtmoky();
   const { setShowMobileOverlay } = useInterface();
 
@@ -30,6 +32,32 @@ const AudioSystem = () => {
     }
   };
 
+  const isPlayerOutOfBox = () => {
+    const { x, y, z } = camera.position;
+    const { x: sx, y: sy, z: sz } = scale;
+
+    return (
+      x < -sx / 2 ||
+      x > sx / 2 ||
+      y < -sy / 2 ||
+      y > sy / 2 ||
+      z < -sz / 2 ||
+      z > sz / 2
+    );
+  };
+
+  const setOcclusion = (occluded) => {
+    if (occluded) {
+      sources.forEach((source) => {
+        source.audio.setOcclusion(1.0);
+      });
+    } else {
+      sources.forEach((source) => {
+        source.audio.setOcclusion(0.0);
+      });
+    }
+  };
+
   useFrame(() => {
     if (renderer) {
       renderer.listener.setPosition(
@@ -42,6 +70,8 @@ const AudioSystem = () => {
         camera.rotation.x,
         camera.rotation.z,
       );
+
+      setOcclusion(isPlayerOutOfBox());
     }
   });
 
