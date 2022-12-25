@@ -2,6 +2,7 @@
   "name": "metaverse",
   "version": "0.1.0",
   "description": "Virtual world with immersive 3D audio integration",
+  "homepage": "https://polar0.github.io/metaverse",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/polar0/metaverse.git"
@@ -15,7 +16,7 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "react-scripts eject"
+    "deploy": "craco build && gh-pages -d build"
   },
   "browserslist": [
     ">0.2%",
@@ -47,6 +48,7 @@
     "@babel/plugin-transform-typescript": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
     "@craco/craco": "^7.0.0",
+    "gh-pages": "^4.0.0",
     "ignore-loader": "^0.1.2",
     "r3f-perf": "^6.6.0",
     "typescript": "^4.9.4"
