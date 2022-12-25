@@ -10,7 +10,6 @@ Globals.assign({ frameLoop: 'always' });
 const AudioSphere = ({ audio, info, analyser }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [gain, setGain] = useState(0);
-  const [matColor, setMatColor] = useState(['#000000']);
   const [isMuted, setIsMuted] = useState(false);
 
   const { hovered } = useInterface();

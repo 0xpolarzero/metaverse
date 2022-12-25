@@ -27,15 +27,11 @@ const App = () => {
         ]}
       >
         <Canvas
-          shadows
           camera={{
             fov: 75,
             near: 0.1,
             far: 1000,
             position: [-4, 2, -4],
-          }}
-          onCreated={({ gl }) => {
-            gl.setClearColor(0x131313, 0);
           }}
         >
           <Perf position='top-left' />

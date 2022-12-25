@@ -11,6 +11,8 @@ const material = new THREE.MeshStandardMaterial({
   color: 0x131313,
   transparent: true,
   opacity: 0.3,
+  // roughness: 0.5,
+  // metalness: 0.5,
 });
 
 const Structure = () => {
