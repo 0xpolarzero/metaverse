@@ -1,5 +1,5 @@
-src/assets/** linguist-vendored
-dist/assets/** linguist-vendored
+src/asset/** linguist-vendored
+dist/asset/** linguist-vendored
 old/** linguist-vendored
 old/src/assets/** linguist-vendored
 old/dist/assets/** linguist-vendored
