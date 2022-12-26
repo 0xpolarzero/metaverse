@@ -33,7 +33,7 @@ But feel free to send me messages if you have any comments, recommendations, cri
 - Remove particles ✅
 - Remove low/high graphics ✅
 - Add scale to controls (+ and - objects placement too) ✅
-- Fix colliders not updating with scale
+- Fix colliders not updating with scale ✅
 - Add voice enable/disable
 - check on mobile and display 'touch' for interaction
 - Add long touch to move?

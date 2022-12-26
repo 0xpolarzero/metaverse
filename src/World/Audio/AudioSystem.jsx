@@ -76,15 +76,12 @@ const AudioSystem = () => {
   });
 
   useEffect(() => {
-    // Start audio after user interaction
     document.addEventListener('click', init);
     return () => document.removeEventListener('click', init);
   }, []);
 
   useEffect(() => {
-    if (audioLoaded) {
-      startAfterInteraction();
-    }
+    if (audioLoaded) startAfterInteraction();
   }, [audioLoaded]);
 
   return (

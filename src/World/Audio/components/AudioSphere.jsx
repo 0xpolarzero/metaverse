@@ -9,11 +9,12 @@ Globals.assign({ frameLoop: 'always' });
 
 const AudioSphere = ({ audio, info, analyser }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [gain, setGain] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [gain, setGain] = useState(0);
 
   const { hovered } = useInterface();
-  const { toggleMuteSource } = useAtmoky();
+  const { toggleMuteSource, isVxEnabled } = useAtmoky();
 
   const ref = useRef();
   const rotationSpeed = useMemo(() => Math.random() - 0.5, []);
@@ -38,14 +39,12 @@ const AudioSphere = ({ audio, info, analyser }) => {
     setGain(analyser.gain / 255);
   });
 
-  useEffect(() => {
-    console.log(color);
-  }, [color]);
-
+  // Add informations
   useEffect(() => {
     ref.current.userData = { audio, name: info.name, id: info.id };
   }, [audio, info.name, info.id]);
 
+  // Set hovered state
   useEffect(() => {
     if (hovered[0] && hovered[0].id === info.id) {
       setIsHovered(true);
@@ -53,6 +52,12 @@ const AudioSphere = ({ audio, info, analyser }) => {
       setIsHovered(false);
     }
   }, [hovered, info.id]);
+
+  // Enable/disable voice
+  useEffect(() => {
+    if (info.type === 'vx')
+      isVxEnabled ? setIsDisabled(false) : setIsDisabled(true);
+  }, [isVxEnabled]);
 
   return (
     <group position={[info.position.x, info.position.y, info.position.z]}>

@@ -1,3 +1,4 @@
+// Instru
 import backwardsPiano from '../../../asset/audio/Instru_stems-chords.mp3';
 import bass from '../../../asset/audio/Instru_stems-bass.mp3';
 import kick from '../../../asset/audio/Instru_stems-kick.mp3';
@@ -7,6 +8,11 @@ import hats2 from '../../../asset/audio/Instru_stems-hats-2.mp3';
 import rim from '../../../asset/audio/Instru_stems-rim.mp3';
 import perc from '../../../asset/audio/Instru_stems-perc.mp3';
 import trancePad from '../../../asset/audio/Instru_stems-trance-pad.mp3';
+// Voices
+import vxMain from '../../../asset/audio/Instru_stems_VX-main.mp3';
+import vxBacks from '../../../asset/audio/Instru_stems_VX-backs.mp3';
+import vxAmb from '../../../asset/audio/Instru_stems_VX-amb.mp3';
+import vxAdlib from '../../../asset/audio/Instru_stems_VX-adlib.mp3';
 
 import defaults from '../../../defaults.config';
 const DEFAULT_SCALE = defaults.world.scale;
@@ -92,6 +98,38 @@ export const sources = [
       name: 'Trance Lead',
       position: getRandomPosition(),
       type: 'lead',
+    },
+  },
+  {
+    src: vxMain,
+    info: {
+      name: 'Main (voice)',
+      position: getRandomPosition(),
+      type: 'vx',
+    },
+  },
+  {
+    src: vxBacks,
+    info: {
+      name: 'Backs (voice)',
+      position: getRandomPosition(),
+      type: 'vx',
+    },
+  },
+  {
+    src: vxAmb,
+    info: {
+      name: 'Ambient (voice)',
+      position: getRandomPosition(),
+      type: 'vx',
+    },
+  },
+  {
+    src: vxAdlib,
+    info: {
+      name: 'Adlib (voice)',
+      position: getRandomPosition(),
+      type: 'vx',
     },
   },
 ];
