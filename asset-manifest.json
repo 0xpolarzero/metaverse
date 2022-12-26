@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/metaverse/static/css/main.7d4719db.css",
+    "main.js": "/metaverse/static/js/main.b5a7fcc6.js",
+    "static/js/625.6b622039.chunk.js": "/metaverse/static/js/625.6b622039.chunk.js",
+    "static/js/861.e90ccabb.chunk.js": "/metaverse/static/js/861.e90ccabb.chunk.js",
+    "static/js/630.158263ea.chunk.js": "/metaverse/static/js/630.158263ea.chunk.js",
+    "static/media/Instru_stems-bass.mp3": "/metaverse/static/media/Instru_stems-bass.670215a173a165c8a317.mp3",
+    "static/media/Instru_stems-chords.mp3": "/metaverse/static/media/Instru_stems-chords.d8f4955f39fb11181be0.mp3",
+    "static/media/Instru_stems-hats-2.mp3": "/metaverse/static/media/Instru_stems-hats-2.7865a66eb343599f7dbb.mp3",
+    "static/media/Instru_stems-hats.mp3": "/metaverse/static/media/Instru_stems-hats.fa0af938c3e92e7ac30c.mp3",
+    "static/media/Instru_stems-kick.mp3": "/metaverse/static/media/Instru_stems-kick.ec5afdd19771758500ee.mp3",
+    "static/media/Instru_stems-perc.mp3": "/metaverse/static/media/Instru_stems-perc.933e0807bd031073ef53.mp3",
+    "static/media/Instru_stems-rim.mp3": "/metaverse/static/media/Instru_stems-rim.bd7f86cfff12c53ab08c.mp3",
+    "static/media/Instru_stems-snare.mp3": "/metaverse/static/media/Instru_stems-snare.39c14a5da9bf8c316d24.mp3",
+    "static/media/Instru_stems-trance-pad.mp3": "/metaverse/static/media/Instru_stems-trance-pad.af768c0cc08884414066.mp3",
+    "static/media/Instru_stems_VX-adlib.mp3": "/metaverse/static/media/Instru_stems_VX-adlib.70d2b62e611f472f76c9.mp3",
+    "static/media/Instru_stems_VX-amb.mp3": "/metaverse/static/media/Instru_stems_VX-amb.90294476633df56ed30e.mp3",
+    "static/media/Instru_stems_VX-backs.mp3": "/metaverse/static/media/Instru_stems_VX-backs.bdc20c7b6c185214c37f.mp3",
+    "static/media/Instru_stems_VX-main.mp3": "/metaverse/static/media/Instru_stems_VX-main.44dce7bbd7194da6b2f1.mp3",
+    "index.html": "/metaverse/index.html",
+    "main.7d4719db.css.map": "/metaverse/static/css/main.7d4719db.css.map",
+    "main.b5a7fcc6.js.map": "/metaverse/static/js/main.b5a7fcc6.js.map",
+    "625.6b622039.chunk.js.map": "/metaverse/static/js/625.6b622039.chunk.js.map",
+    "861.e90ccabb.chunk.js.map": "/metaverse/static/js/861.e90ccabb.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7d4719db.css",
+    "static/js/main.b5a7fcc6.js"
+  ]
+}
