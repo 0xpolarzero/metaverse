@@ -35,6 +35,8 @@ const AudioControls = () => {
         audioParams.randomizePositions();
       }),
     }),
+
+    // TODO voice enable/disable
   });
 
   return null;

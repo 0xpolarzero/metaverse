@@ -265,9 +265,12 @@ export default create((set, get) => ({
     } else if (type === 'drums') {
       firstColor = colors.c1;
       secondColor = colors.c2;
-    } else {
+    } else if (type === 'bass') {
       firstColor = colors.d1;
       secondColor = colors.d2;
+    } else {
+      firstColor = colors.e1;
+      secondColor = colors.e2;
     }
 
     const gradient = chroma.scale([firstColor, secondColor]);

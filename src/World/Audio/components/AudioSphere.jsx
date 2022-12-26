@@ -7,6 +7,8 @@ import useAtmoky from '../../../stores/Atmoky';
 
 Globals.assign({ frameLoop: 'always' });
 
+// ! Is click disabled when opacity 0 ?
+
 const AudioSphere = ({ audio, info, analyser }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -63,7 +65,12 @@ const AudioSphere = ({ audio, info, analyser }) => {
     <group position={[info.position.x, info.position.y, info.position.z]}>
       <animated.mesh ref={ref} onClick={handleClick} scale={scale}>
         <sphereGeometry args={[1, 32, 32]} />
-        <animated.meshStandardMaterial color={color} wireframe={!isMuted} />
+        <animated.meshStandardMaterial
+          color={color}
+          wireframe={!isMuted}
+          transparent={isDisabled}
+          opacity={isDisabled ? 0 : 1}
+        />
       </animated.mesh>
       <DREI.Html
         position-y={info.position.y < 2 ? 1.7 : -1.7}

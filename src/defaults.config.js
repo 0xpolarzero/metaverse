@@ -19,6 +19,8 @@ const defaults = {
       c2: '#0099FF',
       d1: '#B3FFCC',
       d2: '#00CC99',
+      e1: '#FF69B4',
+      e2: '#FFB6C1',
     },
   },
 };

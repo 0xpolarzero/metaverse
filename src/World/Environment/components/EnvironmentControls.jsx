@@ -17,6 +17,8 @@ const types = [
   'Drums high',
   'Bass low',
   'Bass high',
+  'Voice low',
+  'Voice high',
 ];
 
 const EnvironmentControls = () => {

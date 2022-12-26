@@ -35,6 +35,8 @@ export default create((set) => ({
     c2: DEFAULT_COLORS.c2,
     d1: DEFAULT_COLORS.d1,
     d2: DEFAULT_COLORS.d2,
+    e1: DEFAULT_COLORS.e1,
+    e2: DEFAULT_COLORS.e2,
   },
   setColor: (key, value) =>
     set((state) => ({ colors: { ...state.colors, [key]: value } })),
