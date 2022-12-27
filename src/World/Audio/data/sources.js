@@ -17,12 +17,17 @@ import vxAdlib from '../../../asset/audio/Instru_stems_VX-adlib.mp3';
 import defaults from '../../../defaults.config';
 const DEFAULT_SCALE = defaults.world.scale;
 
-export const getRandomPosition = (scale = DEFAULT_SCALE) => {
+export const getRandomPosition = (identifier, scale = DEFAULT_SCALE) => {
   const factor = scale.x / DEFAULT_SCALE.x;
+  let y = Math.random() * 4 + 1;
+  // Make sure backs are high enough
+  if (identifier === 'vxBacks') {
+    y > 3 ? (y += 5) : (y += 7);
+  }
 
   return {
     x: (Math.random() * 20 - 10) * factor,
-    y: Math.random() * 4 + 1,
+    y: y * factor,
     z: (Math.random() * 20 - 10) * factor,
   };
 };
@@ -32,7 +37,8 @@ export const sources = [
     src: backwardsPiano,
     info: {
       name: 'Backwards Piano',
-      position: getRandomPosition(),
+      identifier: 'backwardsPiano',
+      position: getRandomPosition('backwardsPiano'),
       type: 'chords',
     },
   },
@@ -40,7 +46,8 @@ export const sources = [
     src: bass,
     info: {
       name: 'Bass',
-      position: getRandomPosition(),
+      identifier: 'bass',
+      position: getRandomPosition('bass'),
       type: 'bass',
     },
   },
@@ -48,7 +55,8 @@ export const sources = [
     src: kick,
     info: {
       name: 'Kick (Drums)',
-      position: getRandomPosition(),
+      identifier: 'kick',
+      position: getRandomPosition('kick'),
       type: 'drums',
     },
   },
@@ -56,7 +64,8 @@ export const sources = [
     src: snare,
     info: {
       name: 'Snare (Drums)',
-      position: getRandomPosition(),
+      identifier: 'snare',
+      position: getRandomPosition('snare'),
       type: 'drums',
     },
   },
@@ -64,7 +73,8 @@ export const sources = [
     src: hats,
     info: {
       name: 'Hi Hat (Drums)',
-      position: getRandomPosition(),
+      identifier: 'hats',
+      position: getRandomPosition('hats'),
       type: 'drums',
     },
   },
@@ -72,7 +82,8 @@ export const sources = [
     src: hats2,
     info: {
       name: 'Hi Hat 2 (Drums)',
-      position: getRandomPosition(),
+      identifier: 'hats2',
+      position: getRandomPosition('hats2'),
       type: 'drums',
     },
   },
@@ -80,7 +91,8 @@ export const sources = [
     src: rim,
     info: {
       name: 'Rim (Drums)',
-      position: getRandomPosition(),
+      identifier: 'rim',
+      position: getRandomPosition('rim'),
       type: 'drums',
     },
   },
@@ -88,7 +100,8 @@ export const sources = [
     src: perc,
     info: {
       name: 'Perc (Drums)',
-      position: getRandomPosition(),
+      identifier: 'perc',
+      position: getRandomPosition('perc'),
       type: 'drums',
     },
   },
@@ -96,7 +109,8 @@ export const sources = [
     src: trancePad,
     info: {
       name: 'Trance Lead',
-      position: getRandomPosition(),
+      identifier: 'trancePad',
+      position: getRandomPosition('trancePad'),
       type: 'lead',
     },
   },
@@ -104,7 +118,8 @@ export const sources = [
     src: vxMain,
     info: {
       name: 'Main (voice)',
-      position: getRandomPosition(),
+      identifier: 'vxMain',
+      position: getRandomPosition('vxMain'),
       type: 'vx',
     },
   },
@@ -112,7 +127,8 @@ export const sources = [
     src: vxBacks,
     info: {
       name: 'Backs (voice)',
-      position: getRandomPosition(),
+      identifier: 'vxBacks',
+      position: getRandomPosition('vxBacks'),
       type: 'vx',
     },
   },
@@ -120,7 +136,8 @@ export const sources = [
     src: vxAmb,
     info: {
       name: 'Ambient (voice)',
-      position: getRandomPosition(),
+      identifier: 'vxAmb',
+      position: getRandomPosition('vxAmb'),
       type: 'vx',
     },
   },
@@ -128,7 +145,8 @@ export const sources = [
     src: vxAdlib,
     info: {
       name: 'Adlib (voice)',
-      position: getRandomPosition(),
+      identifier: 'vxAdlib',
+      position: getRandomPosition('vxAdlib'),
       type: 'vx',
     },
   },

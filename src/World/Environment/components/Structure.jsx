@@ -111,7 +111,7 @@ const Bounds = ({ scale }) => {
           ]}
         />
       </RigidBody>
-      Right wall
+      {/* Right wall */}
       <mesh
         name='leftWall'
         geometry={geometry}
@@ -120,7 +120,7 @@ const Bounds = ({ scale }) => {
         position-y={scale.y / 2 - 1}
         scale={[0.1, scale.y, scale.z]}
       />
-      Right wall
+      {/* Right wall */}
       <mesh
         name='rightWall'
         geometry={geometry}
@@ -129,7 +129,7 @@ const Bounds = ({ scale }) => {
         position-y={scale.y / 2 - 1}
         scale={[0.1, scale.y, scale.z]}
       />
-      Back wall
+      {/* Back wall */}
       <mesh
         name='backWall'
         geometry={geometry}
@@ -138,7 +138,7 @@ const Bounds = ({ scale }) => {
         position-y={scale.y / 2 - 1}
         scale={[scale.x, scale.y, 0.1]}
       />
-      Front wall
+      {/* Front wall */}
       <mesh
         name='frontWall'
         geometry={geometry}

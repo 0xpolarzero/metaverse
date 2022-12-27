@@ -208,7 +208,7 @@ export default create((set, get) => ({
     const scale = useWorld.getState().scale;
 
     const newSources = sources.map((source) => {
-      const newPosition = getRandomPosition(scale);
+      const newPosition = getRandomPosition(source.info.identifier, scale);
       source.audio.setPosition(newPosition.x, newPosition.y, newPosition.z);
       source.info.position = newPosition;
 
