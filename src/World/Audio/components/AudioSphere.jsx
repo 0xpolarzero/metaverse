@@ -10,7 +10,6 @@ Globals.assign({ frameLoop: 'always' });
 // ! Is click disabled when opacity 0 ?
 
 const AudioSphere = ({ audio, info, analyser }) => {
-  const [isHovered, setIsHovered] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
   const [gain, setGain] = useState(0);
@@ -22,7 +21,14 @@ const AudioSphere = ({ audio, info, analyser }) => {
   const rotationSpeed = useMemo(() => Math.random() - 0.5, []);
 
   const { scale, color } = useSpring({
-    scale: isHovered ? (isMuted ? 0.65 : 1.2) : isMuted ? 0.5 : 1 + gain,
+    scale:
+      hovered[0] && hovered[0].id === info.id
+        ? isMuted
+          ? 0.65
+          : 1.2
+        : isMuted
+        ? 0.5
+        : 1 + gain,
     color: isMuted ? '#ffffff' : analyser.color,
     config: config.wobbly,
   });
@@ -45,15 +51,6 @@ const AudioSphere = ({ audio, info, analyser }) => {
   useEffect(() => {
     ref.current.userData = { audio, name: info.name, id: info.id };
   }, [audio, info.name, info.id]);
-
-  // Set hovered state
-  useEffect(() => {
-    if (hovered[0] && hovered[0].id === info.id) {
-      setIsHovered(true);
-    } else {
-      setIsHovered(false);
-    }
-  }, [hovered, info.id]);
 
   // Enable/disable voice
   useEffect(() => {
@@ -91,7 +88,7 @@ const AudioSphere = ({ audio, info, analyser }) => {
             textTransform: 'uppercase',
             textAlign: 'center',
             color: 'white',
-            opacity: isHovered ? 1 : 0,
+            opacity: hovered[0] && hovered[0].id === info.id ? 1 : 0.1,
             transition: 'opacity 0.3s',
           }}
         >
