@@ -36,7 +36,12 @@ const AudioControls = () => {
       }),
     }),
 
-    // TODO voice enable/disable
+    'Voice (VX)': folder({
+      'Enable voice': {
+        value: audioParams.isVxEnabled,
+        onChange: (value) => audioParams.setIsVxEnabled(value),
+      },
+    }),
   });
 
   return null;

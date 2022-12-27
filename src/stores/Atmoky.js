@@ -47,7 +47,10 @@ export default create((set, get) => ({
   },
   // Voice
   isVxEnabled: true,
-  setIsVxEnabled: (isVxEnabled) => set((state) => ({ isVxEnabled })),
+  setIsVxEnabled: (isVxEnabled) => {
+    console.log(isVxEnabled);
+    set((state) => ({ isVxEnabled }));
+  },
 
   /**
    * Listener

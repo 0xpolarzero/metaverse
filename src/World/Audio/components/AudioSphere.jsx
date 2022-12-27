@@ -7,7 +7,7 @@ import useAtmoky from '../../../stores/Atmoky';
 
 Globals.assign({ frameLoop: 'always' });
 
-// ! Is click disabled when opacity 0 ?
+// ! add isVxEnabled in Interactive and don't set hovered if disabled
 
 const AudioSphere = ({ audio, info, analyser }) => {
   const [isMuted, setIsMuted] = useState(false);
@@ -20,7 +20,7 @@ const AudioSphere = ({ audio, info, analyser }) => {
   const ref = useRef();
   const rotationSpeed = useMemo(() => Math.random() - 0.5, []);
 
-  const { scale, color } = useSpring({
+  const { scale } = useSpring({
     scale:
       hovered[0] && hovered[0].id === info.id
         ? isMuted
@@ -29,12 +29,17 @@ const AudioSphere = ({ audio, info, analyser }) => {
         : isMuted
         ? 0.5
         : 1 + gain,
-    color: isMuted ? '#ffffff' : analyser.color,
     config: config.wobbly,
+  });
+
+  const { opacity } = useSpring({
+    opacity: isMuted ? 0.1 : 1,
   });
 
   const handleClick = async (e) => {
     e.stopPropagation();
+    if (isDisabled) return;
+
     setIsMuted(!isMuted);
     toggleMuteSource(audio, info.id);
   };
@@ -54,8 +59,17 @@ const AudioSphere = ({ audio, info, analyser }) => {
 
   // Enable/disable voice
   useEffect(() => {
-    if (info.type === 'vx')
-      isVxEnabled ? setIsDisabled(false) : setIsDisabled(true);
+    if (info.type === 'vx') {
+      if (isVxEnabled) {
+        setIsDisabled(false);
+        audio.setGainLinear(1);
+        ref.current.material.opacity = 1;
+      } else {
+        setIsDisabled(true);
+        audio.setGainLinear(0);
+        ref.current.material.opacity = 0.1;
+      }
+    }
   }, [isVxEnabled]);
 
   // Disable console warning for the animated.mesh
@@ -71,10 +85,10 @@ const AudioSphere = ({ audio, info, analyser }) => {
       <animated.mesh ref={ref} onClick={handleClick} scale={scale}>
         <sphereGeometry args={[1, 32, 32]} />
         <animated.meshStandardMaterial
-          color={color}
-          wireframe={!isMuted}
-          transparent={isDisabled}
-          opacity={isDisabled ? 0 : 1}
+          color={analyser.color}
+          wireframe
+          transparent
+          opacity={opacity}
         />
       </animated.mesh>
       <DREI.Html
@@ -88,7 +102,12 @@ const AudioSphere = ({ audio, info, analyser }) => {
             textTransform: 'uppercase',
             textAlign: 'center',
             color: 'white',
-            opacity: hovered[0] && hovered[0].id === info.id ? 1 : 0.1,
+            opacity:
+              hovered[0] && hovered[0].id === info.id
+                ? 1
+                : info.type === 'vx' && !isVxEnabled
+                ? 0
+                : 0.1,
             transition: 'opacity 0.3s',
           }}
         >
