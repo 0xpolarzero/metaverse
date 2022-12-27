@@ -61,6 +61,14 @@ const AudioSphere = ({ audio, info, analyser }) => {
       isVxEnabled ? setIsDisabled(false) : setIsDisabled(true);
   }, [isVxEnabled]);
 
+  // Disable console warning for the animated.mesh
+  useEffect(() => {
+    const originalWarn = console.warn;
+    console.warn = () => {};
+
+    return () => (console.warn = originalWarn);
+  }, []);
+
   return (
     <group position={[info.position.x, info.position.y, info.position.z]}>
       <animated.mesh ref={ref} onClick={handleClick} scale={scale}>
