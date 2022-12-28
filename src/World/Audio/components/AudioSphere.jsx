@@ -7,12 +7,8 @@ import useAtmoky from '../../../stores/Atmoky';
 
 Globals.assign({ frameLoop: 'always' });
 
-// ! add isVxEnabled in Interactive and don't set hovered if disabled
-
 const AudioSphere = ({ audio, info, analyser }) => {
   const [isMuted, setIsMuted] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(false);
-  const [gain, setGain] = useState(0);
 
   const { hovered } = useInterface();
   const { toggleMuteSource, isVxEnabled } = useAtmoky();
@@ -20,6 +16,7 @@ const AudioSphere = ({ audio, info, analyser }) => {
   const ref = useRef();
   const rotationSpeed = useMemo(() => Math.random() - 0.5, []);
 
+  // Change scale based on hovered/muted and gain
   const { scale } = useSpring({
     scale:
       hovered[0] && hovered[0].id === info.id
@@ -28,44 +25,54 @@ const AudioSphere = ({ audio, info, analyser }) => {
           : 1.2
         : isMuted
         ? 0.5
-        : 1 + gain,
+        : 1 + ref.current?.userData.gain || 1,
     config: config.wobbly,
   });
 
+  // Change opacity based on muted
   const { opacity } = useSpring({
     opacity: isMuted ? 0.1 : 1,
   });
 
+  // Mute/unmute source on click
   const handleClick = async (e) => {
     e.stopPropagation();
-    if (isDisabled) return;
+    if (ref.current.userData.isDisabled) return;
 
     setIsMuted(!isMuted);
     toggleMuteSource(audio, info.id);
   };
 
   useFrame(({ clock }) => {
+    // Rotate if not muted
     if (!isMuted)
       ref.current.rotation.y = clock.getElapsedTime() * rotationSpeed;
 
     // The value will be between 0 and 255
-    setGain(analyser.gain / 255);
+    ref.current.userData.gain = analyser.gain / 255;
   });
 
   // Add informations
   useEffect(() => {
-    ref.current.userData = { audio, name: info.name, id: info.id };
+    ref.current.userData = {
+      audio,
+      name: info.name,
+      type: info.type,
+      id: info.id,
+      isDisabled: false,
+      gain: 0,
+    };
   }, [audio, info.name, info.id]);
 
   // Enable/disable voice
   useEffect(() => {
     if (info.type === 'vx') {
       if (isVxEnabled) {
-        setIsDisabled(false);
+        ref.current.userData.isDisabled = false;
         audio.setGainLinear(1);
         ref.current.material.opacity = 1;
       } else {
-        setIsDisabled(true);
+        ref.current.userData.isDisabled = true;
         audio.setGainLinear(0);
         ref.current.material.opacity = 0.1;
       }

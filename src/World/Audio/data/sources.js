@@ -27,7 +27,7 @@ export const getRandomPosition = (identifier, scale = DEFAULT_SCALE) => {
 
   return {
     x: (Math.random() * 20 - 10) * factor,
-    y: y * factor,
+    y,
     z: (Math.random() * 20 - 10) * factor,
   };
 };

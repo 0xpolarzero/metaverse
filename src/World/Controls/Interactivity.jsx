@@ -1,10 +1,12 @@
 import { useFrame, useThree } from '@react-three/fiber';
 import React, { useEffect } from 'react';
 import useInterface from '../../stores/Interface';
+import useAtmoky from '../../stores/Atmoky';
 
 const Interactivity = () => {
   const { camera } = useThree();
   const { interactDistance, hovered, setHovered, setState } = useInterface();
+  const { isVxEnabled } = useAtmoky();
 
   const ignoreTypes = ['Points', 'GridHelper'];
   const ignoreNames = [
@@ -30,6 +32,12 @@ const Interactivity = () => {
 
       const { distance, object } = first;
       const { userData } = object;
+
+      // If the object is a voice and voice is disabled don't set hovered
+      if (userData.type === 'vx' && !isVxEnabled) {
+        setHovered([]);
+        return;
+      }
 
       if (distance < interactDistance) {
         setHovered([userData]);
