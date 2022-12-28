@@ -28,12 +28,8 @@ import Crosshair from './components/Crosshair';
 import useInterface from '../stores/Interface';
 
 const Interface = () => {
-  return (
-    <>
-      <Crosshair />
-      {isMobile ? <MobileInterface /> : <DesktopInterface />}
-    </>
-  );
+  if (isMobile) return <MobileInterface />;
+  return <DesktopInterface />;
 };
 
 const MobileInterface = () => {
@@ -46,7 +42,19 @@ const MobileInterface = () => {
         <div className='interface'>
           <div className='wrapper'>
             <div className='interface__instructions-mobile'>
-              Please click anywhere to start the experience
+              <div>Touch the screen to start the experience</div>
+              <div className='interface__keys'>
+                Use the <span className='key'>joystick</span> to move
+              </div>
+              <div className='interface__keys'>
+                <span className='key'>Drag</span> to look around
+              </div>
+              <div className='interface__keys'>
+                <span className='kezy'>Touch</span> spheres to interact
+              </div>
+            </div>
+            <div className='interface__instructions-mobile'>
+              Please consider using a desktop browser for a better experience
             </div>
             <div className='interface__credits'>
               <div className='headphones'>
@@ -77,6 +85,7 @@ const DesktopInterface = () => {
 
   return (
     <>
+      <Crosshair />
       <div className='leva-wrapper' onClick={(e) => e.stopPropagation()}>
         <Leva hideCopyButton />
       </div>
@@ -138,10 +147,6 @@ const DesktopInterface = () => {
                   <span className='key'>
                     <BsMouse />
                     <TbClick />
-                  </span>
-                  <Separator />
-                  <span className='key'>
-                    <TbLetterE />
                   </span>
                 </span>
                 <span className='move-down'>Free cursor</span>
@@ -210,9 +215,6 @@ const Hints = ({ visible }) => {
         <span className='key'>
           <BsMouse />
           <TbClick />
-        </span>{' '}
-        <span className='key'>
-          <TbLetterE />
         </span>{' '}
         interact
       </span>

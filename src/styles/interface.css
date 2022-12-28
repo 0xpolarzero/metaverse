@@ -136,8 +136,14 @@
 }
 
 .interface__instructions-mobile {
+  text-align: center;
   text-transform: uppercase;
   grid-row: span 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem;
 }
 
 .interface__keys {
@@ -249,4 +255,8 @@
 
 .interface__hints.visible {
   opacity: 0.7;
+}
+
+.sphere__html {
+  pointer-events: none;
 }

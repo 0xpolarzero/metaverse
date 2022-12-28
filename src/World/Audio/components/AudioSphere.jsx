@@ -1,6 +1,7 @@
 import { useFrame } from '@react-three/fiber';
 import * as DREI from '@react-three/drei';
 import { Globals, animated, config, useSpring } from '@react-spring/three';
+import { isMobile } from 'react-device-detect';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import useInterface from '../../../stores/Interface';
 import useAtmoky from '../../../stores/Atmoky';
@@ -102,10 +103,12 @@ const AudioSphere = ({ audio, info, analyser }) => {
         position-y={info.position.y < 2 ? 1.7 : -1.7}
         center
         distanceFactor={10}
+        wrapperClass='sphere__html'
       >
         <div
           style={{
             fontFamily: 'Futura PT',
+            fontSize: isMobile ? '0.6rem' : '1rem',
             textTransform: 'uppercase',
             textAlign: 'center',
             color: 'white',
