@@ -5,7 +5,7 @@ const Lights = () => {
   return (
     <>
       <DREI.Environment preset='city' />
-      <ambientLight intensity={0.5} />
+      {/* <ambientLight intensity={0.5} /> */}
     </>
   );
 };
