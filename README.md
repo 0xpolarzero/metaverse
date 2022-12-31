@@ -37,3 +37,4 @@ But feel free to send me messages if you have any comments, recommendations, cri
 - Add voice enable/disable ✅
 - check on mobile and display 'touch' for interaction
 - Add long touch to move?
+- Improve controls and speed on mobile
