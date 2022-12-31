@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/metaverse/static/css/main.7d4719db.css",
-    "main.js": "/metaverse/static/js/main.b5a7fcc6.js",
+    "main.css": "/metaverse/static/css/main.54a17b67.css",
+    "main.js": "/metaverse/static/js/main.4ef06c8e.js",
     "static/js/625.6b622039.chunk.js": "/metaverse/static/js/625.6b622039.chunk.js",
     "static/js/861.e90ccabb.chunk.js": "/metaverse/static/js/861.e90ccabb.chunk.js",
     "static/js/630.158263ea.chunk.js": "/metaverse/static/js/630.158263ea.chunk.js",
@@ -19,13 +19,13 @@
     "static/media/Instru_stems_VX-backs.mp3": "/metaverse/static/media/Instru_stems_VX-backs.bdc20c7b6c185214c37f.mp3",
     "static/media/Instru_stems_VX-main.mp3": "/metaverse/static/media/Instru_stems_VX-main.44dce7bbd7194da6b2f1.mp3",
     "index.html": "/metaverse/index.html",
-    "main.7d4719db.css.map": "/metaverse/static/css/main.7d4719db.css.map",
-    "main.b5a7fcc6.js.map": "/metaverse/static/js/main.b5a7fcc6.js.map",
+    "main.54a17b67.css.map": "/metaverse/static/css/main.54a17b67.css.map",
+    "main.4ef06c8e.js.map": "/metaverse/static/js/main.4ef06c8e.js.map",
     "625.6b622039.chunk.js.map": "/metaverse/static/js/625.6b622039.chunk.js.map",
     "861.e90ccabb.chunk.js.map": "/metaverse/static/js/861.e90ccabb.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7d4719db.css",
-    "static/js/main.b5a7fcc6.js"
+    "static/css/main.54a17b67.css",
+    "static/js/main.4ef06c8e.js"
   ]
 }
