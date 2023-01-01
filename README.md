@@ -38,3 +38,4 @@ But feel free to send me messages if you have any comments, recommendations, cri
 - check on mobile and display 'touch' for interaction
 - Add long touch to move?
 - Improve controls and speed on mobile
+- Fix bug move/change view at the same time
