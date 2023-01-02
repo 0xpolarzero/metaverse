@@ -3,7 +3,7 @@ import * as DREI from '@react-three/drei';
 import { Perf } from 'r3f-perf';
 import React, { useEffect } from 'react';
 import World from './World';
-import Interface, { Crosshair } from './Interface';
+import Interface from './Interface';
 
 const App = () => {
   const [showPerf, setShowPerf] = React.useState(false);
@@ -39,7 +39,6 @@ const App = () => {
         </Canvas>
       </DREI.KeyboardControls>
       <Interface />
-      <Crosshair />
     </>
   );
 };
