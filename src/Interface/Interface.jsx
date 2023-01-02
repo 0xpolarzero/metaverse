@@ -36,8 +36,10 @@ const MobileInterface = () => {
   const { showMobileOverlay } = useInterface();
 
   const toLandscape = () => {
-    if (window.screen.orientation.type !== 'landscape') {
-      screen.orientation.lock('landscape');
+    if (document.fullscreenElement === null) {
+      document.documentElement.requestFullscreen().then(() => {
+        screen.orientation.lock('landscape');
+      });
     }
   };
 
@@ -60,7 +62,7 @@ const MobileInterface = () => {
                 <span className='key'>Drag</span> to look around
               </div>
               <div className='interface__keys'>
-                <span className='kezy'>Touch</span> spheres to interact
+                <span className='kezy'>Touch</span> spheres to mute/unmute
               </div>
             </div>
             <div className='interface__instructions-mobile'>
