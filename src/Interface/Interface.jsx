@@ -35,10 +35,20 @@ const Interface = () => {
 const MobileInterface = () => {
   const { showMobileOverlay } = useInterface();
 
+  const toLandscape = () => {
+    if (window.screen.orientation.type !== 'landscape') {
+      screen.orientation.lock('landscape');
+    }
+  };
+
   return (
     <>
       <Leva collapsed hideCopyButton />
-      <div id='overlay-mobile' className={showMobileOverlay ? 'visible' : ''}>
+      <div
+        id='overlay-mobile'
+        className={showMobileOverlay ? 'visible' : ''}
+        onClick={toLandscape}
+      >
         <div className='interface'>
           <div className='wrapper'>
             <div className='interface__instructions-mobile'>

@@ -29,13 +29,3 @@ But feel free to send me messages if you have any comments, recommendations, cri
 [A Twitter thread on Immersive Audio in the Metaverse](https://twitter.com/0xpolarzero/status/1572528447565725696) ([or the article version](https://polarzero.hashnode.dev/immersive-audio-in-the-metaverse)).
 
 [My Twitter](https://twitter.com/0xpolarzero)
-
-- Remove particles ✅
-- Remove low/high graphics ✅
-- Add scale to controls (+ and - objects placement too) ✅
-- Fix colliders not updating with scale ✅
-- Add voice enable/disable ✅
-- check on mobile and display 'touch' for interaction
-- Add long touch to move?
-- Improve controls and speed on mobile
-- Fix bug move/change view at the same time

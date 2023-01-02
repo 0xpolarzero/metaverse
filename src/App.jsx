@@ -1,18 +1,11 @@
 import { Canvas } from '@react-three/fiber';
 import * as DREI from '@react-three/drei';
 import { Perf } from 'r3f-perf';
-import { isMobile } from 'react-device-detect';
-import React, { useEffect } from 'react';
+import React from 'react';
 import World from './World';
 import Interface, { Crosshair } from './Interface';
 
 const App = () => {
-  useEffect(() => {
-    if (isMobile) {
-      screen.orientation.lock('landscape');
-    }
-  }, [isMobile]);
-
   return (
     <>
       <DREI.KeyboardControls
