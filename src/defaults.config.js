@@ -6,7 +6,7 @@ const defaults = {
     // Scale
     scale: { x: 50, y: 20, z: 50 },
     minScaleMultiplier: 0.5,
-    maxScaleMultiplier: 5,
+    maxScaleMultiplier: 3,
     // Gravity
     gravity: [0, -5, 0], // Earth: [0, -9.81, 0]
     // Colors

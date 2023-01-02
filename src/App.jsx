@@ -1,11 +1,18 @@
 import { Canvas } from '@react-three/fiber';
 import * as DREI from '@react-three/drei';
 import { Perf } from 'r3f-perf';
-import React from 'react';
+import React, { useEffect } from 'react';
 import World from './World';
 import Interface, { Crosshair } from './Interface';
 
 const App = () => {
+  const [showPerf, setShowPerf] = React.useState(false);
+
+  // Show perf only if the link ends with #debug
+  useEffect(() => {
+    setShowPerf(window.location.hash === '#debug');
+  }, []);
+
   return (
     <>
       <DREI.KeyboardControls
@@ -27,7 +34,7 @@ const App = () => {
             position: [-4, 2, -4],
           }}
         >
-          <Perf position='top-left' />
+          {showPerf && <Perf position='top-left' />}
           <World />
         </Canvas>
       </DREI.KeyboardControls>
