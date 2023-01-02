@@ -30,9 +30,11 @@ const AudioSphere = ({ audio, info, analyser }) => {
     config: config.wobbly,
   });
 
-  // Change opacity based on muted
-  const { opacity } = useSpring({
+  const { opacity, color } = useSpring({
+    // Change opacity based on muted
     opacity: isMuted ? 0.1 : 1,
+    // Change color based on main frequency
+    color: analyser.color,
   });
 
   // Mute/unmute source on click
@@ -93,7 +95,7 @@ const AudioSphere = ({ audio, info, analyser }) => {
       <animated.mesh ref={ref} onClick={handleClick} scale={scale}>
         <sphereGeometry args={[1, 32, 32]} />
         <animated.meshStandardMaterial
-          color={analyser.color}
+          color={color}
           wireframe
           transparent
           opacity={opacity}

@@ -23,6 +23,18 @@ const defaults = {
       e2: '#FFB6C1',
     },
   },
+
+  /**
+   * Audio
+   */
+  audio: {
+    // Effects
+    reverbAmount: 20,
+    externalizerAmount: 50,
+    externalizerIntensity: 30,
+    // Analyser
+    highFrequency: 10000,
+  },
 };
 
 export default defaults;

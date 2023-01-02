@@ -3,6 +3,14 @@ import { Manager } from '@atmokyaudio/websdk';
 import chroma from 'chroma-js';
 import { getRandomPosition } from '../World/Audio/data/sources';
 import useWorld from './World';
+import defaults from '../defaults.config';
+
+const {
+  reverbAmount: DEFAULT_REVERB_AMOUNT,
+  externalizerAmount: DEFAULT_EXTERNALIZER_AMOUNT,
+  externalizerIntensity: DEFAULT_EXTERNALIZER_INTENSITY,
+  highFrequency: DEFAULT_HIGH_FREQUENCY,
+} = defaults.audio;
 
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 
@@ -63,7 +71,7 @@ export default create((set, get) => ({
    * Parameters
    */
   // Reverb
-  reverbAmount: 20,
+  reverbAmount: DEFAULT_REVERB_AMOUNT,
   minReverbAmount: 0,
   maxReverbAmount: 100,
   setReverbAmount: (amount) => {
@@ -72,8 +80,8 @@ export default create((set, get) => ({
     set((state) => ({ reverbAmount: amount }));
   },
   // Externalizer
-  externalizerAmount: 50,
-  externalizerIntensity: 30,
+  externalizerAmount: DEFAULT_EXTERNALIZER_AMOUNT,
+  externalizerIntensity: DEFAULT_EXTERNALIZER_INTENSITY,
   minExternalizerAmount: 0,
   minExternalizerIntensity: 0,
   maxExternalizerAmount: 100,
@@ -277,11 +285,9 @@ export default create((set, get) => ({
     }
 
     const gradient = chroma.scale([firstColor, secondColor]);
-    const normalizedFrequency = frequency / 10000;
+    const normalizedFrequency = frequency / DEFAULT_HIGH_FREQUENCY;
     const color = gradient(normalizedFrequency).hex();
 
     return color;
   },
 }));
-
-// ! add type to choose the color from the gradient
