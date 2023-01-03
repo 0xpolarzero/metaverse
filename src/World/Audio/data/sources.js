@@ -132,15 +132,15 @@ export const sources = [
       type: 'vx',
     },
   },
-  {
-    src: vxAmb,
-    info: {
-      name: 'Ambient (voice)',
-      identifier: 'vxAmb',
-      position: getRandomPosition('vxAmb'),
-      type: 'vx',
-    },
-  },
+  // {
+  //   src: vxAmb,
+  //   info: {
+  //     name: 'Ambient (voice)',
+  //     identifier: 'vxAmb',
+  //     position: getRandomPosition('vxAmb'),
+  //     type: 'vx',
+  //   },
+  // },
   {
     src: vxAdlib,
     info: {

@@ -5,11 +5,15 @@ const {
   scale: DEFAULT_SCALE,
   gravity: DEFAULT_GRAVITY,
   colors: DEFAULT_COLORS,
+  isSpherePhysicsEnabled: DEFAULT_IS_SPHERE_PHYSICS_ENABLED,
 } = defaults.world;
 
 export default create((set) => ({
   gravity: DEFAULT_GRAVITY, // [0, -9.8, 0]
   setGravity: (gravity) => set({ gravity }),
+  isSpherePhysicsEnabled: DEFAULT_IS_SPHERE_PHYSICS_ENABLED,
+  setIsSpherePhysicsEnabled: (isSpherePhysicsEnabled) =>
+    set({ isSpherePhysicsEnabled }),
 
   scale: DEFAULT_SCALE, // { x: 50, y: 20, z: 50 }
   setScale: (scale) => set({ scale }),

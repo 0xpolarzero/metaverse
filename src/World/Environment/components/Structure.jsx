@@ -53,7 +53,7 @@ const Floor = ({ scale }) => {
         scale={[scale.x, scale.z, 0.1]}
         position-y={-1}
         rotation-x={-Math.PI / 2}
-      ></mesh>
+      />
     </RigidBody>
   );
 };

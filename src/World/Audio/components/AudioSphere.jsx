@@ -1,12 +1,32 @@
 import { useFrame } from '@react-three/fiber';
 import * as DREI from '@react-three/drei';
+import { RigidBody } from '@react-three/rapier';
 import { Globals, animated, config, useSpring } from '@react-spring/three';
 import { isMobile } from 'react-device-detect';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import useWorld from '../../../stores/World';
 import useInterface from '../../../stores/Interface';
 import useAtmoky from '../../../stores/Atmoky';
 
 Globals.assign({ frameLoop: 'always' });
+
+// const AudioSphereWrapper = ({ audio, info, analyser }) => {
+//   const { isSpherePhysicsEnabled } = useWorld();
+
+//   if (isSpherePhysicsEnabled) {
+//     return (
+//       <RigidBody colliders={'hull'}>
+//       <mesh position={[info.position.x, info.position.y, info.position.z]}>
+//         <sphereGeometry args={[1, 32, 32]} />
+//         <meshStandardMaterial color={'white'} />
+//       </mesh>
+//        <AudioSphere audio={audio} info={info} analyser={analyser} />;
+//     </RigidBody>
+//   );
+//   } else {
+//     return <AudioSphere audio={audio} info={info} analyser={analyser} />;
+//   }
+// };
 
 const AudioSphere = ({ audio, info, analyser }) => {
   const [isMuted, setIsMuted] = useState(false);

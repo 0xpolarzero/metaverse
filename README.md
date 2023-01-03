@@ -22,7 +22,7 @@ So the code is obviously messy sometimes, I would have used React or one of its 
 
 But feel free to send me messages if you have any comments, recommendations, criticisms, or just to chat!
 
-[The original music featured in the virtual space](https://soundcloud.com/completementduper/eternite).
+[The original music featured in the virtual space](https://audius.co/0xpolarzero/eternité).
 
 ## Links
 

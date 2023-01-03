@@ -22,6 +22,7 @@ const defaults = {
       e1: '#FF69B4',
       e2: '#FFB6C1',
     },
+    isSpherePhysicsEnabled: false,
   },
 
   /**
