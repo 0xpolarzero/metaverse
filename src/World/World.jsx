@@ -12,7 +12,7 @@ import useAtmoky from '../stores/Atmoky';
 
 const World = () => {
   const { gravity, scale } = useWorld();
-  const { setShowMenu } = useInterface();
+  const { setShowMenu, showAdditionalMenu } = useInterface();
   const { resumeAudio, pauseAudio } = useAtmoky();
 
   const environment = useMemo(() => <Environment />, [scale]);
@@ -34,6 +34,11 @@ const World = () => {
     setShowMenu(false);
     resumeAudio();
   };
+
+  // If another interaction is needed (Safari), free the cursor
+  useEffect(() => {
+    if (showAdditionalMenu) controls.current.unlock();
+  }, [showAdditionalMenu]);
 
   useEffect(() => {
     if (isDesktop) {

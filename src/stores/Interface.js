@@ -6,6 +6,10 @@ export default create((set) => ({
   setShowMenu: (showMenu) => set({ showMenu }),
   showMobileOverlay: true,
   setShowMobileOverlay: (showMobileOverlay) => set({ showMobileOverlay }),
+  showAdditionalMenu: false,
+  additionalMenuAction: null,
+  setShowAdditionalMenu: (show, action) =>
+    set({ showAdditionalMenu: show, additionalMenuAction: action }),
 
   // Interactions
   states: ['default', 'hover', 'interacting'],

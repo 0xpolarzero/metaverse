@@ -23,13 +23,19 @@ import {
 import { ImCommand, ImCtrl, ImOpt } from 'react-icons/im';
 import { Leva } from 'leva';
 import { isMobile } from 'react-device-detect';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Crosshair from './components/Crosshair';
 import useInterface from '../stores/Interface';
 
 const Interface = () => {
-  if (isMobile) return <MobileInterface />;
-  return <DesktopInterface />;
+  const { showAdditionalMenu } = useInterface();
+
+  return (
+    <>
+      {isMobile ? <MobileInterface /> : <DesktopInterface />}
+      {showAdditionalMenu && <AdditionalMenu />}
+    </>
+  );
 };
 
 const MobileInterface = () => {
@@ -213,6 +219,31 @@ const DesktopInterface = () => {
         </div>
       </div>
     </>
+  );
+};
+
+const AdditionalMenu = () => {
+  const { additionalMenuAction, setShowAdditionalMenu } = useInterface();
+
+  const performAndReset = () => {
+    additionalMenuAction();
+    setShowAdditionalMenu(false, null);
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', performAndReset);
+    return () => document.removeEventListener('click', performAndReset);
+  }, []);
+
+  return (
+    <div className='interface additional__menu'>
+      <div className='header'>Click again to start audio</div>
+      <div className='hint'>
+        This additional step is needed only on Safari.
+        <br /> It will start the audio now that it has been loaded (after the
+        first click).
+      </div>
+    </div>
   );
 };
 
