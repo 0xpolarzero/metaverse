@@ -56,16 +56,41 @@ export default create((set, get) => ({
   // Voice
   isVxEnabled: true,
   setIsVxEnabled: (isVxEnabled) => {
-    console.log(isVxEnabled);
     set((state) => ({ isVxEnabled }));
   },
 
   /**
    * Listener
    */
-  listenerPosition: [0, 0, 0],
-  setListenerPosition: (position) =>
-    set((state) => ({ listenerPosition: position })),
+  updateListener: (camera) => {
+    const { renderer } = get();
+
+    // Convert Three.js -> Atmoky coordinate system
+    const convertedPos = {
+      x: -camera.position.z,
+      y: -camera.position.x,
+      z: camera.position.y,
+    };
+    const convertedRotFromQuat = {
+      w: camera.quaternion.w,
+      x: -camera.quaternion.z,
+      y: -camera.quaternion.x,
+      z: camera.quaternion.y,
+    };
+
+    // Update listener
+    renderer.listener.setPosition(
+      convertedPos.x,
+      convertedPos.y,
+      convertedPos.z,
+    );
+    renderer.listener.setRotationQuaternion(
+      convertedRotFromQuat.w,
+      convertedRotFromQuat.x,
+      convertedRotFromQuat.y,
+      convertedRotFromQuat.z,
+    );
+  },
 
   /**
    * Parameters
@@ -142,7 +167,7 @@ export default create((set, get) => ({
 
     let atmSource = renderer.createSource();
     atmSource.setInput(audioElemSrc);
-    atmSource.setPosition(position.x, position.y, position.z);
+    atmSource.setPosition(-position.z, -position.x, position.y);
 
     addSource({
       audio: atmSource,

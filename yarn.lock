@@ -19,6 +19,11 @@
     jsonpointer "^5.0.0"
     leven "^3.1.0"
 
+"@atmokyaudio/websdk-dev-tools@^0.2.0":
+  version "0.2.0"
+  resolved "https://gitlab.com/api/v4/projects/36729375/packages/npm/@atmokyaudio/websdk-dev-tools/-/@atmokyaudio/websdk-dev-tools-0.2.0.tgz#80579567d7c721c923f2262174d6b00d87307c9e"
+  integrity sha1-gFeVZ9fHIckj8iYhdNawDYcwfJ4=
+
 "@atmokyaudio/websdk@^0.4.1":
   version "0.4.1"
   resolved "https://gitlab.com/api/v4/projects/36729375/packages/npm/@atmokyaudio/websdk/-/@atmokyaudio/websdk-0.4.1.tgz#6c5df10c88fae3efa5a672a2b54f68d1945f0625"
