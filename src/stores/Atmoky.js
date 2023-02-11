@@ -258,7 +258,7 @@ export default create((set, get) => ({
     const { audioContext, getColorFromGradient } = get();
     const analyser = audioContext.createAnalyser();
     const gainNode = audioContext.createGain();
-    analyser.fftSize = 64;
+    analyser.fftSize = 1024;
     source.connect(analyser);
     analyser.connect(gainNode);
 
