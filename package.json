@@ -2,6 +2,7 @@
   "name": "metaverse",
   "version": "0.1.0",
   "description": "Virtual world with immersive 3D audio integration",
+  "homepage": "https://immersiveaudio.polarzero.xyz/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/polar0/metaverse.git"

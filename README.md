@@ -6,19 +6,15 @@ This demonstration is enabled by [the Atmoky package](https://atmoky.com/), whic
 
 ## General indications
 
-This virtual space is accessible only through a computer, and not yet available for mobile.
+This environment is best experienced with a headset, and in full screen - as well as with a computer rather than a mobile.
 
-**If the window is cropped, and displays most of the screen as white, try slightly resizing the page. This will refresh the window dimensions.**
-
-This environment is best experienced with a headset, and in full screen.
-
-![Screenshot of the virtual space](https://cdn.hashnode.com/res/hashnode/image/upload/v1663754118866/hQFj-NZmH.png)
+![Screenshot of the virtual space](https://user-images.githubusercontent.com/99199454/218255317-3949125d-8476-47cb-95e0-d932e241b695.png)
 
 ## Thoughts
 
-I started this project without any notion in JavaScript or Three.js, a few months ago. Then I picked it up again after having gained some experience.
+I started this project without any notion in JavaScript or Three.js, a few months ago. Then I picked it up again after having gained some experience, which explains why the code can be messy sometimes.
 
-So the code is obviously messy sometimes, I would have used React or one of its frameworks if I had started now.
+**Edit:** It's been refactored with React Three Fiber since then, and is much more optimized.
 
 But feel free to send me messages if you have any comments, recommendations, criticisms, or just to chat!
 
