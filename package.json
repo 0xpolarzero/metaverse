@@ -5,12 +5,12 @@
   "homepage": "https://immersiveaudio.polarzero.xyz/",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/polar0/metaverse.git"
+    "url": "git+https://github.com/0xpolarzero/metaverse.git"
   },
   "author": "polarzero",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/polar0/metaverse/issues"
+    "url": "https://github.com/0xpolarzero/metaverse/issues"
   },
   "scripts": {
     "start": "craco start",
