@@ -22,12 +22,13 @@ const World = () => {
 
   const getPressedKey = (e) => {
     if (menuKeys.includes(e.key)) {
-      controls.current.unlock();
+      if (controls?.current) controls.current.unlock();
       setShowMenu(true);
       pauseAudio();
     }
 
-    if (freeCursorKeys.includes(e.key)) controls.current.unlock();
+    if (freeCursorKeys.includes(e.key) && controls?.current)
+      controls.current.unlock();
   };
 
   const hideMenuOnClick = () => {
@@ -37,7 +38,7 @@ const World = () => {
 
   // If another interaction is needed (Safari), free the cursor
   useEffect(() => {
-    if (showAdditionalMenu) controls.current.unlock();
+    if (showAdditionalMenu && controls?.current) controls.current.unlock();
   }, [showAdditionalMenu]);
 
   useEffect(() => {
